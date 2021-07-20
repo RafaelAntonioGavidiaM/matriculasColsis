@@ -10,7 +10,7 @@ if ($_SESSION == null) {
     include_once "vista/modulos/cabecera.php";
 
 
-    if (isset($_GET["ruta"])) {
+  /*  if (isset($_GET["ruta"])) {
 
         if (
             $_GET["ruta"] == "personal" || $_GET["ruta"] == "parqueadero"
@@ -21,7 +21,7 @@ if ($_SESSION == null) {
         }
     }
 
-    include_once "vista/modulos/pie.php";
+    include_once "vista/modulos/pie.php";*/
 }
 
 

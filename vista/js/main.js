@@ -22,6 +22,8 @@ $(document).ready(function() {
             success: function(respuesta) {
                 if (respuesta == "valido") {
                     alert("Bienvenido");
+                    location.replace("principal.php");
+
 
 
                 } else {
