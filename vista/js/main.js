@@ -1,11 +1,10 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 
-    $("#ingresar").click(function() {
+    $("#ingresar").click(function () {
 
         var documento = $("#email").val();
         var contraseña = $("#pwd").val();
-        alert(documento + " " + contraseña);
 
         var objData = new FormData();
         objData.append("documento", documento);
@@ -19,36 +18,37 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
                 if (respuesta == "valido") {
-                    alert("Bienvenido");
+                    blanquear();
+                    swal({
+                        title: "Bienvenido",
+                        text: "Usted se encuentra registrado",
+                        icon: "success",
+                        button: "Aceptar",
+                    });
 
 
                 } else {
-                    alert("Ingresao No valido");
+                    blanquear();
+                    swal({
+                        title: "Lo siento",
+                        text: "Usted no se encuentra registrado",
+                        icon: "error",
+                        button: "Aceptar",
+                    });
                 }
-
-
-
-
-
-
 
             }
 
         })
 
-
-
-
-
-
-
     })
 
-
-
-
+    function blanquear() {
+        $("#email").val("");
+        $("#pwd").val("");
+    }
 
 
 })
