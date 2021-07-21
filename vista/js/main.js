@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
 
-    $("#ingresar").click(function () {
+    $("#ingresar").click(function() {
 
         var documento = $("#email").val();
         var contraseña = $("#pwd").val();
@@ -18,7 +18,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
                 if (respuesta == "valido") {
                     blanquear();
                     swal({
@@ -27,7 +27,7 @@ $(document).ready(function () {
                         icon: "success",
                         button: "Aceptar",
                     });
-
+                    location.replace("principal.php");
 
                 } else {
                     blanquear();

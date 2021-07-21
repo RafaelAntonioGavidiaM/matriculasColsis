@@ -48,10 +48,14 @@
       $documento=$_SESSION["documento"];
        $nombre = $_SESSION["nombre"];
        $apellidos=$_SESSION["apellido"];
+       $foto=$_SESSION["foto"];
+       $ruta="file:///C://Trabajo%20Final/RpE2Colsis/appE2Colsis/bin/Debug/fotosPersonal/";
 
        echo $documento;
        echo "<br>";
        echo "<br>";
+       echo "<img src='$ruta$foto' ";
+       
 
        echo $nombre." ".$apellidos;      
       

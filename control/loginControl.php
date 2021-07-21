@@ -13,6 +13,7 @@ class loginControl{
             $_SESSION["apellido"]=$objRespuesta["apellido"];
             $_SESSION["documento"]=$objRespuesta["documento"];
             $_SESSION["idPersonal"]=$objRespuesta["idPersonal"];
+            $_SESSION["foto"]=$objRespuesta["foto"];
             $ingreso="valido";
 
 
