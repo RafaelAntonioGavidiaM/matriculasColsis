@@ -55,8 +55,10 @@
 
       </div>
 
-      <div id="fondoLogin" class="col-sm-8 grid-block">
+      <div id="fondoLogin" class="col-sm-8 grid-block overlay">
+
         <h3 class="animate__animated animate__zoomIn animate__slow">C O L S I S</h3>
+
       </div>
 
     </div>
