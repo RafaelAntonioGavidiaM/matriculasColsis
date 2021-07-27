@@ -12,7 +12,8 @@ if ($_SESSION == null) {
 
     if (isset($_GET["ruta"])) {
 
-        if ($_GET["ruta"] == "rol"   ) {
+        if ($_GET["ruta"] == "rol" ||
+            $_GET["ruta"] == "estudiante"   ) {
 
 
             include_once "vista/modulos/" . $_GET["ruta"] . ".php";
