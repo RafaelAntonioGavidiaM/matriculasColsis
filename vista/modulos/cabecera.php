@@ -37,7 +37,7 @@
         <li><a href="personal">PERSONAL</a></li>
 
         <li><a href="#portfolio">ESTUDIANTE</a></li>
-        <li><a href="#pricing">CURSO</a></li>
+        <li><a href="cursos">CURSO</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
     </div>
