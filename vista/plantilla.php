@@ -12,7 +12,12 @@ if ($_SESSION == null) {
 
     if (isset($_GET["ruta"])) {
 
+<<<<<<< HEAD
         if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" ) {
+=======
+        if ($_GET["ruta"] == "rol" ||
+            $_GET["ruta"] == "estudiante"   ) {
+>>>>>>> origin
 
 
             include_once "vista/modulos/" . $_GET["ruta"] . ".php";

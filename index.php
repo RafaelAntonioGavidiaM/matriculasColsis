@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/main.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/login.css'>
   <script src='vista/js/main.js'></script>
   
 
@@ -56,8 +56,10 @@
 
       </div>
 
-      <div id="fondoLogin" class="col-sm-8 grid-block">
+      <div id="fondoLogin" class="col-sm-8 grid-block overlay">
+
         <h3 class="animate__animated animate__zoomIn animate__slow">C O L S I S</h3>
+
       </div>
 
     </div>
