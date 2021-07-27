@@ -43,7 +43,7 @@ input[type=text] {
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
-    border-bottom: 2px solid rgb(71, 183, 190);
+    border-bottom: 2px solid rgb(39, 216, 107);
     background: rgb(43, 45, 46);
     color: white;
     font-family: 'Ubuntu', sans-serif;
@@ -56,7 +56,7 @@ input[type=password] {
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
-    border-bottom: 2px solid rgb(71, 183, 190);
+    border-bottom: 2px solid rgb(39, 216, 107);
     background: rgb(43, 45, 46);
     color: white;
     font-family: 'Ubuntu', sans-serif;
@@ -65,7 +65,7 @@ input[type=password] {
 
 #ingresar {
     margin-top: 18px;
-    background: rgb(47, 174, 184);
+    background: rgb(39, 216, 107);
     border: 0px;
     width: 100%;
     height: 45px;
@@ -75,7 +75,7 @@ input[type=password] {
 }
 
 #ingresar:hover {
-    background: rgb(32, 228, 241);
+    background: rgb(0, 255, 98);
     transition-property: all;
     transition-duration: 0.4s;
     transition-timing-function: ease-in;
@@ -103,6 +103,43 @@ h3 {
     animation-duration: 6s;
     animation-iteration-count: infinite;
     animation-delay: 0.6s;
+}
+
+
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+
+.row.content {
+    height: 1500px
+}
+
+
+/* Set gray background color and 100% height */
+
+.sidenav {
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+
+/* Set black background color, white text and some padding */
+
+footer {
+    background-color: #555;
+    color: white;
+    padding: 15px;
+}
+
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+    .row.content {
+        height: auto;
+    }
 }
 
 #mdRol {
