@@ -219,6 +219,8 @@ $(document).ready(function() {
                 alert(respuesta);
 
 
+
+
             }
         })
 
@@ -299,6 +301,12 @@ $(document).ready(function() {
 
 
 
+    })
+
+
+    $("#CerrarPermiso").click(function() {
+        alert("hola");
+        location.reload();
     })
 
 

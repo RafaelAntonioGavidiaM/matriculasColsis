@@ -27,7 +27,7 @@ $(document).ready(function() {
                         icon: "success",
                         button: "Aceptar",
                     });
-                    location.replace("principal.php");
+                    location.replace("principal.php?ingreso=1");
 
                 } else {
                     blanquear();

@@ -144,6 +144,17 @@ class rolModelo
 
     }
 
+    public static function mdlConsultaPermisosIdRol($idRol){
+        $objConsulta = conexion::conectar()->prepare("select formulario.nombreFormulario,rol_permiso.idPermiso from rol_permiso inner join formulario on formulario.idFormulario=rol_permiso.nombreFormulario where idRol=:idRol");
+        $objConsulta->bindParam(":idRol", $idRol, PDO::PARAM_INT);
+        $objConsulta->execute();
+        $lista = $objConsulta->fetchAll();
+        $objConsulta = null;
+        return $lista;
+
+
+    }
+
 
 
 }

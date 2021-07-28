@@ -1,3 +1,4 @@
+<br><br><br>
 <div class="container">
   <div class="jumbotron">
     <h1>Creacion de Rol</h1>
@@ -135,7 +136,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar </button>
+        <button id="CerrarPermiso" type="button" class="btn btn-primary" data-dismiss="modal">Cerrar </button>
       </div>
     </div>
 
