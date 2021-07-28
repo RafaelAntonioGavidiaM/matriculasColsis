@@ -152,7 +152,7 @@ $(document).ready(function () {
 
                     interface += '<div class="btn-group">';
                     interface += '<button id="btnEditarEstudiante" type="button" class="btn btn-warning" title="editar" idEstudiante="' + item.idEstudiante + '" nombres="' + item.nombres + '" apellidos="' + item.apellidos + '" documento="' + item.documento + '" tipoDocumento="' + item.tipoDocumento + '" fechaNacimiento="' + item.fechaNacimiento + '"  tipoSangre="' + item.tipoSangre + '" seguroEstudiantil="' + item.seguroEstudiantil + '" telefono="' + item.telefono + '" idAcudiente="' + item.idAcudiente + '" idCurso="' + item.idCurso + '"><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-pencil"></span></button>';
-                    interface += '<button id="btnEliminarEstudiante" type="button" class="btn btn-danger" title="eliminar" idEstudiante="' + item.idEstudiante + '"><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-remove"></span></button>';
+                    interface += '<button id="btnEliminarEstudiante" type="button" class="btn btn-danger" title="eliminar" idEstudiante="' + item.idEstudiante + '"><span style="width:5px; height:5px; padding:0px;    " class="glyphicon glyphicon-remove"></span></button>';
                     interface += '</div>';
                     interface += '</td>';
                     interface += '</tr>';

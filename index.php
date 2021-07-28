@@ -26,6 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/login.css'>
   <script src='vista/js/main.js'></script>
+  
 
 </head>
 
