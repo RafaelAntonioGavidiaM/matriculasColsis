@@ -31,11 +31,42 @@
     </div>
     <div class="collapse navbar-collapse" i   d="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="rol">ROL</a></li>
-        <li><a href="estudiante">ESTUDIANTE</a></li>
-        <li><a href="personal">PERSONAL</a></li>
-        <li><a href="#pricing">PRICING</a></li>
-        <li><a href="#contact">CONTACT</a></li>
+
+
+      <?php
+
+      $permisos= $_SESSION["permisos"];
+
+      foreach ($permisos as $key => $value) {
+
+        if($value["idPermiso"]==1){
+
+          if($value["nombreFormulario"]=="facturaWeb" ){
+
+          }
+          else{
+            $rest = substr($value["nombreFormulario"], 3);  // devuelve "abcde"
+            $mayus=strtoupper($rest); //mayusculas
+            $minus=strtolower($rest); // minusculas
+  
+          echo "<li><a href=".$minus.">".$mayus."</a></li>";
+  
+          }
+
+
+        }
+
+        
+        
+      }
+       
+
+      
+
+
+
+      ?>
+
       </ul>
     </div>
   </div>
