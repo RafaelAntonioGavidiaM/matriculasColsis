@@ -46,7 +46,7 @@ header{
     background-attachment:local;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 77%;
+    background-size: 68%;
 
 }
 .well{
@@ -184,4 +184,14 @@ margin-bottom: 1px;
 }
 #txtNombre{
     margin-top: 31px;
+}
+#selectTS{
+    margin-top: 32px;
+}
+.containers{
+    width: 95%;
+    margin-left: 36px;
+}
+.pager{
+    margin: 0px;
 }
