@@ -10,12 +10,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/cabeceraInicio.css'>
-  <script src="vista/js/rol.js"></script>
-  <script src="vista/js/personal.js"></script>
-  <script src="vista/js/estudiante.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src='vista/js/main.js'></script>
+  <script src='vista/js/personal.js'></script>
+  <script src='vista/js/rol.js'></script>
+  <script src='vista/js/estudiante.js'></script>
 </head>
 
 <body>
@@ -32,12 +31,10 @@
     </div>
     <div class="collapse navbar-collapse" i   d="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-
         <li><a href="rol">ROL</a></li>
+        <li><a href="estudiante">ESTUDIANTE</a></li>
         <li><a href="personal">PERSONAL</a></li>
-
-        <li><a href="#portfolio">ESTUDIANTE</a></li>
-        <li><a href="#pricing">CURSO</a></li>
+        <li><a href="#pricing">PRICING</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
     </div>

@@ -118,7 +118,98 @@
 
         <!-- pie de modal de rigsitro personal -->
         <div class="modal-footer">
-          <button id="btnRegPersonal" type="button" class="btn btn-success" data-dismiss="modal">Registrar</button>
+          <button id="btnNewPersonal" type="button" class="btn btn-success" data-dismiss="modal">Registrar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="container-fluid">
+
+
+  <!-- Modal registro personal -->
+  <div class="modal fade" id="ventanaModPersonal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- modal registro personal-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title text-center">👷Modificar Personal</h4>
+        </div>
+
+        <!-- cuerpo de la modal de registro personal -->
+        <div class="form-group">
+          <label for="txtModNombres">Nombres:</label>
+          <input type="text" class="form-control" id="txtModNombres">
+        </div>
+
+        <div class="form-group">
+          <label for="txtModApellidos">Apellidos:</label>
+          <input type="text" class="form-control" id="txtModApellidos">
+        </div>
+
+        <div class="form-group">
+          <label for="txtModDocumeto">Documento:</label>
+          <input type="text" class="form-control" id="txtModDocumeto">
+        </div>
+
+        <div class="form-group">
+          <label for="txtModTelefono">Telefono</label>
+          <input type="text" class="form-control" id="txtModTelefono">
+        </div>
+
+        <div class="form-group">
+          <label for="txtModCiudad">Ciudad</label>
+          <input type="text" class="form-control" id="txtModCiudad">
+        </div>
+
+        <div class="form-group">
+          <label for="txtModCorreos">Correo</label>
+          <input type="text" class="form-control" id="txtModCorreo">
+        </div>
+
+        <div>
+          <label for="modEstadosPersonal">Estado</label><br>
+          <select name="estado" id="modEstadosPersonal">
+            <option value="Habilitado">Habilitado</option>
+            <option value="Deshabilitado">DesHabilitado</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="modRol">Rol</label>
+          <br>
+          <select name="rol" id="modRol">
+          
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="txtModDireccion">Direccion</label>
+          <input type="text" class="form-control" id="txtModDireccion">
+        </div>
+
+        <div class="form-group">
+          <label for="txtModPassword">Password</label>
+          <input type="text" class="form-control" id="txtModPassword">
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="txtModFoto">Foto:</label>
+          <img src="" id="ModFoto">
+          <input type="file" class="form-control" id="txtModFoto">
+        </div>
+
+        <!-- pie de modal de rigsitro personal -->
+        <div class="modal-footer">
+          <button id="btnModificarPersonal" type="button" class="btn btn-success" data-dismiss="modal">Modificar</button>
         </div>
       </div>
 
