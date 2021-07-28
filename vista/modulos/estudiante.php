@@ -38,11 +38,17 @@
     <br>
     <br>
 
-    <div id="contenedorReg" class="container">
+    <div id="contenedorReg" class="containers">
         <div class="well well-lg">Registrar Estudiantes</div>
+        <div class="col-sm-9">
+            <ul class="pager">
+                <li><a href="#moduloReg">Llenar</a></li>
+                <li><a href="#moduloTab">Tabla</a></li>
+            </ul>
+        </div>
         <div class="row">
             <div id="scrollGLobal" class="col-sm-9">
-                <div>
+                <div id="moduloReg">
                     <form>
 
                         <div class="col-sm-6">
@@ -54,31 +60,40 @@
 
                             <select id="selectTD" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                 <option selected place>Tipo de documento</option>
-                                <option value="1">CC</option>
-                                <option value="2">TI</option>
-                                <option value="3">TIE</option>
+                                <option value="C.C">C.C</option>
+                                <option value="T.I">T.I</option>
+                                <option value="T.I.E">T.I.E</option>
                             </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <P>Fecha de nacimiento:</P>
 
                             <input id="dateNacimiento" type="date">
+                            <P>Fecha de nacimiento</P>
+
+                        </div>
+                        <div class="col-sm-6">
 
                             <select id="selectTS" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                 <option selected place>Tipo de sangre</option>
-                                <option value="1">O+</option>
-                                <option value="2">O-</option>
-                                <option value="3">A+</option>
-                                <option value="4">A-</option>
-                                <option value="5">B+</option>
-                                <option value="6">B-</option>
-                                <option value="8">AB+</option>
-                                <option value="9">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
                             </select>
 
                             <input type="text" placeholder="Seguro estudiantil" id="txtSeguroE" name="lname">
 
                             <input type="text" placeholder="Telefono" id="txtTelefono" name="lname">
+
+                            <select id="selectAcudiente">
+                                <option selected place>Seleccionar Acudiente</option>
+                            </select>
+
+                            <select id="selectCurso">
+                                <option selected place>Seleccionar Curso</option>
+                            </select>
 
                         </div>
                         <div class="col-sm-12">
@@ -88,7 +103,7 @@
                     </form>
                 </div>
                 <br>
-                <div>
+                <div id="moduloTab">
                     <table id="tablaEstudiantes" class="table table-bordered">
                         <thead class="cabeceraTabla">
                             <tr>
@@ -101,6 +116,9 @@
                                 <th>Tipo Sangre</th>
                                 <th>Seguro Estudiantil</th>
                                 <th>Telefono</th>
+                                <th>Acudiente</th>
+                                <th>Curso</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="bodyEstudiantes">
@@ -110,10 +128,13 @@
                 </div>
 
             </div>
+
             <div class="imgForm col-sm-3">
 
             </div>
+
         </div>
     </div>
+
 
 </body>
