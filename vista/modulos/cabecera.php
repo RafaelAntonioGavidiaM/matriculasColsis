@@ -13,6 +13,7 @@
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
+  <script src="vista/js/cursos.js"></script>
 
 
 
