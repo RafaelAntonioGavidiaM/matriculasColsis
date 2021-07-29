@@ -87,11 +87,11 @@
 
                             <input type="text" placeholder="Telefono" id="txtTelefono" name="lname">
 
-                            <select id="selectAcudiente">
+                            <select id="selectAcudiente" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                 <option selected place>Seleccionar Acudiente</option>
                             </select>
 
-                            <select id="selectCurso">
+                            <select id="selectCurso" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                 <option selected place>Seleccionar Curso</option>
                             </select>
 

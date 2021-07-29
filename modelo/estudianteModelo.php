@@ -21,13 +21,13 @@ class modeloEstudiantes
         $objRespuesta = null;
         return $listarCursos;
     }
-    public static function mdlRegistrarEstudiantes($nombre, $apellidos, $documento, $tipoDocumento, $fechaNacimiento, $tipoSangre, $seguroEstudiantil, $telefono, $idAcudiente, $idCurso)
+    public static function mdlRegistrarEstudiantes($nombres, $apellidoss, $documento, $tipoDocumento, $fechaNacimiento, $tipoSangre, $seguroEstudiantil, $telefono, $idAcudiente, $idCurso)
     {
 
         try {
             $objRegistrarEstudiante = Conexion::conectar()->prepare("INSERT INTO estudiante(nombres,apellidos,documento,tipoDocumento,fechaNacimiento,tipoSangre,seguroEstudiantil,telefono,idAcudiente,idCurso)VALUES(:nombres,:apellidos,:documento,:tipoDocumento,:fechaNacimiento,:tipoSangre,:seguroEstudiantil,:telefono,:idAcudiente,:idCurso)");
-            $objRegistrarEstudiante->bindParam(":nombres", $nombre, PDO::PARAM_STR);
-            $objRegistrarEstudiante->bindParam(":apellidos", $apellidos, PDO::PARAM_STR);
+            $objRegistrarEstudiante->bindParam(":nombres", $nombres, PDO::PARAM_STR);
+            $objRegistrarEstudiante->bindParam(":apellidos", $apellidoss, PDO::PARAM_STR);
             $objRegistrarEstudiante->bindParam(":documento", $documento, PDO::PARAM_STR);
             $objRegistrarEstudiante->bindParam(":tipoDocumento", $tipoDocumento, PDO::PARAM_STR);
             $objRegistrarEstudiante->bindParam(":fechaNacimiento", $fechaNacimiento);

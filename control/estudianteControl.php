@@ -33,7 +33,7 @@ class estudiantesControl
     //CRUD ESTUDIANTE
     public function ctrRegistrarEstudiantes()
     {
-        $objRespuesta = modeloEstudiantes::mdlRegistrarEstudiantes($this->nombre, $this->apellido, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso);
+        $objRespuesta = modeloEstudiantes::mdlRegistrarEstudiantes($this->nombres, $this->apellidos, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso);
         echo json_encode($objRespuesta);
     }
 
@@ -71,10 +71,10 @@ if (isset($_POST["cargarCurso"]) == "cargarCurso") {
 }
 //crud estudiantes
 
-if (isset($_POST["nombre"]) && isset($_POST["apellido"]) && isset($_POST["documento"]) && isset($_POST["tipoDocumento"]) && isset($_POST["fechaNacimiento"]) && isset($_POST["tipoSangre"]) && isset($_POST["seguroEstudiantil"]) && isset($_POST["telefono"]) && isset($_POST["acudiente"]) && isset($_POST["curso"])) {
+if (isset($_POST["nombres"]) && isset($_POST["apellidos"]) && isset($_POST["documento"]) && isset($_POST["tipoDocumento"]) && isset($_POST["fechaNacimiento"]) && isset($_POST["tipoSangre"]) && isset($_POST["seguroEstudiantil"]) && isset($_POST["telefono"]) && isset($_POST["acudiente"]) && isset($_POST["curso"])) {
     $objEstudiantes = new estudiantesControl();
-    $objEstudiantes->nombre = $_POST["nombre"];
-    $objEstudiantes->apellido = $_POST["apellido"];
+    $objEstudiantes->nombres = $_POST["nombres"];
+    $objEstudiantes->apellidos = $_POST["apellidos"];
     $objEstudiantes->documento = $_POST["documento"];
     $objEstudiantes->tipoDocumento = $_POST["tipoDocumento"];
     $objEstudiantes->fechaNacimiento = $_POST["fechaNacimiento"];

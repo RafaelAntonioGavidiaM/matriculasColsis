@@ -61,8 +61,8 @@ $(document).ready(function () {
 
     $("#btnRegEstudiante").click(function () {
 
-        var nombre = $("#txtNombre").val();
-        var apellido = $("#txtApellido").val();
+        var nombres = $("#txtNombre").val();
+        var apellidos = $("#txtApellido").val();
         var documento = $("#txtDocumento").val();
         var tipoDocumento = $("#selectTD").val();
         var fechaNacimiento = $("#dateNacimiento").val();
@@ -73,8 +73,8 @@ $(document).ready(function () {
         var idCurso = document.getElementById("selectCurso").value;
 
         var objData = new FormData();
-        objData.append("nombre", nombre);
-        objData.append("apellido", apellido);
+        objData.append("nombres", nombres);
+        objData.append("apellidos", apellidos);
         objData.append("documento", documento);
         objData.append("tipoDocumento", tipoDocumento);
         objData.append("fechaNacimiento", fechaNacimiento);
