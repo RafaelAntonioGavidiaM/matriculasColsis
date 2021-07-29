@@ -30,7 +30,8 @@ class cursosControl{
     }
 
     public function ctrlCargarDocentes(){
-
+        $objRespuesta=cursosModelo::mdlCargarDocentes();
+        echo json_encode($objRespuesta);
 
     }
 
@@ -55,4 +56,9 @@ if (isset($_POST["eliminarCursosId"]) && isset($_POST["deleteImagen"])){
     $objRespuesta = new cursosControl();
     $objRespuesta->idCurso = $_POST["eliminarCursosId"];
     $objRespuesta->ctrEliminar();
+}
+
+if (isset($_POST["cargarPersonal"])) {
+    $objRespuesta = new cursosControl();
+    $objRespuesta->ctrlCargarDocentes();
 }

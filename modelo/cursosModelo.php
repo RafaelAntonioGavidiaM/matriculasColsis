@@ -68,4 +68,16 @@ class CursosModelo
         return $mensaje;
 
     }
+
+    public static function mdlCargarDocentes()
+    {
+        $objConsulta=conexion::conectar()->prepare("SELECT * from personal");
+        $objConsulta->execute();
+
+        $lista= $objConsulta->fetchAll();
+
+        $objConsulta=null;
+
+        return $lista;
+    }
 }
