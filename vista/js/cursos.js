@@ -1,8 +1,86 @@
 $(document).ready(function() {
+    cargarDocentes();
 
     /*--------------------------------------------------------------------------------------------------------*/
     /*--------------------------------------------CARGAR DATOS CURSOS-----------------------------------------*/
     /*--------------------------------------------------------------------------------------------------------*/
+    function cargarDocentes(opcion, principal, idDocente) {
+        var mensaje = "cargarDocente";
+        var objData = new FormData();
+        objData.append("cargarDocente", mensaje);
+        $.ajax({
+            url: "control/cursosControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                if (opcion == 1) {
+                    var concatenar = "";
+
+
+                    respuesta.forEach(forCargaDocente);
+
+                    function forCargaDocente(item, index) {
+
+                        concatenar += '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
+
+
+                    }
+                    $("#personalSelect").html(concatenar);
+
+                } else if (opcion == 2) {
+
+                    var concatenar = "";
+                    respuesta.forEach(forCargaDocente);
+
+                    function forCargaDocente(item, index) {
+                        if (item.idPersonal == idDocente) {
+
+
+                        } else {
+
+                            concatenar += '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
+
+
+                        }
+
+
+
+
+                    }
+
+                    $("#txtModPersonalSelect").html(principal + concatenar);
+
+                }
+
+
+
+
+            }
+        })
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     cargarDatos();
     $("#btnCrearCursos").click(function() {
@@ -122,10 +200,10 @@ $(document).ready(function() {
                     interface += '<td>' + item.curso + '</td>';
                     interface += '<td>' + item.nombreCurso + '</td>';
                     interface += '<td>' + item.año + '</td>';
-                    interface += '<td>' + item.docente + '</td>';
+                    interface += '<td>' + item.nombre + " " + item.apellido + '</td>';
                     interface += '<td>';
                     interface += '<div class="btn-group">';
-                    interface += '<button type="button" class="btn btn-warning" title="Editar" id="btn-editarCursos" idCurso="' + item.idCurso + '"  curso="' + item.curso + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" docente="' + item.idDocente + '" data-toggle="modal" data-target="#mdCursosModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
+                    interface += '<button type="button" class="btn btn-warning" title="Editar" id="btn-editarCursos" idCurso="' + item.idCurso + '"  curso="' + item.curso + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idDocente + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdCursosModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
                     interface += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarCursos"><span class="glyphicon glyphicon-trash"></span></button>';
                     interface += '</div>';
                     interface += '</td>';
@@ -181,12 +259,23 @@ $(document).ready(function() {
 
     $("#tablaCursos").on("click", "#btn-editarCursos", function() {
 
+        alert("hola mundo");
+
+
+
 
         var idCurso = $(this).attr("idCurso");
         var curso = $(this).attr("modelo");
         var nombreCurso = $(this).attr("nombreCurso");
         var año = $(this).attr("año");
-        var docente = $(this).attr("docente");
+        var idDocente = $(this).attr("idDocente");
+        var nombreDocente = $(this).attr("nombreDocente");
+
+        var principal = '<option value="' + idDocente + '">' + nombreDocente + '</option>';
+        cargarDocentes(2, principal, idDocente);
+
+
+
 
         $("#txtModModelo").val(curso);
         $("#txtModColor").val(nombreCurso);
