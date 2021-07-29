@@ -38,7 +38,7 @@
 
             <div class="form-group">
               <label for="txtDocente">DOCENTE</label>
-              <select type="text" class="form-control" id="docenteSelect">
+              <select type="text" class="form-control" id="personalSelect">
                 <p id="cargar"></p>
               </select>  
             </div>
@@ -83,7 +83,7 @@
 
               <div class="form-group">
                 <label for="txtModDocente">DOCENTE</label>
-                <select type="text" class="form-control" id="txtModDocenteSelect">
+                <select type="text" class="form-control" id="txtModPersonalSelect">
                   <p id="cargar"></p>
                 </select>  
               </div>

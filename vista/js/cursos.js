@@ -10,7 +10,7 @@ $(document).ready(function() {
         var curso = $("#txtCurso").val();
         var nombreCurso = $("#txtNombreCurso").val();
         var año = $("#txtAño").val();
-        var docente = $("#docenteSelect").val();
+        var docente = $("#personalSelect").val();
         var objData = new FormData();
 
         objData.append("curso", curso);
@@ -38,6 +38,60 @@ $(document).ready(function() {
             }
         })
     })
+
+    /*--------------------------------------------------------------------------------------------------------*/
+    /*-----------------------------------------CARGAR DATOS PERSONAL------------------------------------------*/
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    function cargarPersonal(opcion, idPersonal) {
+        var mensaje = "ok";
+        var objData = new FormData();
+
+        objData.append("cargarPersonal", mensaje);
+
+        $.ajax({
+            url: "control/cursosControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                if (opcion == 1) {
+                    console.log(respuesta);
+
+                    var interface = '';
+                    respuesta.forEach(cargarPersonalCursos);
+
+                    function cargarPersonalCursos(item, index) {
+
+                        interface += '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
+                    }
+
+                    //alert(interface);
+
+                    $("#personalSelect").html(interface);
+
+                } else if (opcion == 2) {
+
+                    var interface = '';
+                    var principal = "";
+                    respuesta.forEach(cargarPersonalCursos);
+
+                    function cargarPersonalCursos(item, index) {
+                        if (item.idPersonal == idPersonal) {
+                            principal = '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
+                        } else {
+                            interface += '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
+                        }
+                    }
+                    $("#ModPersonalSelect").html(principal + interface);
+                }
+            }
+        })
+    }
 
 
     /*--------------------------------------------------------------------------------------------------------*/
