@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     listarPersonal();
     listarRoles(1);
@@ -18,7 +18,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
                 console.log(respuesta);
                 var interface = "";
@@ -34,13 +34,13 @@ $(document).ready(function () {
                     interface += '<td>' + item.ciudad + '</td>';
                     interface += '<td>' + item.correo + '</td>';
                     interface += '<td>' + item.estado + '</td>';
-                    interface += '<td>' + item.idRol + '</td>';
+                    interface += '<td>' + item.nombreRol + '</td>';
                     interface += '<td>' + item.direccion + '</td>';
                     interface += '<td>' + item.password + '</td>';
                     interface += '<td><img src="' + item.foto + '" high="40" width="40"></td>';
                     interface += '<td>'
                     interface += '<div class = "btn-group">'
-                    interface += '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditarPersonal" idPersonal="' + item.idPersonal + '" nombre="' + item.nombre + '" apellido="' + item.apellido + '" documento="' + item.documento + '" telefono="' + item.telefono + '" ciudad="' + item.ciudad + '" correo="' + item.correo + '" estado="' + item.estado + '" idRol="' + item.idRol + '" direccion="' + item.direccion + '" password="' + item.password + '" foto="' + item.foto + '" data-toggle="modal" data-target="#ventanaModPersonal"><span class="glyphicon glyphicon-pencil"></span></button>'
+                    interface += '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditarPersonal" idPersonal="' + item.idPersonal + '" nombre="' + item.nombre + '" apellido="' + item.apellido + '" documento="' + item.documento + '" telefono="' + item.telefono + '" ciudad="' + item.ciudad + '" correo="' + item.correo + '" estado="' + item.estado + '" idRol="' + item.idRol + '" nombreRol="' + item.nombreRol + '"  direccion="' + item.direccion + '" password="' + item.password + '" foto="' + item.foto + '" data-toggle="modal" data-target="#ventanaModPersonal"><span class="glyphicon glyphicon-pencil"></span></button>'
                     interface += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnEliminarPersonal" idPersonal="' + item.idPersonal + '" foto="' + item.foto + '"><span class="glyphicon glyphicon-remove"></span></button>';
                     interface += '</tr>';
 
@@ -60,7 +60,7 @@ $(document).ready(function () {
 
     }
 
-    function listarRoles(opcion) {
+    function listarRoles(opcion, id, principal) {
 
         var listaRoles = "ok";
         var objListarRoles = new FormData();
@@ -74,31 +74,41 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
-                
+            success: function(respuesta) {
+
                 if (opcion == 1) {
-                    
+
                     $("#regRol").html("");
                     respuesta.forEach(listarRoles);
 
-                    function listarRoles(item, index){
+                    function listarRoles(item, index) {
 
                         $("#regRol").append('<option value="' + item.idRol + '">' + item.nombre + '</option>');
 
                     }
-                }else if (opcion == 2) {
-                    
-                    $("#regRol").html("");
+                } else if (opcion == 2) {
+                    var concatenar = "";
+
+                    $("#modRol").html("");
                     respuesta.forEach(listarRoles);
 
-                    function listarRoles(item, index){
+                    function listarRoles(item, index) {
 
-                        $("#modRol").append('<option value="' + item.idRol + '">' + item.nombre + '</option>');
+                        if (item.idRol == id) {
+
+                        } else {
+                            concatenar += '<option value="' + item.idRol + '">' + item.nombre + '</option>';
+
+                        }
+
+                        ;
 
                     }
 
+                    $("#modRol").html(principal + concatenar);
 
-                } 
+
+                }
 
             }
         })
@@ -106,7 +116,7 @@ $(document).ready(function () {
 
     }
 
-    $("#btnRegPersonal").click(function () {
+    $("#btnRegPersonal").click(function() {
 
         listarRoles(1);
 
@@ -114,10 +124,14 @@ $(document).ready(function () {
 
 
     var idPersonal = "";
-    $("#tablaPersonal").on("click", "#btnEditarPersonal", function () {
-        
-        listarRoles(2);
+    $("#tablaPersonal").on("click", "#btnEditarPersonal", function() {
+
+        //listarRoles(2);
         $("#modRol").html("");
+
+        var nombreRoles = $(this).attr("nombreRol");
+        var idRol = $(this).attr("idRol");
+
 
         idPersonal = $(this).attr("idPersonal");
 
@@ -145,11 +159,12 @@ $(document).ready(function () {
         $("#txtModDireccion").val(direccion);
         $("#txtModPassword").val(password);
         $("#modEstadoPersonal").val(estado);
-        $("#modRol").append('<option value="' + idRol + '">' + nombre + '</option>');
-       
+        var principal = '<option value="' + idRol + '">' + nombreRoles + '</option>';
+        listarRoles(2, idRol, principal);
+
     })
 
-    $("#btnNewPersonal").click(function () {
+    $("#btnNewPersonal").click(function() {
         alert("hola");
         var idRol = document.getElementById("regRol").value;
         var estado = document.getElementById("esatodosPersonal").value;
@@ -187,7 +202,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
                 alert("registrado");
                 listarPersonal();
 
@@ -205,7 +220,7 @@ $(document).ready(function () {
 
     })
 
-    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function () {
+    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function() {
 
 
         idPersonal = $(this).attr("idPersonal");
@@ -243,7 +258,7 @@ $(document).ready(function () {
                     cache: false,
                     contentType: false,
                     processData: false,
-                    success: function (respuesta) {
+                    success: function(respuesta) {
                         if (respuesta == "ok") {
                             swalWithBootstrapButtons.fire(
                                 'Eliminado!',

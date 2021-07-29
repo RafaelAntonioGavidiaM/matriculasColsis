@@ -7,7 +7,7 @@ class persnalModelo{
 
     public static function mdlListarPersonal(){
 
-        $objListarPersonal = conexion::conectar()->prepare("SELECT * FROM personal");
+        $objListarPersonal = conexion::conectar()->prepare("SELECT personal.idPersonal,personal.nombre,personal.apellido,personal.documento,personal.telefono,personal.ciudad,personal.correo,personal.correo,personal.estado,rol.idRol,personal.direccion,personal.password,personal.foto,rol.nombre as nombreRol FROM personal inner join rol on rol.idRol=personal.idRol");
         $objListarPersonal->execute();
         $listaPersonal = $objListarPersonal->fetchAll();
         $objListarPersonal = null;

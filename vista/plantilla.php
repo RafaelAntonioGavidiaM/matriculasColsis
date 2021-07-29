@@ -28,6 +28,8 @@ if ($_SESSION == null) {
 
     if (isset($_GET["ruta"])) {
 
+        
+
         foreach ($objPermisos as $key => $value) {
             $rest = substr($value["nombreFormulario"], 3);
             $minus = strtolower($rest); // minusculas
