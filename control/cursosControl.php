@@ -35,6 +35,8 @@ class cursosControl{
 
     }
 
+   
+
 }
 
 
@@ -61,4 +63,9 @@ if (isset($_POST["eliminarCursosId"]) && isset($_POST["deleteImagen"])){
 if (isset($_POST["cargarPersonal"])) {
     $objRespuesta = new cursosControl();
     $objRespuesta->ctrlCargarDocentes();
+}
+if (isset($_POST["cargarDocente"])) {
+
+    $objconsulta= new cursosControl();
+    $objconsulta->ctrlCargarDocentes();
 }

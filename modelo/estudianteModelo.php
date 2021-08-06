@@ -53,7 +53,7 @@ class modeloEstudiantes
 
     public static function mdlListarEstudiantes()
     {
-        $objListaEstudiantes = Conexion::conectar()->prepare("SELECT * FROM estudiante");
+        $objListaEstudiantes = Conexion::conectar()->prepare("select  estudiante.idEstudiante,estudiante.nombres,estudiante.apellidos,estudiante.documento,estudiante.tipoDocumento,estudiante.fechaNacimiento,estudiante.tipoSangre,estudiante.seguroEstudiantil,estudiante.telefono,estudiante.idAcudiente,acudiente.nombre,acudiente.apellido,curso.idCurso,curso.nombreCurso from  estudiante inner join acudiente on acudiente.idAcudiente=estudiante.idAcudiente inner join curso on curso.idCurso=estudiante.idCurso");
         $objListaEstudiantes->execute();
         $listaEstudiantes = $objListaEstudiantes->fetchAll();
         $objListaEstudiantes = null;

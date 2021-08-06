@@ -1,14 +1,14 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     cargarEstudiantes();
-    cargarAcudiente();
-    cargarComboCurso();
+    cargarAcudiente(1);
+    cargarComboCurso(1);
 
     $("#btnRegEstudiante").show();
     $("#btnModEstudiante").hide();
 
     //cargar Acudiente en el combo
-    function cargarAcudiente() {
+    function cargarAcudiente(opcion, principal, idAcudiente) {
         var cargarAcudiente = "ok";
         var objcargarAcudiente = new FormData();
         objcargarAcudiente.append("cargarAcudiente", cargarAcudiente);
@@ -20,20 +20,41 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
-                $("#selectAcudiente").html("");
-                respuesta.forEach(cargarSelectAcudientes);
+            success: function(respuesta) {
 
-                function cargarSelectAcudientes(item, index) {
-                    $("#selectAcudiente").append('<option value="' + item.idAcudiente + '">' + item.nombre + '</option>');
+                if (opcion == 1) {
+                    $("#selectAcudiente").html("");
+                    respuesta.forEach(cargarSelectAcudientes);
+
+                    function cargarSelectAcudientes(item, index) {
+                        $("#selectAcudiente").append('<option value="' + item.idAcudiente + '">' + item.nombre + '</option>');
+                    }
+
+                } else if (opcion == 2) {
+                    var concatenar = "";
+                    respuesta.forEach(cargarSelectAcudientes);
+
+                    function cargarSelectAcudientes(item, index) {
+                        if (item.idAcudiente == idAcudiente) {
+
+                        } else {
+                            concatenar = '<option value="' + item.idAcudiente + '">' + item.nombre + '</option>';
+
+                        }
+
+                    }
+
+                    $("#selectAcudiente").html(principal + concatenar);
+
                 }
+
 
             }
         })
     }
 
     //cargar Curso en el combo
-    function cargarComboCurso() {
+    function cargarComboCurso(opcion, principal, idCurso) {
         var cargarCurso = "ok";
         var objCargarCurso = new FormData();
         objCargarCurso.append("cargarCurso", cargarCurso);
@@ -45,13 +66,36 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
-                $("#selectCurso").html("");
-                respuesta.forEach(cargarSelectCurso);
+            success: function(respuesta) {
+                if (opcion == 1) {
+                    $("#selectCurso").html("");
+                    respuesta.forEach(cargarSelectCurso);
 
-                function cargarSelectCurso(item, index) {
-                    $("#selectCurso").append('<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>');
+                    function cargarSelectCurso(item, index) {
+                        $("#selectCurso").append('<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>');
+                    }
+
+                } else if (opcion == 2) {
+                    var concatenar = "";
+                    respuesta.forEach(cargarSelectCurso);
+
+                    function cargarSelectCurso(item, index) {
+                        if (item.idCurso == idCurso) {
+
+                        } else {
+                            concatenar += '<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>';
+
+                        }
+
+
+
+                    }
+                    $("#selectCurso").html(principal + concatenar);
+
+
+
                 }
+
 
             }
         })
@@ -59,7 +103,7 @@ $(document).ready(function () {
 
     //Regristrar estudiante
 
-    $("#btnRegEstudiante").click(function () {
+    $("#btnRegEstudiante").click(function() {
 
         var nombres = $("#txtNombre").val();
         var apellidos = $("#txtApellido").val();
@@ -92,7 +136,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
                 if (respuesta == "ok") {
                     swal({
                         title: "Buen Trabajo!",
@@ -129,7 +173,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
                 var interface = '';
                 var contadorFilas = 0;
                 respuesta.forEach(cargarListaEstudiantes);
@@ -146,12 +190,12 @@ $(document).ready(function () {
                     interface += '<td>' + item.tipoSangre + '</td>';
                     interface += '<td>' + item.seguroEstudiantil + '</td>';
                     interface += '<td>' + item.telefono + '</td>';
-                    interface += '<td>' + item.idAcudiente + '</td>';
-                    interface += '<td>' + item.idCurso + '</td>';
+                    interface += '<td>' + item.nombre + " " + item.apellido + '</td>';
+                    interface += '<td>' + item.nombreCurso + '</td>';
                     interface += '<td>';
 
                     interface += '<div class="btn-group">';
-                    interface += '<button id="btnEditarEstudiante" type="button" class="btn btn-warning" title="editar" idEstudiante="' + item.idEstudiante + '" nombres="' + item.nombres + '" apellidos="' + item.apellidos + '" documento="' + item.documento + '" tipoDocumento="' + item.tipoDocumento + '" fechaNacimiento="' + item.fechaNacimiento + '"  tipoSangre="' + item.tipoSangre + '" seguroEstudiantil="' + item.seguroEstudiantil + '" telefono="' + item.telefono + '" idAcudiente="' + item.idAcudiente + '" idCurso="' + item.idCurso + '"><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-pencil"></span></button>';
+                    interface += '<button id="btnEditarEstudiante" type="button" class="btn btn-warning" title="editar" idEstudiante="' + item.idEstudiante + '" nombres="' + item.nombres + '" apellidos="' + item.apellidos + '" documento="' + item.documento + '" tipoDocumento="' + item.tipoDocumento + '" fechaNacimiento="' + item.fechaNacimiento + '"  tipoSangre="' + item.tipoSangre + '" seguroEstudiantil="' + item.seguroEstudiantil + '" telefono="' + item.telefono + '" idAcudiente="' + item.idAcudiente + '" idCurso="' + item.idCurso + '"  nombreAcudiente="' + item.nombre + " " + item.apellido + '"  nombreCurso="' + item.nombreCurso + '" ><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-pencil"></span></button>';
                     interface += '<button id="btnEliminarEstudiante" type="button" class="btn btn-danger" title="eliminar" idEstudiante="' + item.idEstudiante + '"><span style="width:5px; height:5px; padding:0px;    " class="glyphicon glyphicon-remove"></span></button>';
                     interface += '</div>';
                     interface += '</td>';
@@ -164,9 +208,12 @@ $(document).ready(function () {
         })
     }
 
-    $("#tablaEstudiantes").on("click", "#btnEditarEstudiante", function () {
+    $("#tablaEstudiantes").on("click", "#btnEditarEstudiante", function() {
 
         $("#btnModEstudiante").show();
+
+        var nombreAcudiente = $(this).attr("nombreAcudiente");
+        var nombreCurso = $(this).attr("nombreCurso");
 
         var nombres = $(this).attr("nombres");
         var apellidos = $(this).attr("apellidos");
@@ -188,16 +235,22 @@ $(document).ready(function () {
         $("#selectTS").val(tipoSangre);
         $("#txtSeguroE").val(seguroEstudiantil);
         $("#txtTelefono").val(telefono);
-        $("#selectAcudiente").attr(idAcudiente);
-        $("#selectCurso").attr(idCurso);
+        //$("#selectAcudiente").attr(idAcudiente);
+        //$("#selectCurso").attr(idCurso);
         $("#btnModEstudiante").attr("estudiante", idEstudiante);
+        var principal = '<option value="' + idAcudiente + '">' + nombreAcudiente + '</option>';
+        var principalCurso = '<option value="' + idCurso + '">' + nombreCurso + '</option>';
+        alert(principalCurso);
+
+        cargarAcudiente(2, principal, idAcudiente);
+        cargarComboCurso(2, principalCurso, idCurso);
 
         $("#btnRegEstudiante").hide();
 
     })
 
 
-    $("#btnModEstudiante").click(function () {
+    $("#btnModEstudiante").click(function() {
 
         var nombres = $("#txtNombre").val();
         var apellidos = $("#txtApellido").val();
@@ -233,7 +286,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
                 if (respuesta == "ok") {
                     cargarEstudiantes();
                     swal({
@@ -256,14 +309,14 @@ $(document).ready(function () {
 
     })
 
-    $("#tablaEstudiantes").on("click", "#btnEliminarEstudiante", function () {
+    $("#tablaEstudiantes").on("click", "#btnEliminarEstudiante", function() {
         swal({
-            title: "¿Desea Eliminar Este Registro?",
-            text: "¡Una vez eliminado no se podra recuperar el registro!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
+                title: "¿Desea Eliminar Este Registro?",
+                text: "¡Una vez eliminado no se podra recuperar el registro!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
             .then((willDelete) => {
                 if (willDelete) {
 
@@ -280,7 +333,7 @@ $(document).ready(function () {
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (respuesta) {
+                        success: function(respuesta) {
 
                             swal("¡Registro Eliminado!", {
                                 icon: "success",
@@ -299,7 +352,7 @@ $(document).ready(function () {
 
     })
 
-    $("#btnRegEstudiante").click(function () {
+    $("#btnRegEstudiante").click(function() {
         $("#txtNombre").val("");
         $("#txtApellido").val("");
         $("#txtDocumento").val("");
@@ -312,7 +365,7 @@ $(document).ready(function () {
         $("#selectCurso").val("Seleccionar Curso");
 
     })
-    $("#btnModEstudiante").click(function () {
+    $("#btnModEstudiante").click(function() {
         $("#txtNombre").val("");
         $("#txtApellido").val("");
         $("#txtDocumento").val("");
