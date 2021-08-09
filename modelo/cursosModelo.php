@@ -28,7 +28,7 @@ class CursosModelo
 
     public static function mdlListarTodos()
     {
-        $ObjRespuesta = Conexion::conectar()->prepare("SELECT * FROM curso");
+        $ObjRespuesta = Conexion::conectar()->prepare("select curso.idCurso,curso.curso,curso.nombreCurso,curso.año,curso.idDocente,personal.idPersonal,personal.nombre,personal.apellido from  curso inner join personal on curso.idDocente=personal.idPersonal");
         $ObjRespuesta->execute();
         $listaCarro = $ObjRespuesta->fetchAll();
         $ObjRespuesta = null;
@@ -80,4 +80,5 @@ class CursosModelo
 
         return $lista;
     }
+   
 }
