@@ -11,10 +11,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/cabeceraInicio.css'>
+  <!--animated -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!--Fuente ubuntu google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  <!-- diseño modulo -->
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
   <script src="vista/js/cursos.js"></script>
+
 
 
 

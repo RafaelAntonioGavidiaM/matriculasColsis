@@ -1,23 +1,5 @@
-<head>
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- SweetAlert-->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!--animated -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!--Fuente ubuntu google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-    <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
-    <script src='vista/js/estudiante.js'></script>
-
-</head>
-
 <body>
+
     <header>
         <div class="container">
             <div class="texto">
@@ -39,11 +21,11 @@
     <br>
 
     <div id="contenedorReg" class="containers">
-        <div class="well well-lg">Registrar Estudiantes</div>
+        <div class="well well-lg"><center>Registrar Estudiantes</center></div>
         <div class="col-sm-9">
             <ul class="pager">
-                <li><a href="#moduloReg">Llenar</a></li>
-                <li><a href="#moduloTab">Tabla</a></li>
+                <li><a href="#moduloReg">Registrar Datos</a></li>
+                <li><a href="#moduloTab">Vizualizar Tabla</a></li>
             </ul>
         </div>
         <div class="row">
@@ -100,12 +82,32 @@
                             <button type="button" id="btnRegEstudiante" class="btn btn-default">Registrar</button>
                             <button type="button" id="btnModEstudiante" class="btn btn-default">Modificar</button>
                         </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <select id="selectCursoFiltro" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option selected place>Seleccionar Curso</option>
+                                </select>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" id="btnFiltrarCurso" class="btn btn-default">Filtrar Cursos</button>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" id="btnListaCompleta" class="btn btn-default">Lista Completa</button>
+
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <br>
+                <br>
+                <br>
                 <div id="moduloTab">
+
                     <table id="tablaEstudiantes" class="table table-bordered">
                         <thead class="cabeceraTabla">
+
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
@@ -125,6 +127,7 @@
 
                         </tbody>
                     </table>
+
                 </div>
 
             </div>
@@ -135,6 +138,4 @@
 
         </div>
     </div>
-
-
 </body>
