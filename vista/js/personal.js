@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     listarPersonal();
     listarRoles(1);
@@ -18,7 +18,7 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
 
                 console.log(respuesta);
                 var interface = "";
@@ -74,7 +74,7 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
 
                 if (opcion == 1) {
 
@@ -116,7 +116,7 @@ $(document).ready(function() {
 
     }
 
-    $("#btnRegPersonal").click(function() {
+    $("#btnRegPersonal").click(function () {
 
         listarRoles(1);
 
@@ -124,7 +124,8 @@ $(document).ready(function() {
 
 
     var idPersonal = "";
-    $("#tablaPersonal").on("click", "#btnEditarPersonal", function() {
+    var foto = "";
+    $("#tablaPersonal").on("click", "#btnEditarPersonal", function () {
 
         //listarRoles(2);
         $("#modRol").html("");
@@ -146,6 +147,8 @@ $(document).ready(function() {
         var idRol = $(this).attr("idRol");
         var direccion = $(this).attr("direccion");
         var password = $(this).attr("password");
+        foto = $(this).attr("foto");
+        $("#ModFoto").attr("src", foto);
 
 
         $("#btnModificarPersonal").attr("idPersonal", idPersonal);
@@ -164,8 +167,106 @@ $(document).ready(function() {
 
     })
 
-    $("#btnNewPersonal").click(function() {
-        alert("hola");
+
+    $("#btnModificarPersonal").click(function () {
+        alert("hola")
+        var idRol = document.getElementById("modRol").value;
+        var estado = document.getElementById("modEstadosPersonal").value;
+
+        var nombre = $("#txtModNombres").val();
+        var apellido = $("#txtModApellidos").val();
+        var documento = $("#txtModDocumeto").val();
+        var telefono = $("#txtModTelefono").val();
+        var ciudad = $("#txtModCiudad").val();
+        var correo = $("#txtModCorreo").val();
+        var direccion = $("#txtModDireccion").val();
+        var password = $("#txtModPassword").val();
+        var rutaFoto = "";
+        var opcion1 = "";
+        var opcion2 = "";
+
+        var fotoAnterior = "";
+        if ($("#txtModFoto").val() == null || $("#txtModFoto").val() == "") {
+
+            rutaFoto = foto;
+            opcion1 = "fotoNormal";
+
+           
+
+        } else {
+
+            var fotoNueva = document.getElementById("txtModFoto").files[0];
+            rutaFoto = fotoNueva;
+            fotoAnterior = foto;
+            opcion2 = "fotoArray";
+        }
+
+        
+        if (nombre == "" || apellido == "" || documento == "" || telefono == "" || ciudad == "" || correo == "" || direccion == "" || password == "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Nulos',
+                text: 'Hay cajas Nulas!',
+
+            })
+
+        } else {
+
+            var objData = new FormData();
+            if (opcion1 = "fotoNormal" && opcion2 == "") {
+
+                objData.append("opcion1", opcion1);
+                console.log("foto original");
+
+            } else if (opcion2 = "fotoArray" && opcion1 == "") {
+
+                objData.append("opcion2", opcion2);
+                console.log("foto array");
+
+            }
+
+            objData.append("idModPersonal", idPersonal);
+            objData.append("modNombre", nombre);
+            objData.append("modApellido", apellido);
+            objData.append("modDocumento", documento);
+            objData.append("modTelefono", telefono);
+            objData.append("modCiudad", ciudad);
+            objData.append("modCorreo", correo);
+            objData.append("modEstado", estado);
+            objData.append("modIdRol", idRol);
+            objData.append("modDireccion", direccion);
+            objData.append("modPassword", password);
+            objData.append("modFoto", rutaFoto);
+            objData.append("fotoAnterior", fotoAnterior);
+
+            $.ajax({
+                url: "control/personalControl.php",
+                type: "post",
+                dataType: "json",
+                data: objData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (respuesta) {
+
+                    listarPersonal();
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Modificacion Exitosa',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                }
+            })
+        }
+    })
+
+    $("#btnNewPersonal").click(function () {
+
         var idRol = document.getElementById("regRol").value;
         var estado = document.getElementById("esatodosPersonal").value;
 
@@ -202,8 +303,8 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
-                alert("registrado");
+            success: function (respuesta) {
+
                 listarPersonal();
 
                 Swal.fire({
@@ -214,13 +315,12 @@ $(document).ready(function() {
                     timer: 1500
                 })
 
+                listarPersonal();
             }
         })
-
-
     })
 
-    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function() {
+    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function () {
 
 
         idPersonal = $(this).attr("idPersonal");
@@ -258,7 +358,7 @@ $(document).ready(function() {
                     cache: false,
                     contentType: false,
                     processData: false,
-                    success: function(respuesta) {
+                    success: function (respuesta) {
                         if (respuesta == "ok") {
                             swalWithBootstrapButtons.fire(
                                 'Eliminado!',
@@ -279,19 +379,5 @@ $(document).ready(function() {
                 )
             }
         })
-
-
-
-
     })
-
-
-
-
-
-
-
-
-
-
 })

@@ -48,6 +48,25 @@ class personalControl{
 
     }
 
+    public function ctrModPersonal_1(){
+
+        $objRespuesta = persnalModelo::mdlModificarPerosonalSinCambioFoto($this->idPersonal,$this->nombre,$this->apellidos,$this->documento,$this->telefono,$this->ciudad,$this->correo,$this->estado,$this->idRol,$this->direccion,$this->password,$this->foto);
+        echo json_encode($objRespuesta);
+
+        
+    }
+
+    
+    public function ctrModPersonal_2(){
+
+        $objRespuesta = persnalModelo::mdlModificarPerosonalConCambioFoto($this->idPersonal,$this->nombre,$this->apellidos,$this->documento,$this->telefono,$this->ciudad,$this->correo,$this->estado,$this->idRol,$this->direccion,$this->password,$this->foto,$this->fotoAntigua);
+        echo json_encode($objRespuesta);
+
+        
+    }
+
+
+
 
 
 
@@ -91,6 +110,46 @@ if (isset($_POST["idDeletePersonal"]) && isset($_POST["deleteFoto"])){
     $objDeletePersonal->idPersonal = $_POST["idDeletePersonal"];
     $objDeletePersonal->foto = $_POST["deleteFoto"];
     $objDeletePersonal->ctrDeletePersonal();
+
+}
+
+if ( isset($_POST["opcion1"]) == "fotoNormal") {
+
+    $objModPersonal =  new personalControl();
+    $objModPersonal->idPersonal = $_POST["idModPersonal"];   
+    $objModPersonal->nombre = $_POST["modNombre"];
+    $objModPersonal->apellidos = $_POST["modApellido"];
+    $objModPersonal->documento = $_POST["modDocumento"];
+    $objModPersonal->telefono = $_POST["modTelefono"];
+    $objModPersonal->ciudad = $_POST["modCiudad"];
+    $objModPersonal->correo = $_POST["modCorreo"];
+    $objModPersonal->estado = $_POST["modEstado"];
+    $objModPersonal->idRol = $_POST["modIdRol"];
+    $objModPersonal->direccion = $_POST["modDireccion"];
+    $objModPersonal->password = $_POST["modPassword"];
+    $objModPersonal->foto = $_POST["modFoto"];
+    $objModPersonal-> ctrModPersonal_1();
+
+}
+
+if ( isset($_POST["opcion2"]) == "fotoArray"){
+
+    $objModPersonal =  new personalControl();
+    $objModPersonal->idPersonal = $_POST["idModPersonal"];   
+    $objModPersonal->nombre = $_POST["modNombre"];
+    $objModPersonal->apellidos = $_POST["modApellido"];
+    $objModPersonal->documento = $_POST["modDocumento"];
+    $objModPersonal->telefono = $_POST["modTelefono"];
+    $objModPersonal->ciudad = $_POST["modCiudad"];
+    $objModPersonal->correo = $_POST["modCorreo"];
+    $objModPersonal->estado = $_POST["modEstado"];
+    $objModPersonal->idRol = $_POST["modIdRol"];
+    $objModPersonal->direccion = $_POST["modDireccion"];
+    $objModPersonal->password = $_POST["modPassword"];
+    $objModPersonal->foto = $_FILES["modFoto"];
+    $objModPersonal->fotoAntigua = $_POST["fotoAnterior"];
+    $objModPersonal-> ctrModPersonal_2();
+
 
 }
 
