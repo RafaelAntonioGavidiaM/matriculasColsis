@@ -6,7 +6,7 @@ class conexion{
     public static function conectar(){
      
         $nombreServidor="34.70.179.196";
-        $baseDatos="dbcolsis";
+        $baseDatos="bdcolsis";
         $usuarioServidor="colsis";
         $password="colsis2022";
 

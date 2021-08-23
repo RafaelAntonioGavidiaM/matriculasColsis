@@ -46,7 +46,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="btnCrearCursos" class="btn btn-default" data-dismiss="modal">Crear Cursos</button>
+          <button type="button" class="btn btn-primary" id="btnCrearCursos" class="btn btn-default" data-dismiss="modal">Crear Cursos</button>
         </div>
       </div>
 
@@ -78,7 +78,7 @@
 
               <div class="form-group">
                 <label for="txtModAño">AÑO</label>
-                <input type="text" class="form-control" id="tModAño">
+                <input type="text" class="form-control" id="txtModAño">
               </div>
 
               <div class="form-group">
@@ -93,7 +93,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="btnModCursos" class="btn btn-default" data-dismiss="modal">Modificar Cursos</button>
+          <button type="button" class="btn btn-warning" id="btnModCursos" class="btn btn-default" data-dismiss="modal">Modificar Cursos</button>
         </div>
       </div>
 

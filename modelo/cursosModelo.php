@@ -4,15 +4,15 @@ include_once "conexion.php";
 
 class CursosModelo
 {
-    public static function mdlInsertar($curso, $nombreCurso, $año, $docente)
+    public static function mdlInsertar($curso, $nombreCurso, $año,int $docente)
     {
         $mensaje = "";
         try {
-            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO curso(curso,nombreCurso,año,idDocente)VALUES(:curso,:nombreCurso,:año,:idDocente)");
+            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO curso(curso,nombreCurso,año,idDocente)VALUES(:curso,:nombreCurso,:a,:idDocente)");
             $objRespuesta->bindParam(":curso", $curso, PDO::PARAM_STR);
             $objRespuesta->bindParam(":nombreCurso", $nombreCurso, PDO::PARAM_STR);
-            $objRespuesta->bindParam(":año", $año, PDO::PARAM_INT);
-            $objRespuesta->bindParam(":idDocente", $docente, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":a", $año, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":idDocente", $docente);
             if ($objRespuesta->execute()) {
                 $mensaje = "ok";
             } else {
@@ -35,11 +35,18 @@ class CursosModelo
         return $listaCarro;
     }
 
-    public static function mdlModificar($idCurso, $curso, $nombreCurso, $año, $docente)
+    public static function mdlModificar ($idCurso,$curso, $nombreCurso, $año,  $docente)
     {
         $mensaje = "";
         try {
-            $objRespuesta = Conexion::conectar()->prepare("UPDATE curso SET curso='$curso',nombreCurso='$nombreCurso',año='$año',docente='$docente' WHERE idCurso='$idCurso'");
+            $objRespuesta = Conexion::conectar()->prepare("UPDATE curso SET curso=:curso,nombreCurso=:nombre,año=:a,idDocente=:docente WHERE idCurso=:idCurso");
+            $objRespuesta->bindParam(":curso",$curso , PDO::PARAM_STR);
+            $objRespuesta->bindParam(":nombre",$nombreCurso , PDO::PARAM_STR);
+            $objRespuesta->bindParam(":a",$año, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":docente",$docente, PDO::PARAM_INT);
+            $objRespuesta->bindParam(":idCurso",$idCurso, PDO::PARAM_INT);
+
+
             if ($objRespuesta->execute()) {
                 $mensaje = "ok";
             } else {
