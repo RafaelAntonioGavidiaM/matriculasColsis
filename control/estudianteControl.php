@@ -30,6 +30,12 @@ class estudiantesControl
         $objRespuesta = modeloEstudiantes::mdlListarCursos();
         echo json_encode($objRespuesta);
     }
+    //combo cursoFiltro
+    public function ctrListarCursosFiltro()
+    {
+        $objRespuesta = modeloEstudiantes::mdlListarCursosFiltro();
+        echo json_encode($objRespuesta);
+    }
     //CRUD ESTUDIANTE
     public function ctrRegistrarEstudiantes()
     {
@@ -40,6 +46,12 @@ class estudiantesControl
     public function ctrListarEstudiantes()
     {
         $objRespuesta = modeloEstudiantes::mdlListarEstudiantes();
+        echo json_encode($objRespuesta);
+    }
+
+    public function ctrFiltrarCurso()
+    {
+        $objRespuesta = modeloEstudiantes::mdlFiltrarCursos($this->idCurso);
         echo json_encode($objRespuesta);
     }
 
@@ -69,6 +81,13 @@ if (isset($_POST["cargarCurso"]) == "cargarCurso") {
     $objListarCursos = new estudiantesControl();
     $objListarCursos->ctrListarCursos();
 }
+
+//combo CursoFiltro
+
+if (isset($_POST["cargarCursoFiltro"]) == "cargarCursoFiltro") {
+    $objListarCursosFiltro = new estudiantesControl();
+    $objListarCursosFiltro->ctrListarCursosFiltro();
+}
 //crud estudiantes
 
 if (isset($_POST["nombres"]) && isset($_POST["apellidos"]) && isset($_POST["documento"]) && isset($_POST["tipoDocumento"]) && isset($_POST["fechaNacimiento"]) && isset($_POST["tipoSangre"]) && isset($_POST["seguroEstudiantil"]) && isset($_POST["telefono"]) && isset($_POST["acudiente"]) && isset($_POST["curso"])) {
@@ -86,12 +105,18 @@ if (isset($_POST["nombres"]) && isset($_POST["apellidos"]) && isset($_POST["docu
     $objEstudiantes->ctrRegistrarEstudiantes();
 }
 
-if (isset($_POST["cargarEstudiante"]) == "ok"){
+if (isset($_POST["filtroCurso"])) {
     $objEstudiantes = new estudiantesControl();
-    $objEstudiantes->ctrListarEstudiantes();  
+    $objEstudiantes->idCurso = $_POST["filtroCurso"];
+    $objEstudiantes->ctrFiltrarCurso();
 }
 
-if (isset($_POST["editarNombres"]) && isset($_POST["editarApellidos"]) && isset($_POST["editarDocumento"]) && isset($_POST["editarTipoDocumento"]) && isset($_POST["editarFechaNacimiento"]) && isset($_POST["editarTipoSangre"]) && isset($_POST["editarSeguroEstudiantil"]) && isset($_POST["editarTelefono"]) && isset($_POST["editarIdAcudiente"]) && isset($_POST["editarIdCurso"]) && isset($_POST["idEstudiante"])){
+if (isset($_POST["cargarEstudiante"]) == "ok") {
+    $objEstudiantes = new estudiantesControl();
+    $objEstudiantes->ctrListarEstudiantes();
+}
+
+if (isset($_POST["editarNombres"]) && isset($_POST["editarApellidos"]) && isset($_POST["editarDocumento"]) && isset($_POST["editarTipoDocumento"]) && isset($_POST["editarFechaNacimiento"]) && isset($_POST["editarTipoSangre"]) && isset($_POST["editarSeguroEstudiantil"]) && isset($_POST["editarTelefono"]) && isset($_POST["editarIdAcudiente"]) && isset($_POST["editarIdCurso"]) && isset($_POST["idEstudiante"])) {
     $objEstudiantes = new estudiantesControl();
     $objEstudiantes->nombres = $_POST["editarNombres"];
     $objEstudiantes->apellidos = $_POST["editarApellidos"];
@@ -107,7 +132,7 @@ if (isset($_POST["editarNombres"]) && isset($_POST["editarApellidos"]) && isset(
     $objEstudiantes->ctrModificarEstudiantes();
 }
 
-if (isset($_POST["eliminarEstudiante"])){
+if (isset($_POST["eliminarEstudiante"])) {
     $objEstudiantes = new estudiantesControl();
     $objEstudiantes->idEstudiante = $_POST["eliminarEstudiante"];
     $objEstudiantes->ctrEliminarEstudiantes();
