@@ -1,8 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     cargarEstudiantes();
     cargarAcudiente(1);
     cargarComboCurso(1);
+    cargarComboCursoFiltro(1);
 
     $("#btnRegEstudiante").show();
     $("#btnModEstudiante").hide();
@@ -20,7 +21,7 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
 
                 if (opcion == 1) {
                     $("#selectAcudiente").html("");
@@ -66,7 +67,7 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
                 if (opcion == 1) {
                     $("#selectCurso").html("");
                     respuesta.forEach(cargarSelectCurso);
@@ -103,7 +104,7 @@ $(document).ready(function() {
 
     //Regristrar estudiante
 
-    $("#btnRegEstudiante").click(function() {
+    $("#btnRegEstudiante").click(function () {
 
         var nombres = $("#txtNombre").val();
         var apellidos = $("#txtApellido").val();
@@ -116,27 +117,28 @@ $(document).ready(function() {
         var idAcudiente = document.getElementById("selectAcudiente").value;
         var idCurso = document.getElementById("selectCurso").value;
 
-        var objData = new FormData();
-        objData.append("nombres", nombres);
-        objData.append("apellidos", apellidos);
-        objData.append("documento", documento);
-        objData.append("tipoDocumento", tipoDocumento);
-        objData.append("fechaNacimiento", fechaNacimiento);
-        objData.append("tipoSangre", tipoSangre);
-        objData.append("seguroEstudiantil", seguroEstudiantil);
-        objData.append("telefono", telefono);
-        objData.append("acudiente", idAcudiente);
-        objData.append("curso", idCurso);
+
+        var objDatRegistrarUsuario = new FormData();
+        objDatRegistrarUsuario.append("nombres", nombres);
+        objDatRegistrarUsuario.append("apellidos", apellidos);
+        objDatRegistrarUsuario.append("documento", documento);
+        objDatRegistrarUsuario.append("tipoDocumento", tipoDocumento);
+        objDatRegistrarUsuario.append("fechaNacimiento", fechaNacimiento);
+        objDatRegistrarUsuario.append("tipoSangre", tipoSangre);
+        objDatRegistrarUsuario.append("seguroEstudiantil", seguroEstudiantil);
+        objDatRegistrarUsuario.append("telefono", telefono);
+        objDatRegistrarUsuario.append("acudiente", idAcudiente);
+        objDatRegistrarUsuario.append("curso", idCurso);
 
         $.ajax({
             url: "control/estudianteControl.php",
             type: "post",
             dataType: "json",
-            data: objData,
+            data: objDatRegistrarUsuario,
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
                 if (respuesta == "ok") {
                     swal({
                         title: "Buen Trabajo!",
@@ -145,6 +147,7 @@ $(document).ready(function() {
                         button: "Aceptar",
                     });
                     cargarEstudiantes();
+                    BlanquearCampos();
                 } else {
                     swal({
                         title: "Error!",
@@ -173,7 +176,7 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
                 var interface = '';
                 var contadorFilas = 0;
                 respuesta.forEach(cargarListaEstudiantes);
@@ -208,7 +211,113 @@ $(document).ready(function() {
         })
     }
 
-    $("#tablaEstudiantes").on("click", "#btnEditarEstudiante", function() {
+    $("#btnFiltrarCurso").click(function () {
+
+
+        var idCurso = document.getElementById("selectCursoFiltro").value;
+
+        var objData = new FormData();
+        objData.append("filtroCurso", idCurso);
+        $.ajax({
+            url: "control/estudianteControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                console.log(respuesta);
+
+                var interface = '';
+                var contadorFilas = 0;
+                respuesta.forEach(cargarListaEstudiantes);
+
+                function cargarListaEstudiantes(item, index) {
+                    contadorFilas += 1;
+                    interface += '<tr>';
+                    interface += '<td>' + contadorFilas + '</td>';
+                    interface += '<td>' + item.nombres + '</td>';
+                    interface += '<td>' + item.apellidos + '</td>';
+                    interface += '<td>' + item.documento + '</td>';
+                    interface += '<td>' + item.tipoDocumento + '</td>';
+                    interface += '<td>' + item.fechaNacimiento + '</td>';
+                    interface += '<td>' + item.tipoSangre + '</td>';
+                    interface += '<td>' + item.seguroEstudiantil + '</td>';
+                    interface += '<td>' + item.telefono + '</td>';
+                    interface += '<td>' + item.nombre + " " + item.apellido + '</td>';
+                    interface += '<td>' + item.nombreCurso + '</td>';
+                    interface += '<td>';
+
+                    interface += '<div class="btn-group">';
+                    interface += '<button id="btnEditarEstudiante" type="button" class="btn btn-warning" title="editar" idEstudiante="' + item.idEstudiante + '" nombres="' + item.nombres + '" apellidos="' + item.apellidos + '" documento="' + item.documento + '" tipoDocumento="' + item.tipoDocumento + '" fechaNacimiento="' + item.fechaNacimiento + '"  tipoSangre="' + item.tipoSangre + '" seguroEstudiantil="' + item.seguroEstudiantil + '" telefono="' + item.telefono + '" idAcudiente="' + item.idAcudiente + '" idCurso="' + item.idCurso + '"  nombreAcudiente="' + item.nombre + " " + item.apellido + '"  nombreCurso="' + item.nombreCurso + '" ><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-pencil"></span></button>';
+                    interface += '<button id="btnEliminarEstudiante" type="button" class="btn btn-danger" title="eliminar" idEstudiante="' + item.idEstudiante + '"><span style="width:5px; height:5px; padding:0px;    " class="glyphicon glyphicon-remove"></span></button>';
+                    interface += '</div>';
+                    interface += '</td>';
+                    interface += '</tr>';
+                }
+
+                $("#bodyEstudiantes").html(interface);
+
+
+            }
+
+
+        })
+
+    })
+
+    $("#btnListaCompleta").click(function () {
+
+        cargarEstudiantes();
+
+    })
+
+    function cargarComboCursoFiltro(opcion, principal, idCurso) {
+        var cargarCursoFiltro = "ok";
+        var objCargarCursoFiltro = new FormData();
+
+        objCargarCursoFiltro.append("cargarCursoFiltro", cargarCursoFiltro);
+
+        $.ajax({
+            url: "control/estudianteControl.php",
+            type: "post",
+            dataType: "json",
+            data: objCargarCursoFiltro,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                if (opcion == 1) {
+                    $("#selectCursoFiltro").html("");
+                    respuesta.forEach(cargarSelectCursoFiltro);
+
+                    function cargarSelectCursoFiltro(item, index) {
+                        $("#selectCursoFiltro").append('<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>');
+                    }
+
+                } else if (opcion == 2) {
+                    var concatenar = "";
+                    respuesta.forEach(cargarSelectCursoFiltro);
+
+                    function cargarSelectCursoFiltro(item, index) {
+                        if (item.idCurso == idCurso) {
+
+                        } else {
+                            concatenar += '<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>';
+
+                        }
+
+                    }
+                    $("#selectCursoFiltro").html(principal + concatenar);
+
+                }
+
+            }
+        })
+    }
+
+    $("#tablaEstudiantes").on("click", "#btnEditarEstudiante", function () {
 
         $("#btnModEstudiante").show();
 
@@ -235,12 +344,9 @@ $(document).ready(function() {
         $("#selectTS").val(tipoSangre);
         $("#txtSeguroE").val(seguroEstudiantil);
         $("#txtTelefono").val(telefono);
-        //$("#selectAcudiente").attr(idAcudiente);
-        //$("#selectCurso").attr(idCurso);
         $("#btnModEstudiante").attr("estudiante", idEstudiante);
         var principal = '<option value="' + idAcudiente + '">' + nombreAcudiente + '</option>';
         var principalCurso = '<option value="' + idCurso + '">' + nombreCurso + '</option>';
-        alert(principalCurso);
 
         cargarAcudiente(2, principal, idAcudiente);
         cargarComboCurso(2, principalCurso, idCurso);
@@ -250,7 +356,7 @@ $(document).ready(function() {
     })
 
 
-    $("#btnModEstudiante").click(function() {
+    $("#btnModEstudiante").click(function () {
 
         var nombres = $("#txtNombre").val();
         var apellidos = $("#txtApellido").val();
@@ -286,15 +392,19 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(respuesta) {
+            success: function (respuesta) {
                 if (respuesta == "ok") {
-                    cargarEstudiantes();
+
                     swal({
                         title: "Buen Trabajo!",
                         text: "Estudiante modificado correctamente",
                         icon: "success",
                         button: "Aceptar",
                     });
+                    cargarEstudiantes();
+                    BlanquearCampos();
+                    $("#btnRegEstudiante").show();
+                    $("#btnModEstudiante").hide();
                 } else {
                     swal({
                         title: "Error!",
@@ -309,14 +419,14 @@ $(document).ready(function() {
 
     })
 
-    $("#tablaEstudiantes").on("click", "#btnEliminarEstudiante", function() {
+    $("#tablaEstudiantes").on("click", "#btnEliminarEstudiante", function () {
         swal({
-                title: "¿Desea Eliminar Este Registro?",
-                text: "¡Una vez eliminado no se podra recuperar el registro!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "¿Desea Eliminar Este Registro?",
+            text: "¡Una vez eliminado no se podra recuperar el registro!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
             .then((willDelete) => {
                 if (willDelete) {
 
@@ -333,7 +443,7 @@ $(document).ready(function() {
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function(respuesta) {
+                        success: function (respuesta) {
 
                             swal("¡Registro Eliminado!", {
                                 icon: "success",
@@ -352,7 +462,7 @@ $(document).ready(function() {
 
     })
 
-    $("#btnRegEstudiante").click(function() {
+    function BlanquearCampos() {
         $("#txtNombre").val("");
         $("#txtApellido").val("");
         $("#txtDocumento").val("");
@@ -364,18 +474,6 @@ $(document).ready(function() {
         $("#selectAcudiente").val("Seleccionar Acudiente");
         $("#selectCurso").val("Seleccionar Curso");
 
-    })
-    $("#btnModEstudiante").click(function() {
-        $("#txtNombre").val("");
-        $("#txtApellido").val("");
-        $("#txtDocumento").val("");
-        $("#selectTD").val("Tipo Documento");
-        $("#dateNacimiento").val("");
-        $("#selectTS").val("Tipo Sangre");
-        $("#txtSeguroE").val("");
-        $("#txtTelefono").val("");
-        $("#selectAcudiente").val("Seleccionar Acudiente");
-        $("#selectCurso").val("Seleccionar Curso");
+    }
 
-    })
 })
