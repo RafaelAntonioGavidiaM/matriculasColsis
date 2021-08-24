@@ -38,7 +38,7 @@ if ($_SESSION == null) {
 
                 include_once "vista/modulos/cabecera.php";
 
-                if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante" ||  $_GET["ruta"] == "cursos") {
+                if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante" ||  $_GET["ruta"] == "cursos" || $_GET["ruta"] == "asignaturaCurso") {
 
 
                     include_once "vista/modulos/" . $_GET["ruta"] . ".php";
