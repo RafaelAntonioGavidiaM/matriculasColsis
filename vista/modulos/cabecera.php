@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <!-- diseño modulo -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
