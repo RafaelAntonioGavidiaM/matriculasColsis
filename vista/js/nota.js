@@ -11,7 +11,7 @@ $(document).ready(function() {
         objData.append("grados", mensaje);
 
 
-        alert("hola");
+
         $.ajax({
             url: "control/notaControles.php",
             type: "post",

@@ -57,7 +57,7 @@ Periodo:
                 <input type="email" class="form-control" id="nombreNota"  name="email">
               </div>
               <div class="form-group">
-                <select id="grado">
+                <select id="habilitacion">
                   <option value='0'> Desabilidato </option>;
                   <option value='1'>Habilitado</option>;
 

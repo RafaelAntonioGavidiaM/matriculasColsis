@@ -4,7 +4,7 @@
     <p>Crea y administra los cursos de esta Institución.</p>
   </div>
 
-  <button id="btnCursos" class="btn btn-primary" data-toggle="modal" data-target="#mdCursos"> Crear Cursos</button>
+  <button id="btnCursos" class="btn btn-success" data-toggle="modal" data-target="#mdCursos"> Crear Cursos</button>
 
   <!-- Modal -->
   <br><br><br><br><br>
@@ -16,7 +16,7 @@
         <br>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">¡Registro Cursos!</h4>
+          <h4 class="modal-title">¡Registrar Cursos!</h4>
         </div>
         <div class="modal-body">
           <form>
@@ -46,7 +46,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="btnCrearCursos" class="btn btn-default" data-dismiss="modal">Crear Cursos</button>
+          <button type="button" class="btn btn-success" id="btnCrearCursos" class="btn btn-default" data-dismiss="modal">Crear Cursos</button>
         </div>
       </div>
 
@@ -93,7 +93,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning" id="btnModCursos" class="btn btn-default" data-dismiss="modal">Modificar Cursos</button>
+          <button type="button" class="btn btn-success" id="btnModCursos" class="btn btn-default" data-dismiss="modal">Modificar Cursos</button>
         </div>
       </div>
 
@@ -101,7 +101,7 @@
   </div>
 
   
-  <table id="tablaCursos" class="table">
+  <table id="tablaCursos" class="table table-hover  table-striped">
     <thead class="cabeceraTablaCurso">
       <tr>
         <th>CURSO</th>
