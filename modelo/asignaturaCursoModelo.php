@@ -1,6 +1,6 @@
 <?php
 
-include_once "conexion.php"; 
+require "conexion.php"; 
 
 class asignaturaCursoModelo
 {
@@ -65,7 +65,7 @@ class asignaturaCursoModelo
     
     public static function mdlListarTodos()
     {
-        $ObjRespuesta = Conexion::conectar()->prepare("select asignaturacurso.idAsignatura,asignaturacurso.idCurso,asignaturacurso.idDocente,asignatura.idAsignatura,asignatura.nombreAsignatura,curso.idCurso,curso.nombreCurso,personal.idPersonal,personal.nombre,personal.apellido from asignaturacurso inner join asignatura on asignaturacurso.idAsignatura=asignatura.idAsignatura inner join  personal on asignaturacurso.idDocente=personal.idPersonal inner join curso on asignaturacurso.idCurso=curso.idCurso;");
+        $ObjRespuesta = Conexion::conectar()->prepare("select * from asignaturacurso inner join asignatura on asignaturacurso.idAsignatura=asignatura.idAsignatura inner join  personal on asignaturacurso.idDocente=personal.idPersonal inner join curso on asignaturacurso.idCurso=curso.idCurso");
         $ObjRespuesta->execute();
         $listaAsignaturaCurso = $ObjRespuesta->fetchAll();
         $ObjRespuesta = null;
