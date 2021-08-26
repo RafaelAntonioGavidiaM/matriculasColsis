@@ -24,6 +24,31 @@ class notaModelo{
         return $lista;
     
     }
+
+    public function retornarIdPeriodo(){
+        $fechActual=new DateTime();
+
+        
+
+        $objConexion=conexion::conectar()->prepare("");
+
+
+
+        
+    }
+
+    public static function mdlRegistrarNota($nombreNota,$permiso,$asignatura,$idCurso){
+
+        session_start();
+        $idPersonal=$_SESSION["idPersonal"];
+
+
+        $objConexion=conexion::conectar()->prepare("");
+
+
+
+    }
+
     
 
     

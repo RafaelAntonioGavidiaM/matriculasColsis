@@ -58,7 +58,7 @@ Periodo:
               </div>
               <div class="form-group">
                 <select id="habilitacion">
-                  <option value='0'> Desabilidato </option>;
+                  <option value='0'> Desabilitado </option>;
                   <option value='1'>Habilitado</option>;
 
                 </select>

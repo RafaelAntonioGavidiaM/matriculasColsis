@@ -148,6 +148,40 @@ $(document).ready(function() {
         var asignatura = $("#Asignaturas").val();
         var idCurso = $("#grado").val();
 
+        var objData = new FormData();
+        objData.append("nombreNota",nombreNota);
+        objData.append("visibilidad",visibilidad);
+        objData.append("asignatura",asignatura);
+        objData.append("idCursoR",idCurso);
+
+        $.ajax({
+            url: "control/notaControles.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                
+
+
+
+
+
+
+
+
+            }
+        })
+
+
+
+
+
+
+
 
 
 
