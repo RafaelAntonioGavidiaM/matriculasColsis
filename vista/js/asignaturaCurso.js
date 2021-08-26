@@ -228,7 +228,7 @@ $(document).ready(function() {
 
                 function cargarTablaAsignaturaCurso(item, index) {
 
-                    var btnAsignaturaCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarAsignaturaCursos" idCurso="' + item.idCurso + '"  idAsignatura="' + item.idAsignatura + '"  nombreAsignatura="' + item.nombreAsignatura + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idDocente + '" idAsignaturaCurso="' + item.idAsignaturaCurso + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdModificarAsignaturaCurso"><span class="glyphicon glyphicon-pencil"></span></button>';
+                    var btnAsignaturaCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarAsignaturaCursos" idCurso="' + item.idCurso + '"  idAsignatura="' + item.idAsignatura + '"  nombreAsignatura="' + item.nombreAsignatura + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idPersonal + '" idAsignaturaCurso="' + item.idAsignaturaCurso + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdModificarAsignaturaCurso"><span class="glyphicon glyphicon-pencil"></span></button>';
                     btnAsignaturaCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarAsignaturaCursos" idCurso="' + item.idCurso + '"  ><span class="glyphicon glyphicon-trash"></span></button>';
                     var docente = item.nombre + item.apellido;
 

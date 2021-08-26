@@ -26,11 +26,19 @@ class notaModelo{
     }
 
     public function retornarIdPeriodo(){
-        $fechActual=new DateTime();
+        $fechActual=date("Y-m-d");
+
 
         
 
-        $objConexion=conexion::conectar()->prepare("");
+        $objConexion=conexion::conectar()->prepare("select idPeriodo from periodo where  fechaInicio <=:fecha  and  fechaFin>=:fecha");
+        $objConexion->bindParam(":fecha", $fechActual, PDO::PARAM_STR);
+
+        $objConexion->execute();
+        $lista=$objConexion->fetch();
+        $objConexion=null;
+        return $lista;
+        
 
 
 
@@ -41,6 +49,8 @@ class notaModelo{
 
         session_start();
         $idPersonal=$_SESSION["idPersonal"];
+        $Periodo = new notaModelo();
+        $Periodo->retornarIdPeriodo();
 
 
         $objConexion=conexion::conectar()->prepare("");

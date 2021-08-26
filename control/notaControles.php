@@ -42,6 +42,12 @@ class notaControl{
     }
 
     public function ctrlRegistrarNota(){
+        $objRespuesta= notaModelo::mdlRegistrarNota($this->nombreNota,$this->permiso,$this->asignatura,$this->idCurso);
+        
+        echo json_encode($objRespuesta);
+
+
+
 
     }
    
