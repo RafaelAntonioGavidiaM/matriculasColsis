@@ -1,8 +1,10 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Creacion de Cursos</h1>
-    <p>Crea y administra los cursos de esta Institución.</p>
-  </div>
+  <center>
+    <div class="jumbotron">
+      <h1>Creacion de Cursos</h1>
+      <p>Crea y administra los cursos de esta Institución.</p>
+    </div>
+  </center>
 
   <button id="btnCursos" class="btn btn-success" data-toggle="modal" data-target="#mdCursos"> Crear Cursos</button>
 
@@ -112,10 +114,10 @@
       </tr>
     </thead>
     <tbody id="tbodyCursos">
-
+    
     </tbody>
   </table>
   
-  
+  <br><br>
 
 </div>
