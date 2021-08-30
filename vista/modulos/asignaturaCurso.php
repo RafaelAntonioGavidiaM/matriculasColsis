@@ -103,9 +103,9 @@
   <table id="tablaAsignaturaCurso" class="table table-hover  table-striped">
     <thead class="cabeceraTablaAsignaturaCurso">
       <tr>
-        <th>ASIGNATURA</th>
         <th>CURSO</th>
         <th>DOCENTE</th>
+        <th>ASIGNATURA</th>
         <th>ACCIONES</th>
       </tr>
     </thead>

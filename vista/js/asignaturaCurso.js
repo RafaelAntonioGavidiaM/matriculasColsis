@@ -1,6 +1,4 @@
 $(document).ready(function() {
-
-    alert("hola archivo");
     cargarDocentes(1);
     cargarDatosCursos(1);
     cargarDatosAsignatura(1);
@@ -156,8 +154,6 @@ $(document).ready(function() {
                             concatenar += '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
                         }
                     }
-                    alert(principal + " " + concatenar);
-
 
                     $("#txtModPersonalSelect").html(principal + concatenar);
                 }
@@ -229,11 +225,11 @@ $(document).ready(function() {
                 function cargarTablaAsignaturaCurso(item, index) {
 
                     var btnAsignaturaCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarAsignaturaCursos" idCurso="' + item.idCurso + '"  idAsignatura="' + item.idAsignatura + '"  nombreAsignatura="' + item.nombreAsignatura + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idPersonal + '" idAsignaturaCurso="' + item.idAsignaturaCurso + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdModificarAsignaturaCurso"><span class="glyphicon glyphicon-pencil"></span></button>';
-                    btnAsignaturaCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarAsignaturaCursos" idCurso="' + item.idCurso + '"  ><span class="glyphicon glyphicon-trash"></span></button>';
+                    btnAsignaturaCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarAsignaturaCursos" idAsignaturaCurso="' + item.idAsignaturaCurso + '"  ><span class="glyphicon glyphicon-trash"></span></button>';
                     var docente = item.nombre + item.apellido;
 
 
-                    datosCargarAsignaturaCursos.push([item.nombreAsignatura, item.nombreCurso, docente, btnAsignaturaCursos]);
+                    datosCargarAsignaturaCursos.push([item.nombreCurso, docente, item.nombreAsignatura, btnAsignaturaCursos]);
                 }
 
                 console.log(datosCargarAsignaturaCursos);
@@ -322,15 +318,12 @@ $(document).ready(function() {
     $("#tbodyAsignaturaCurso").on("click", "#btn-editarAsignaturaCursos", function() {
 
         idAsignaturaCurso = $(this).attr("idAsignaturaCurso");
-
         var idAsignatura = $(this).attr("idAsignatura");
         var nombreAsignatura = $(this).attr("nombreAsignatura");
         var idCurso = $(this).attr("idCurso");
         var nombreCurso = $(this).attr("nombreCurso");
         var idDocente = $(this).attr("idDocente");
         var nombreDocente = $(this).attr("nombreDocente");
-
-        alert(idDocente + " " + nombreDocente);
 
         var principal = '<option value=' + idAsignatura + '">' + nombreAsignatura + '</option>';
         cargarDatosAsignatura(2, principal, idAsignatura);
@@ -340,7 +333,6 @@ $(document).ready(function() {
         cargarDatosCursos(2, principal, idCurso);
 
         var principal = '<option value="' + idDocente + '">' + nombreDocente + '</option>';
-        alert(principal);
         cargarDocentes(2, principal, idDocente);
 
     })
@@ -365,7 +357,7 @@ $(document).ready(function() {
 
 
                 var objData = new FormData();
-                objData.append("eliminarCursoId", idAsignaturaCurso);
+                objData.append("eliminaAsignaturarCursoId", idAsignaturaCurso);
 
 
                 $.ajax({
