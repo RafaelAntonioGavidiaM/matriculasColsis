@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    alert("hola archivo");
+    //  alert("hola archivo");
     cargarDocentes(1);
     cargarDatosCursos(1);
     cargarDatosAsignatura(1);

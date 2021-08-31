@@ -10,7 +10,7 @@ Periodo:
 
 
 
-<br><br><br><br><br>
+  <br><br><br><br><br>
 
   <p> Seleccione el Grado:<select id="grado">
 
@@ -30,9 +30,9 @@ Periodo:
   <div id="opciones">
 
 
-  <button type="button" id="btnCrearNota" class="btn btn-default" data-toggle="modal" >Crear Nota </button>
-  <button type="button" id="btnCrearModificar" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#modalCrearN">Modificar </button>
-  <button type="button" id="btnCrearEliminarNota" class="btn btn-default" data-dismiss="modal">Eliminar Nota</button>
+    <button type="button" id="btnCrearNota" class="btn btn-default" data-toggle="modal">Crear Nota </button>
+    <button type="button" id="btnCrearModificar" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#modalCrearN">Modificar </button>
+    <button type="button" id="btnCrearEliminarNota" class="btn btn-default" data-dismiss="modal">Eliminar Nota</button>
 
   </div>
   <div class="container">
@@ -54,7 +54,7 @@ Periodo:
             <form>
               <div class="form-group">
                 <label for="email">Nombre:</label>
-                <input type="email" class="form-control" id="nombreNota"  name="email">
+                <input type="email" class="form-control" id="nombreNota" name="email">
               </div>
               <div class="form-group">
                 <select id="habilitacion">
@@ -67,7 +67,7 @@ Periodo:
 
               </div>
 
-              
+
             </form>
 
 
@@ -81,11 +81,24 @@ Periodo:
 
           </div>
           <div class="modal-footer">
-            <button id="GuardarNota"  type="button" class="btn btn-default" data-dismiss="modal">Guardar Nota</button>
+            <button id="GuardarNota" type="button" class="btn btn-default" data-dismiss="modal">Guardar Nota</button>
           </div>
         </div>
 
       </div>
     </div>
+
+  </div>
+
+  <div class="container">
+    <table class="table" id="tablaNota">
+      <thead id="cabeceraNota">
+      
+
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
 
   </div>
