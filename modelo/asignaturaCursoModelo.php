@@ -80,7 +80,7 @@ class asignaturaCursoModelo
             $objRespuesta = Conexion::conectar()->prepare("UPDATE asignaturacurso SET as idAsignatura=:asignatura,idCurso=:cursoAsignatura,idDocente=:docente WHERE idAsignaturaCurso=:idAsignaturaCurso");
             $objRespuesta->bindParam(":asignatura",$asignatura , PDO::PARAM_INT);
             $objRespuesta->bindParam(":cursoAsignatura",$cursoAsignatura , PDO::PARAM_INT);
-            $objRespuesta->bindParam(":docente",$docente, PDO::PARAM_INT);
+            $objRespuesta->bindParam(":docente",$docente, PDO::PARAM_INT); 
             $objRespuesta->bindParam(":idAsignaturaCurso",$idAsignaturaCurso, PDO::PARAM_INT);
 
 

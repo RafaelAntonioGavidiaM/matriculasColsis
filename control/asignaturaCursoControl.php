@@ -90,12 +90,11 @@ if (isset($_POST["modAsignaturaSelect"]) && isset($_POST["modCursoSelect"]) && i
     $objModAsignaturaCurso->cursoAsignatura = $_POST["modCursoSelect"];
     $objModAsignaturaCurso->docente = $_POST["modDocenteSelect"];
     $objModAsignaturaCurso->idAsignaturaCurso = $_POST["modIdAsignaturaCurso"];
-
     $objModAsignaturaCurso->ctrModificar();
 }
 
-if (isset($_POST["eliminarCursoId"])) {
+if (isset($_POST["eliminaAsignaturarCursoId"])) {
     $objRespuesta = new asignaturaCursoControl();
-    $objRespuesta->idAsignaturaCurso = $_POST["eliminarCursoId"];
+    $objRespuesta->idAsignaturaCurso = $_POST["eliminaAsignaturarCursoId"];
     $objRespuesta->ctrEliminar();
 }

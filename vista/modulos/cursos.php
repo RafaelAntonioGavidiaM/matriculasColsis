@@ -109,7 +109,7 @@
         <th>CURSO</th>
         <th>NOMBRE CURSO</th>
         <th>AÑO</th>
-        <th>DOCENTE</th>
+        <th>DIRECTOR DE CURSO</th>
         <th>ACCIONES</th>
       </tr>
     </thead>
