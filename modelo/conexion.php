@@ -5,10 +5,10 @@ class conexion{
 
     public static function conectar(){
      
-        $nombreServidor="localhost";
+        $nombreServidor="35.225.225.25";
         $baseDatos="dbcolsis";
-        $usuarioServidor="root";
-        $password="";
+        $usuarioServidor="colsis";
+        $password="colsis2022";
 
         try {
 
