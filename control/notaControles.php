@@ -50,6 +50,26 @@ class notaControl{
 
 
     }
+
+    public function ctrConsultarDatos(){
+        $objRespuesta= notaModelo::mdlConsultarNotas($this->asignatura,$this->idCurso);
+        
+        echo json_encode($objRespuesta);
+
+
+
+
+
+
+    }
+
+    public function ctrlConsultarNombresNotas(){
+        $objRespuesta= notaModelo::cargarNotas($this->asignatura,$this->idCurso);
+        
+        echo json_encode($objRespuesta);
+
+
+    }
    
 
 
@@ -84,6 +104,28 @@ if(isset($_POST["nombreNota"]) && isset($_POST["visibilidad"]) && isset($_POST["
 
 
 
+
+
+}
+
+if(isset($_POST["cAsignatura"]) && isset($_POST["cGrado"])){
+    $objCargar = new notaControl();
+    $objCargar->idCurso=$_POST["cGrado"];
+    $objCargar->asignatura=$_POST["cAsignatura"];
+    $objCargar->ctrConsultarDatos();
+
+
+
+
+
+
+}
+if(isset($_POST["MAsignatura"]) && isset($_POST["MGrado"])){
+
+    $objCargar = new notaControl();
+    $objCargar->idCurso=$_POST["MGrado"];
+    $objCargar->asignatura=$_POST["MAsignatura"];
+    $objCargar->ctrlConsultarNombresNotas();
 
 
 }
