@@ -219,23 +219,14 @@ $(document).ready(function() {
             success: function(respuesta) {
 
                 if (respuesta != null) {
-                    console.log(respuesta);
-                    cargarCabeceraTabla();
-
-
-                    respuesta.forEach(cargarDatosTabla);
-
-                    function cargarDatosTabla(item, index) {
-
-
-                        dataSet.push([item.Nombre, item.ANIMALES, item.PERROS]);
-                        console.log(dataSet);
+                    // console.log(respuesta);
+                    // var hola = cargarCabeceraTabla(respuesta);
+                    //console.log(hola);
 
 
 
 
-
-                    }
+                    cargarCabeceraTabla(respuesta);
 
 
 
@@ -245,33 +236,10 @@ $(document).ready(function() {
 
 
 
-                    $("#tablaNota").DataTable({
-                        data: dataSet,
-                        dom: 'Bfrtip',
-                        buttons: [{
 
 
-                                extend: 'copyHtml5',
-                                exportOptions: {
-                                    columns: [0, ':visible']
-                                }
-                            },
-                            {
-                                extend: 'excelHtml5',
-                                exportOptions: {
-                                    columns: [0, ':visible']
-                                }
-                            },
-                            {
-                                extend: 'pdfHtml5',
-                                exportOptions: {
-                                    columns: [0, ':visible']
-                                }
-                            },
-                            'colvis'
-                        ],
 
-                    });
+
 
 
 
@@ -310,7 +278,11 @@ $(document).ready(function() {
 
     })
 
-    function cargarCabeceraTabla() {
+    function cargarCabeceraTabla(respuestaDatos) {
+
+        var cabecera = [];
+
+        dataSet = [];
 
         var idAsignaturaCurso = $("#Asignaturas").val();
         var idCurso = $("#grado").val();
@@ -319,6 +291,7 @@ $(document).ready(function() {
 
         objData.append("MAsignatura", idAsignaturaCurso);
         objData.append("MGrado", idCurso);
+        var resultado;
 
 
 
@@ -338,26 +311,65 @@ $(document).ready(function() {
 
                 if (respuesta != null) {
 
-                    var concatenar = "";
-                    var contador = 0;
+                    console.log(respuesta);
 
-                    // console.log(respuesta);
 
-                    respuesta.forEach(cargarCabecera);
 
-                    function cargarCabecera(item, index) {
 
-                        if (contador == 0) {
-                            concatenar += '<th>' + 'Nombre Estudiante' + '</th>';
-                            concatenar += '<th>' + item.nombreNota + '</th>';
 
-                        } else {
-                            concatenar += '<th>' + item.nombreNota + '</th>';
+
+
+
+
+                    respuestaDatos.forEach(cargarDatosTabla);
+
+
+
+                    function cargarDatosTabla(item, index) {
+                        var concatenar2 = [];
+
+
+                        concatenar2[concatenar2.length] = item.Nombre;
+
+                        var contador = 5;
+
+
+
+
+
+                        for (let index2 = 0; index2 < respuesta.length; index2++) {
+                            var variable = Object;
+                            variable.nombreNota = respuesta[index2][0];
+
+                            alert(variable);
+
+                            //concatenar2.push(respuestaDatos[index][contador]);
+
+                            concatenar2[concatenar2.length] = respuestaDatos[index][contador];
+
+                            contador++;
 
 
                         }
 
-                        contador++;
+                        dataSet.push(
+                            [concatenar2],
+                        );
+
+                        console.log(dataSet);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -368,7 +380,71 @@ $(document).ready(function() {
 
 
 
-                    $("#cabeceraNota").html(concatenar);
+
+
+
+
+
+
+
+
+
+                    var concatenar = "";
+                    var cadena = "";
+                    var contador = 0;
+
+                    // console.log(respuesta);
+
+                    respuesta.forEach(cargarCabecera);
+
+                    function cargarCabecera(item, index) {
+
+                        if (contador == 0) {
+
+
+                            concatenar += 'Nombre Estudiante';
+                            cabecera.push({ title: concatenar });
+                            cadena += '{ title: "Nombre Estudiante" },';
+                            concatenar = item.nombreNota;
+                            cadena += '{ title: "' + item.nombreNota + '" },';
+
+                        } else {
+                            concatenar = item.nombreNota;
+                            cadena += '{ title: "' + item.nombreNota + '" },';
+
+
+                        }
+
+                        contador++;
+
+
+                        cabecera.push({ title: concatenar });
+
+
+
+
+
+                    }
+
+                    console.log(cabecera);
+                    alert(cadena);
+
+
+
+
+
+                    // $("#cabeceraNota").html(concatenar);
+
+                    $("#tablaNota").DataTable({
+                        data: dataSet,
+
+                        // dom: 'Bfrtip',
+                        columns: cabecera,
+
+
+
+                    });
+
 
 
 

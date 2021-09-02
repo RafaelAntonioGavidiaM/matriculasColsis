@@ -218,7 +218,7 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
-                console.log(respuesta);
+                //  console.log(respuesta);
 
                 respuesta.forEach(cargarTablaAsignaturaCurso);
 
@@ -232,7 +232,7 @@ $(document).ready(function() {
                     datosCargarAsignaturaCursos.push([item.nombreCurso, docente, item.nombreAsignatura, btnAsignaturaCursos]);
                 }
 
-                console.log(datosCargarAsignaturaCursos);
+                // console.log(datosCargarAsignaturaCursos);
                 $("#tablaAsignaturaCurso").DataTable({
                     data: datosCargarAsignaturaCursos,
                     dom: 'Bfrtip',

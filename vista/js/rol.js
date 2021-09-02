@@ -48,7 +48,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
-                console.log(respuesta);
+                // console.log(respuesta);
                 var concatenar = "";
 
 
@@ -69,7 +69,7 @@ $(document).ready(function() {
                 // $("#tbodyRol").html(concatenar);
                 //alert(concatenar);
 
-                console.log(datosCargar);
+                // console.log(datosCargar);
                 $("#tablaRol").DataTable({
                     data: datosCargar,
                     dom: 'Bfrtip',

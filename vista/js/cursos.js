@@ -182,7 +182,7 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
-                console.log(respuesta);
+                // console.log(respuesta);
                 var concatentarCursos = "";
 
                 respuesta.forEach(cargarTablaCursos);
@@ -196,7 +196,7 @@ $(document).ready(function() {
                     datosCargarCursos.push([item.curso, item.nombreCurso, item.año, docente, btnCursos, concatentarCursos]);
                 }
 
-                console.log(datosCargarCursos);
+                //  console.log(datosCargarCursos);
                 $("#tablaCursos").DataTable({
                     data: datosCargarCursos,
                     dom: 'Bfrtip',

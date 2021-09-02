@@ -14,7 +14,7 @@ Periodo:
 
   <p> Seleccione el Grado:<select id="grado">
 
-    </select><button type="button" id="Seleccion" class="btn btn-default" data-dismiss="modal">Seleccionar</button></p>
+    </select><button type="button" id="Seleccion" class="btn btn-primary" data-dismiss="modal">Seleccionar</button></p>
 
 
   <p>Seleccion Asignatura: <select id="Asignaturas">
@@ -30,9 +30,9 @@ Periodo:
   <div id="opciones">
 
 
-    <button type="button" id="btnCrearNota" class="btn btn-default" data-toggle="modal">Crear Nota </button>
-    <button type="button" id="btnCrearModificar" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#modalCrearN">Modificar </button>
-    <button type="button" id="btnCrearEliminarNota" class="btn btn-default" data-dismiss="modal">Eliminar Nota</button>
+    <button type="button" id="btnCrearNota" class="btn btn-primary" data-toggle="modal">Crear Nota </button>
+    <button type="button" id="btnCrearModificar" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#modalCrearN">Modificar </button>
+    <button type="button" id="btnCrearEliminarNota" class="btn btn-primary" data-dismiss="modal">Eliminar Nota</button>
 
   </div>
   <div class="container">
@@ -81,7 +81,7 @@ Periodo:
 
           </div>
           <div class="modal-footer">
-            <button id="GuardarNota" type="button" class="btn btn-default" data-dismiss="modal">Guardar Nota</button>
+            <button id="GuardarNota" type="button" class="btn btn-primary" data-dismiss="modal">Guardar Nota</button>
           </div>
         </div>
 
@@ -92,13 +92,10 @@ Periodo:
 
   <div class="container">
     <table class="table" id="tablaNota">
-      <thead id="cabeceraNota">
+
+  
       
-
-      </thead>
-      <tbody>
-
-      </tbody>
+      
     </table>
 
   </div>
