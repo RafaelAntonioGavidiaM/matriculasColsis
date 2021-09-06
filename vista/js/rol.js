@@ -22,6 +22,7 @@ $(document).ready(function() {
             success: function(respuesta) {
 
                 alert(respuesta);
+                destruirTabla();
                 cargarRoles();
             }
         })
@@ -31,6 +32,8 @@ $(document).ready(function() {
     })
 
     function cargarRoles() {
+
+        datosCargar = [];
 
         var mensaje = "ok";
         var objData = new FormData();
@@ -45,7 +48,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
-                console.log(respuesta);
+                // console.log(respuesta);
                 var concatenar = "";
 
 
@@ -53,16 +56,48 @@ $(document).ready(function() {
 
                 function cargarTabla(item, index) {
                     var btn = '<button id="btnPermiso" class="btn btn-primary" data-toggle="modal" data-target="#mdRolModificar" nombre=' + item.nombre + ' idRol=' + item.idRol + '>Permisos </button>';
-                    concatenar += "<tr>";
-                    concatenar += "<td>" + item.nombre + "</td>";
-                    concatenar += "<td>" + btn + "</td > ";
-                    concatenar += "<td>" + '<button id="EliminarRol" type="button" class="btn btn-danger" idRol=' + item.idRol + ' ><span class="glyphicon glyphicon-remove"></span></button><button id="btnEditarNombre" type="button" class="btn btn-success" idRol=' + item.idRol + ' nombre=' + item.nombre + '  data-toggle="modal" data-target="#mdRolModificarNombre"><span class="glyphicon glyphicon-pencil"></span></button> ' + "</td>";
-                    concatenar += "</tr>";
+
+                    concatenar = '<button id="EliminarRol" type="button" class="btn btn-danger" idRol=' + item.idRol + ' ><span class="glyphicon glyphicon-remove"></span></button><button id="btnEditarNombre" type="button" class="btn btn-success" idRol=' + item.idRol + ' nombre=' + item.nombre + '  data-toggle="modal" data-target="#mdRolModificarNombre"><span class="glyphicon glyphicon-pencil"></span></button> ';
+
+
+                    datosCargar.push([item.nombre, btn, concatenar]);
+
+
 
 
                 }
-                $("#tbodyRol").html(concatenar);
+                // $("#tbodyRol").html(concatenar);
                 //alert(concatenar);
+
+                // console.log(datosCargar);
+                $("#tablaRol").DataTable({
+                    data: datosCargar,
+                    dom: 'Bfrtip',
+                    buttons: [{
+
+
+                            extend: 'copyHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        'colvis'
+                    ],
+
+                });
+
 
 
 
@@ -101,7 +136,7 @@ $(document).ready(function() {
         objData.append("idRolMod", idRolModificar);
 
         $.ajax({
-            url: "control/rolControl.php",
+            url: "control/notaControles.php",
             type: "post",
             dataType: "json",
             data: objData,
@@ -109,6 +144,8 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
+
+                destruirTabla();
 
 
                 cargarRoles();
@@ -265,6 +302,10 @@ $(document).ready(function() {
                                 'Your file has been deleted.',
                                 'success'
                             )
+                            destruirTabla();
+
+                            cargarRoles();
+
 
                         } else {
 
@@ -308,6 +349,11 @@ $(document).ready(function() {
         alert("hola");
         location.reload();
     })
+
+    function destruirTabla() {
+        tabla = $("#tablaRol").DataTable();
+        tabla.destroy();
+    }
 
 
 

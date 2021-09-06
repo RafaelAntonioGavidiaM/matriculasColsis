@@ -2,8 +2,9 @@
 
 include_once "../modelo/personalModelo.php";
 
-class personalControl{
-
+class personalControl
+{
+    // ---------->Variables
     public $idPersonal;
     public $nombre;
     public $apellidos;
@@ -18,75 +19,116 @@ class personalControl{
     public $foto;
     public $fotoAntigua;
 
-    public function ctrListarPersonal(){
+    // --------->Controles
+
+    // ------------------------------------------------------------------
+    // --------------Listar Datos de personal en la tabla----------------
+    // ------------------------------------------------------------------
+
+    public function ctrListarPersonal()
+    {
 
         $objRespuesta = persnalModelo::mdlListarPersonal();
         echo json_encode($objRespuesta);
-
     }
 
-    public function ctrListarRol(){
+    // ------------------------------------------------------------------
+    // --------------Listar Roles en el select---------------------------
+    // ------------------------------------------------------------------
+
+    public function ctrListarRol()
+    {
 
         $objRespuesta = persnalModelo::mdlListarRol();
         echo json_encode($objRespuesta);
-
-
     }
 
-    public function ctrRegistrarPerosonal(){
+    // ------------------------------------------------------------------
+    // --------------Registrar nuevo perosonal---------------------------
+    // ------------------------------------------------------------------
 
-        $objRespuesta = persnalModelo::mdlRegistrarPersonal($this->nombre,$this->apellidos,$this->documento,$this->telefono,$this->ciudad,$this->correo,$this->estado,$this->idRol,$this->direccion,$this->password,$this->foto);
+    public function ctrRegistrarPerosonal()
+    {
+
+        $objRespuesta = persnalModelo::mdlRegistrarPersonal($this->nombre, $this->apellidos, $this->documento, $this->telefono, $this->ciudad, $this->correo, $this->estado, $this->idRol, $this->direccion, $this->password, $this->foto);
         echo json_encode($objRespuesta);
-
-
     }
 
-    public function ctrDeletePersonal(){
+    // ------------------------------------------------------------------
+    // --------------Eliminar registro de personal-----------------------
+    // ------------------------------------------------------------------
 
-        $objRespuesta = persnalModelo::mdlDeletePersonal($this->idPersonal,$this->foto);
+    public function ctrDeletePersonal()
+    {
+
+        $objRespuesta = persnalModelo::mdlDeletePersonal($this->idPersonal, $this->foto);
         echo json_encode($objRespuesta);
-
     }
 
-    public function ctrModPersonal_1(){
+    // ------------------------------------------------------------------
+    // ----------Modificar personal sin cambio en la foto----------------
+    // ------------------------------------------------------------------
 
-        $objRespuesta = persnalModelo::mdlModificarPerosonalSinCambioFoto($this->idPersonal,$this->nombre,$this->apellidos,$this->documento,$this->telefono,$this->ciudad,$this->correo,$this->estado,$this->idRol,$this->direccion,$this->password,$this->foto);
+    public function ctrModPersonal_1()
+    {
+
+        $objRespuesta = persnalModelo::mdlModificarPerosonalSinCambioFoto($this->idPersonal, $this->nombre, $this->apellidos, $this->documento, $this->telefono, $this->ciudad, $this->correo, $this->estado, $this->idRol, $this->direccion, $this->password, $this->foto);
         echo json_encode($objRespuesta);
+    }
 
-        
+
+    // ------------------------------------------------------------------
+    // ----------Modificar personal con cambio en la foto----------------
+    // ------------------------------------------------------------------
+
+
+    public function ctrModPersonal_2()
+    {
+
+        $objRespuesta = persnalModelo::mdlModificarPerosonalConCambioFoto($this->idPersonal, $this->nombre, $this->apellidos, $this->documento, $this->telefono, $this->ciudad, $this->correo, $this->estado, $this->idRol, $this->direccion, $this->password, $this->foto, $this->fotoAntigua);
+        echo json_encode($objRespuesta);
+    }
+    // ------------------------------------------------------------------
+    // ----------Buscar personal por documento---------------------------
+    // ------------------------------------------------------------------
+
+    public function ctrFiltroPersonal(){
+
+
+
+
     }
 
     
-    public function ctrModPersonal_2(){
-
-        $objRespuesta = persnalModelo::mdlModificarPerosonalConCambioFoto($this->idPersonal,$this->nombre,$this->apellidos,$this->documento,$this->telefono,$this->ciudad,$this->correo,$this->estado,$this->idRol,$this->direccion,$this->password,$this->foto,$this->fotoAntigua);
-        echo json_encode($objRespuesta);
-
-        
-    }
-
-
-
-
-
-
-
 }
 
+// ------>VALIDACIOONES
+
+// ------------------------------------------------------------------
+// --------------Listar Datos de personal en la tabla----------------
+// ------------------------------------------------------------------
 
 if (isset($_POST["listaPersonal"]) == "ok") {
-    
+
     $objListarPersonal = new personalControl();
     $objListarPersonal->ctrListarPersonal();
 }
 
+// ------------------------------------------------------------------
+// --------------Listar Roles en el select---------------------------
+// ------------------------------------------------------------------
+
 if (isset($_POST["listaRoles"]) == "ok") {
-    
+
     $objListarRol = new personalControl();
     $objListarRol->ctrListarRol();
 }
 
-if (isset($_POST["nombre"])  && isset($_POST["apellido"]) && isset($_POST["documento"])  && isset($_POST["telefono"])  && isset($_POST["ciudad"])  && isset($_POST["correo"])  && isset($_POST["idRol"])  && isset($_POST["estado"])  && isset($_POST["direccion"]) && isset($_POST["password"])){
+// ------------------------------------------------------------------
+// --------------Registrar nuevo perosonal---------------------------
+// ------------------------------------------------------------------
+
+if (isset($_POST["nombre"])  && isset($_POST["apellido"]) && isset($_POST["documento"])  && isset($_POST["telefono"])  && isset($_POST["ciudad"])  && isset($_POST["correo"])  && isset($_POST["idRol"])  && isset($_POST["estado"])  && isset($_POST["direccion"]) && isset($_POST["password"])) {
 
     $objRegPersonal = new personalControl();
     $objRegPersonal->nombre = $_POST["nombre"];
@@ -101,22 +143,30 @@ if (isset($_POST["nombre"])  && isset($_POST["apellido"]) && isset($_POST["docum
     $objRegPersonal->password = $_POST["password"];
     $objRegPersonal->foto = $_FILES["foto"];
     $objRegPersonal->ctrRegistrarPerosonal();
-
 }
 
-if (isset($_POST["idDeletePersonal"]) && isset($_POST["deleteFoto"])){
+// ------------------------------------------------------------------
+// --------------Eliminar registro de personal-----------------------
+// ------------------------------------------------------------------
+
+if (isset($_POST["idDeletePersonal"]) && isset($_POST["deleteFoto"])) {
 
     $objDeletePersonal =  new personalControl();
     $objDeletePersonal->idPersonal = $_POST["idDeletePersonal"];
     $objDeletePersonal->foto = $_POST["deleteFoto"];
     $objDeletePersonal->ctrDeletePersonal();
-
 }
 
-if ( isset($_POST["opcion1"]) == "fotoNormal") {
+
+// ------------------------------------------------------------------
+// ----------Modificar personal sin cambio en la foto----------------
+// ------------------------------------------------------------------
+
+
+if (isset($_POST["opcion1"]) == "fotoNormal") {
 
     $objModPersonal =  new personalControl();
-    $objModPersonal->idPersonal = $_POST["idModPersonal"];   
+    $objModPersonal->idPersonal = $_POST["idModPersonal"];
     $objModPersonal->nombre = $_POST["modNombre"];
     $objModPersonal->apellidos = $_POST["modApellido"];
     $objModPersonal->documento = $_POST["modDocumento"];
@@ -128,14 +178,17 @@ if ( isset($_POST["opcion1"]) == "fotoNormal") {
     $objModPersonal->direccion = $_POST["modDireccion"];
     $objModPersonal->password = $_POST["modPassword"];
     $objModPersonal->foto = $_POST["modFoto"];
-    $objModPersonal-> ctrModPersonal_1();
-
+    $objModPersonal->ctrModPersonal_1();
 }
 
-if ( isset($_POST["opcion2"]) == "fotoArray"){
+// ------------------------------------------------------------------
+// ----------Modificar personal con cambio en la foto----------------
+// ------------------------------------------------------------------
+
+if (isset($_POST["opcion2"]) == "fotoArray") {
 
     $objModPersonal =  new personalControl();
-    $objModPersonal->idPersonal = $_POST["idModPersonal"];   
+    $objModPersonal->idPersonal = $_POST["idModPersonal"];
     $objModPersonal->nombre = $_POST["modNombre"];
     $objModPersonal->apellidos = $_POST["modApellido"];
     $objModPersonal->documento = $_POST["modDocumento"];
@@ -148,11 +201,16 @@ if ( isset($_POST["opcion2"]) == "fotoArray"){
     $objModPersonal->password = $_POST["modPassword"];
     $objModPersonal->foto = $_FILES["modFoto"];
     $objModPersonal->fotoAntigua = $_POST["fotoAnterior"];
-    $objModPersonal-> ctrModPersonal_2();
-
-
+    $objModPersonal->ctrModPersonal_2();
 }
 
+// ------------------------------------------------------------------
+// ----------Buscar personal por documento---------------------------
+// ------------------------------------------------------------------
 
-
-
+if (isset($_POST["filtroDocumento"])) {
+    
+    $objFiltroDocumento= new personalControl();
+    $objFiltroDocumento->documento = $_POST["filtroDocumento"];
+    $objFiltroDocumento->ctrFiltroPersonal();
+}

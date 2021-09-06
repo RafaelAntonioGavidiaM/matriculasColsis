@@ -1,8 +1,11 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     listarPersonal();
     listarRoles(1);
 
+    // ------------------------------------------------------------------
+    // --------------------listar Personal en la tabla-------------------
+    // ------------------------------------------------------------------
 
     function listarPersonal() {
 
@@ -18,9 +21,9 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
-                console.log(respuesta);
+                // console.log(respuesta);
                 var interface = "";
                 respuesta.forEach(listarPersonal)
 
@@ -60,6 +63,10 @@ $(document).ready(function () {
 
     }
 
+    // ------------------------------------------------------------------
+    // --------------------listar Roles en los select--------------------
+    // ------------------------------------------------------------------
+
     function listarRoles(opcion, id, principal) {
 
         var listaRoles = "ok";
@@ -74,7 +81,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
                 if (opcion == 1) {
 
@@ -116,16 +123,25 @@ $(document).ready(function () {
 
     }
 
-    $("#btnRegPersonal").click(function () {
+    // ------------------------------------------------------------------
+    // -Cargar roles en el btnRegPersonal para la modal de registrar-----
+    // ------------------------------------------------------------------
+
+    $("#btnRegPersonal").click(function() {
 
         listarRoles(1);
 
     })
 
 
+    // ------------------------------------------------------------------
+    // ----------------Modificar los datos de Personal-------------------
+    // ------------------------------------------------------------------
+
+
     var idPersonal = "";
     var foto = "";
-    $("#tablaPersonal").on("click", "#btnEditarPersonal", function () {
+    $("#tablaPersonal").on("click", "#btnEditarPersonal", function() {
 
         //listarRoles(2);
         $("#modRol").html("");
@@ -168,7 +184,7 @@ $(document).ready(function () {
     })
 
 
-    $("#btnModificarPersonal").click(function () {
+    $("#btnModificarPersonal").click(function() {
         alert("hola")
         var idRol = document.getElementById("modRol").value;
         var estado = document.getElementById("modEstadosPersonal").value;
@@ -191,7 +207,7 @@ $(document).ready(function () {
             rutaFoto = foto;
             opcion1 = "fotoNormal";
 
-           
+
 
         } else {
 
@@ -201,7 +217,7 @@ $(document).ready(function () {
             opcion2 = "fotoArray";
         }
 
-        
+
         if (nombre == "" || apellido == "" || documento == "" || telefono == "" || ciudad == "" || correo == "" || direccion == "" || password == "") {
 
             Swal.fire({
@@ -248,7 +264,7 @@ $(document).ready(function () {
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function (respuesta) {
+                success: function(respuesta) {
 
                     listarPersonal();
 
@@ -265,7 +281,12 @@ $(document).ready(function () {
         }
     })
 
-    $("#btnNewPersonal").click(function () {
+
+    // ------------------------------------------------------------------
+    // --------------------Registrar nuevo personal----------------------
+    // ------------------------------------------------------------------
+
+    $("#btnNewPersonal").click(function() {
 
         var idRol = document.getElementById("regRol").value;
         var estado = document.getElementById("esatodosPersonal").value;
@@ -303,7 +324,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
                 listarPersonal();
 
@@ -320,7 +341,12 @@ $(document).ready(function () {
         })
     })
 
-    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function () {
+
+    // ------------------------------------------------------------------
+    // ------------------Eliminar regsitro de personal-------------------
+    // ------------------------------------------------------------------
+
+    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function() {
 
 
         idPersonal = $(this).attr("idPersonal");
@@ -358,7 +384,7 @@ $(document).ready(function () {
                     cache: false,
                     contentType: false,
                     processData: false,
-                    success: function (respuesta) {
+                    success: function(respuesta) {
                         if (respuesta == "ok") {
                             swalWithBootstrapButtons.fire(
                                 'Eliminado!',
@@ -380,4 +406,72 @@ $(document).ready(function () {
             }
         })
     })
+
+    // ------------------------------------------------------------------
+    // --------------Buscar Personal Por documento-----------------------
+    // ------------------------------------------------------------------
+
+    $("#btnBuscarPersonal").click(function() {
+
+        var documento = $("#btnBuscarPersonal").val();
+
+        var objData = new FormData();
+        objData.append("filtroDocumento", documento);
+
+        $.ajax({
+            url: "control/personalControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+
+
+                console.log(respuesta);
+                var interface = "";
+                respuesta.forEach(listarPersonal)
+
+                function listarPersonal(item, index) {
+
+                    interface += '<tr>';
+                    interface += '<td>' + item.nombre + '</td>';
+                    interface += '<td>' + item.apellido + '</td>';
+                    interface += '<td>' + item.documento + '</td>';
+                    interface += '<td>' + item.telefono + '</td>';
+                    interface += '<td>' + item.ciudad + '</td>';
+                    interface += '<td>' + item.correo + '</td>';
+                    interface += '<td>' + item.estado + '</td>';
+                    interface += '<td>' + item.nombreRol + '</td>';
+                    interface += '<td>' + item.direccion + '</td>';
+                    interface += '<td>' + item.password + '</td>';
+                    interface += '<td><img src="' + item.foto + '" high="40" width="40"></td>';
+                    interface += '<td>'
+                    interface += '<div class = "btn-group">'
+                    interface += '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditarPersonal" idPersonal="' + item.idPersonal + '" nombre="' + item.nombre + '" apellido="' + item.apellido + '" documento="' + item.documento + '" telefono="' + item.telefono + '" ciudad="' + item.ciudad + '" correo="' + item.correo + '" estado="' + item.estado + '" idRol="' + item.idRol + '" nombreRol="' + item.nombreRol + '"  direccion="' + item.direccion + '" password="' + item.password + '" foto="' + item.foto + '" data-toggle="modal" data-target="#ventanaModPersonal"><span class="glyphicon glyphicon-pencil"></span></button>'
+                    interface += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnEliminarPersonal" idPersonal="' + item.idPersonal + '" foto="' + item.foto + '"><span class="glyphicon glyphicon-remove"></span></button>';
+                    interface += '</tr>';
+
+                }
+
+                $("#bodyPersonal").html(interface);
+
+            }
+        })
+
+
+
+
+
+
+
+    })
+
+
+
+    // ------------------------------------------------------------------
+    // --------------Vaciar campos de registrar y modificar--------------
+    // ------------------------------------------------------------------
 })

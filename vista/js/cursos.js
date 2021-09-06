@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    cargarDocentes();
+    cargarDocentes(1);
+
 
     /*--------------------------------------------------------------------------------------------------------*/
     /*--------------------------------------------CARGAR DATOS CURSOS-----------------------------------------*/
@@ -44,47 +45,20 @@ $(document).ready(function() {
                         } else {
 
                             concatenar += '<option value="' + item.idPersonal + '">' + item.nombre + " " + item.apellido + '</option>';
-
-
                         }
 
 
 
 
                     }
-
                     $("#txtModPersonalSelect").html(principal + concatenar);
-
                 }
-
-
-
-
             }
         })
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     cargarDatos();
     $("#btnCrearCursos").click(function() {
-        alert("HolaMundo");
         var curso = $("#txtCurso").val();
         var nombreCurso = $("#txtNombreCurso").val();
         var año = $("#txtAño").val();
@@ -112,9 +86,25 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                destruirTablaCursos()
                 cargarDatos();
             }
         })
+    })
+
+
+    /*--------------------------------------------------------------------------------------------------------*/
+    /*-------------------------------------LIMPIAR DATOS AL DAR CREAR CURSOS----------------------------------*/
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    $("#btnCursos").click(function() {
+
+
+        $("#txtCurso").val("");
+        $("#txtNombreCurso").val("");
+        $("#txtRegApellidos").val("");
+        $("#txtAño").val("");
+
     })
 
     /*--------------------------------------------------------------------------------------------------------*/
@@ -178,6 +168,7 @@ $(document).ready(function() {
 
     function cargarDatos() {
         var listaCursos = "ok";
+        var datosCargarCursos = [];
         var objListaCursos = new FormData();
         objListaCursos.append("listaCursos", listaCursos);
 
@@ -191,28 +182,57 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
-                var interface = '';
+                // console.log(respuesta);
+                var concatentarCursos = "";
+
                 respuesta.forEach(cargarTablaCursos);
 
                 function cargarTablaCursos(item, index) {
-                    interface += '<tr>';
 
-                    interface += '<td>' + item.curso + '</td>';
-                    interface += '<td>' + item.nombreCurso + '</td>';
-                    interface += '<td>' + item.año + '</td>';
-                    interface += '<td>' + item.nombre + " " + item.apellido + '</td>';
-                    interface += '<td>';
-                    interface += '<div class="btn-group">';
-                    interface += '<button type="button" class="btn btn-warning" title="Editar" id="btn-editarCursos" idCurso="' + item.idCurso + '"  curso="' + item.curso + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idDocente + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdCursosModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
-                    interface += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarCursos"><span class="glyphicon glyphicon-trash"></span></button>';
-                    interface += '</div>';
-                    interface += '</td>';
-                    interface += '</tr>';
+                    var btnCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarCursos" idCurso="' + item.idCurso + '"  curso="' + item.curso + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idDocente + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdCursosModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
+                    btnCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarCursos" idCurso="' + item.idCurso + '"  imagen="' + item.imagen + '"><span class="glyphicon glyphicon-trash"></span></button>';
+                    var docente = item.nombre + item.apellido;
+
+                    datosCargarCursos.push([item.curso, item.nombreCurso, item.año, docente, btnCursos, concatentarCursos]);
                 }
 
-                $("#tbodyCursos").html(interface);
+                //  console.log(datosCargarCursos);
+                $("#tablaCursos").DataTable({
+                    data: datosCargarCursos,
+                    dom: 'Bfrtip',
+                    buttons: [{
+                            extend: 'copyHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        'colvis'
+                    ],
+
+                });
             }
         })
+    }
+
+    /*--------------------------------------------------------------------------------------------------------*/
+    /*------------------------------------------FUNCION DESTUIR TABLA--------------------------------------------*/
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    function destruirTablaCursos() {
+        tabla = $("#tablaCursos").DataTable();
+        tabla.destroy();
     }
 
     /*--------------------------------------------------------------------------------------------------------*/
@@ -220,15 +240,18 @@ $(document).ready(function() {
     /*--------------------------------------------------------------------------------------------------------*/
 
     $("#btnModCursos").click(function() {
+
         var curso = $("#txtModCurso").val();
         var nombreCurso = $("#txtModNombreCurso").val();
         var año = $("#txtModAño").val();
-        var docente = $("#modDocenteSelect").val();
+        var docente = document.getElementById("txtModPersonalSelect").value;
+        var objData = new FormData();
 
-        objData.append("ModCurso", curso);
-        objData.append("ModNombreCurso", nombreCurso);
-        objData.append("ModAño", año);
+        objData.append("modCurso", curso);
+        objData.append("modNombreCurso", nombreCurso);
+        objData.append("modAño", año);
         objData.append("modDocenteSelect", docente);
+        objData.append("modIdCurso", idCurso);
         $.ajax({
             url: "control/cursosControl.php",
             type: "post",
@@ -246,26 +269,24 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                destruirTablaCursos()
                 cargarDatos();
 
             }
         })
     })
 
+    var idCurso = 0
+        /*--------------------------------------------------------------------------------------------------------*/
+        /*-----------------------------------------EDITAR DATOS CURSOS--------------------------------------------*/
+        /*--------------------------------------------------------------------------------------------------------*/
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*-----------------------------------------EDITAR DATOS CURSOS--------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
-
-    $("#tablaCursos").on("click", "#btn-editarCursos", function() {
-
-        alert("hola mundo");
+    $("#tbodyCursos").on("click", "#btn-editarCursos", function() {
 
 
 
-
-        var idCurso = $(this).attr("idCurso");
-        var curso = $(this).attr("modelo");
+        idCurso = $(this).attr("idCurso");
+        var curso = $(this).attr("curso");
         var nombreCurso = $(this).attr("nombreCurso");
         var año = $(this).attr("año");
         var idDocente = $(this).attr("idDocente");
@@ -277,10 +298,9 @@ $(document).ready(function() {
 
 
 
-        $("#txtModModelo").val(curso);
-        $("#txtModColor").val(nombreCurso);
-        $("#txtModPlaca").val(año);
-        $("#btnModCarro").attr("idCarro", idCurso);
+        $("#txtModCurso").val(curso);
+        $("#txtModNombreCurso").val(nombreCurso);
+        $("#txtModAño").val(año);
 
     })
 
@@ -288,7 +308,7 @@ $(document).ready(function() {
     /*---------------------------------------------ELIMINAR DATOS---------------------------------------------*/
     /*--------------------------------------------------------------------------------------------------------*/
 
-    $("#tablaCursos").on("click", "#btn-eliminarCursos", function() {
+    $("#tbodyCursos").on("click", "#btn-eliminarCursos", function() {
 
         Swal.fire({
             title: '¿Estas seguro?',
@@ -322,7 +342,7 @@ $(document).ready(function() {
                                 'Your file has been deleted.',
                                 'success'
                             )
-
+                            destruirTablaCursos()
                             cargarDatos();
                         }
                     }

@@ -1,10 +1,12 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Creacion de Cursos</h1>
-    <p>Crea y administra los cursos de esta Institución.</p>
-  </div>
+  <center>
+    <div class="jumbotron">
+      <h1>Creacion de Cursos</h1>
+      <p>Crea y administra los cursos de esta Institución.</p>
+    </div>
+  </center>
 
-  <button id="btnCursos" class="btn btn-primary" data-toggle="modal" data-target="#mdCursos"> Crear Cursos</button>
+  <button id="btnCursos" class="btn btn-success" data-toggle="modal" data-target="#mdCursos"> Crear Cursos</button>
 
   <!-- Modal -->
   <br><br><br><br><br>
@@ -16,7 +18,7 @@
         <br>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">¡Registro Cursos!</h4>
+          <h4 class="modal-title">¡Registrar Cursos!</h4>
         </div>
         <div class="modal-body">
           <form>
@@ -46,7 +48,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="btnCrearCursos" class="btn btn-default" data-dismiss="modal">Crear Cursos</button>
+          <button type="button" class="btn btn-success" id="btnCrearCursos" class="btn btn-default" data-dismiss="modal">Crear Cursos</button>
         </div>
       </div>
 
@@ -78,7 +80,7 @@
 
               <div class="form-group">
                 <label for="txtModAño">AÑO</label>
-                <input type="text" class="form-control" id="tModAño">
+                <input type="text" class="form-control" id="txtModAño">
               </div>
 
               <div class="form-group">
@@ -93,7 +95,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="btnModCursos" class="btn btn-default" data-dismiss="modal">Modificar Cursos</button>
+          <button type="button" class="btn btn-success" id="btnModCursos" class="btn btn-default" data-dismiss="modal">Modificar Cursos</button>
         </div>
       </div>
 
@@ -101,21 +103,21 @@
   </div>
 
   
-  <table id="tablaCursos" class="table">
+  <table id="tablaCursos" class="table table-hover  table-striped">
     <thead class="cabeceraTablaCurso">
       <tr>
         <th>CURSO</th>
         <th>NOMBRE CURSO</th>
         <th>AÑO</th>
-        <th>DOCENTE</th>
+        <th>DIRECTOR DE CURSO</th>
         <th>ACCIONES</th>
       </tr>
     </thead>
     <tbody id="tbodyCursos">
-
+    
     </tbody>
   </table>
   
-  
+  <br><br>
 
 </div>
