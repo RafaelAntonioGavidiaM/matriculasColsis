@@ -1,0 +1,40 @@
+#headerReporte {
+  width: 100%;
+  position: relative;
+  height: 700px;
+  background: #009fff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+      to right,
+      rgba(62, 66, 64, 0.678),
+      rgba(62, 66, 64, 0.678)
+    ),
+    url("../imgs/reportes.png"); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+      to right,
+      rgba(62, 66, 64, 0.678),
+      rgba(62, 66, 64, 0.678)
+    ),
+    url("../imgs/reportes.png"); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+.wave {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+.texto {
+  align-items: center;
+  justify-content: center;
+}
+
+.caja {
+  padding-top: 230px;
+  color: cornsilk;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+}
+#h1rf {
+  font-size: 50px;
+}
