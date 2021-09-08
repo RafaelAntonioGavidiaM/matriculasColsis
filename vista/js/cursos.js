@@ -86,6 +86,7 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                destruirTablaCursos()
                 cargarDatos();
             }
         })
@@ -167,6 +168,7 @@ $(document).ready(function() {
 
     function cargarDatos() {
         var listaCursos = "ok";
+        var datosCargarCursos = [];
         var objListaCursos = new FormData();
         objListaCursos.append("listaCursos", listaCursos);
 
@@ -180,28 +182,57 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
-                var interface = '';
+                // console.log(respuesta);
+                var concatentarCursos = "";
+
                 respuesta.forEach(cargarTablaCursos);
 
                 function cargarTablaCursos(item, index) {
-                    interface += '<tr>';
 
-                    interface += '<td>' + item.curso + '</td>';
-                    interface += '<td>' + item.nombreCurso + '</td>';
-                    interface += '<td>' + item.año + '</td>';
-                    interface += '<td>' + item.nombre + " " + item.apellido + '</td>';
-                    interface += '<td>';
-                    interface += '<div class="btn-group">';
-                    interface += '<button type="button" class="btn btn-warning" title="Editar" id="btn-editarCursos" idCurso="' + item.idCurso + '"  curso="' + item.curso + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idDocente + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdCursosModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
-                    interface += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarCursos" idCurso="' + item.idCurso + '"  imagen="' + item.imagen + '"><span class="glyphicon glyphicon-trash"></span></button>';
-                    interface += '</div>';
-                    interface += '</td>';
-                    interface += '</tr>';
+                    var btnCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarCursos" idCurso="' + item.idCurso + '"  curso="' + item.curso + '" nombreCurso="' + item.nombreCurso + '" año="' + item.año + '" idDocente="' + item.idDocente + '"  nombreDocente="' + item.nombre + " " + item.apellido + '" data-toggle="modal" data-target="#mdCursosModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
+                    btnCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarCursos" idCurso="' + item.idCurso + '"  imagen="' + item.imagen + '"><span class="glyphicon glyphicon-trash"></span></button>';
+                    var docente = item.nombre + item.apellido;
+
+                    datosCargarCursos.push([item.curso, item.nombreCurso, item.año, docente, btnCursos, concatentarCursos]);
                 }
 
-                $("#tbodyCursos").html(interface);
+                //  console.log(datosCargarCursos);
+                $("#tablaCursos").DataTable({
+                    data: datosCargarCursos,
+                    dom: 'Bfrtip',
+                    buttons: [{
+                            extend: 'copyHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        'colvis'
+                    ],
+
+                });
             }
         })
+    }
+
+    /*--------------------------------------------------------------------------------------------------------*/
+    /*------------------------------------------FUNCION DESTUIR TABLA--------------------------------------------*/
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    function destruirTablaCursos() {
+        tabla = $("#tablaCursos").DataTable();
+        tabla.destroy();
     }
 
     /*--------------------------------------------------------------------------------------------------------*/
@@ -214,8 +245,6 @@ $(document).ready(function() {
         var nombreCurso = $("#txtModNombreCurso").val();
         var año = $("#txtModAño").val();
         var docente = document.getElementById("txtModPersonalSelect").value;
-        alert("este es docente" + " " + docente);
-
         var objData = new FormData();
 
         objData.append("modCurso", curso);
@@ -240,6 +269,7 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                destruirTablaCursos()
                 cargarDatos();
 
             }
@@ -253,7 +283,7 @@ $(document).ready(function() {
 
     $("#tbodyCursos").on("click", "#btn-editarCursos", function() {
 
-        alert("Hola");
+
 
         idCurso = $(this).attr("idCurso");
         var curso = $(this).attr("curso");
@@ -312,7 +342,7 @@ $(document).ready(function() {
                                 'Your file has been deleted.',
                                 'success'
                             )
-
+                            destruirTablaCursos()
                             cargarDatos();
                         }
                     }

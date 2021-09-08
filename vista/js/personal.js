@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     listarPersonal();
     listarRoles(1);
@@ -21,7 +21,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
                 var dataSet = [];
                 // console.log(respuesta);
@@ -139,7 +139,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
                 if (opcion == 1) {
 
@@ -185,7 +185,7 @@ $(document).ready(function () {
     // -Cargar roles en el btnRegPersonal para la modal de registrar-----
     // ------------------------------------------------------------------
 
-    $("#btnRegPersonal").click(function () {
+    $("#btnRegPersonal").click(function() {
 
         $("#txtRegNombres").val("");
         $("#txtRegApellidos").val("");
@@ -209,7 +209,7 @@ $(document).ready(function () {
 
     var idPersonal = "";
     var foto = "";
-    $("#tablaPersonal").on("click", "#btnEditarPersonal", function () {
+    $("#tablaPersonal").on("click", "#btnEditarPersonal", function() {
 
         //listarRoles(2);
         $("#modRol").html("");
@@ -252,7 +252,7 @@ $(document).ready(function () {
     })
 
 
-    $("#btnModificarPersonal").click(function () {
+    $("#btnModificarPersonal").click(function() {
         alert("hola")
         var idRol = document.getElementById("modRol").value;
         var estado = document.getElementById("modEstadosPersonal").value;
@@ -332,7 +332,7 @@ $(document).ready(function () {
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function (respuesta) {
+                success: function(respuesta) {
 
 
 
@@ -356,7 +356,7 @@ $(document).ready(function () {
     // --------------------Registrar nuevo personal----------------------
     // ------------------------------------------------------------------
 
-    $("#btnNewPersonal").click(function () {
+    $("#btnNewPersonal").click(function() {
 
         var idRol = document.getElementById("regRol").value;
         var estado = document.getElementById("esatodosPersonal").value;
@@ -394,7 +394,7 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function (respuesta) {
+            success: function(respuesta) {
 
                 if (respuesta == "ok") {
                     Swal.fire({
@@ -419,7 +419,7 @@ $(document).ready(function () {
     // ------------------Eliminar regsitro de personal-------------------
     // ------------------------------------------------------------------
 
-    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function () {
+    $("#tablaPersonal").on("click", "#btnEliminarPersonal", function() {
 
 
         idPersonal = $(this).attr("idPersonal");
@@ -457,7 +457,7 @@ $(document).ready(function () {
                     cache: false,
                     contentType: false,
                     processData: false,
-                    success: function (respuesta) {
+                    success: function(respuesta) {
                         if (respuesta == "ok") {
                             swalWithBootstrapButtons.fire(
                                 'Eliminado!',
