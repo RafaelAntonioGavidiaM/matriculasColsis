@@ -38,11 +38,7 @@ if ($_SESSION == null) {
 
                 include_once "vista/modulos/cabecera.php";
 
-<<<<<<< HEAD
-                if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante"  ||  $_GET["ruta"] == "cursos" ||  $_GET["ruta"] == "reporte") {
-=======
-                if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante" ||  $_GET["ruta"] == "cursos" ||  $_GET["ruta"] == "nota" ||  $_GET["ruta"] == "asignaturacurso" ) {
->>>>>>> 098f483fed15ac45a99bcf04f125366963d56898
+                if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante" ||  $_GET["ruta"] == "cursos" ||  $_GET["ruta"] == "nota" ||  $_GET["ruta"] == "asignaturacurso") {
 
 
                     include_once "vista/modulos/" . $_GET["ruta"] . ".php";
