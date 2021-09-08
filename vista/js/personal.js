@@ -23,33 +23,78 @@ $(document).ready(function () {
             processData: false,
             success: function (respuesta) {
 
-                console.log(respuesta);
+                var dataSet = [];
+                // console.log(respuesta);
                 var interface = "";
                 respuesta.forEach(listarPersonal)
 
                 function listarPersonal(item, index) {
 
-                    interface += '<tr>';
-                    interface += '<td>' + item.nombre + '</td>';
-                    interface += '<td>' + item.apellido + '</td>';
-                    interface += '<td>' + item.documento + '</td>';
-                    interface += '<td>' + item.telefono + '</td>';
-                    interface += '<td>' + item.ciudad + '</td>';
-                    interface += '<td>' + item.correo + '</td>';
-                    interface += '<td>' + item.estado + '</td>';
-                    interface += '<td>' + item.nombreRol + '</td>';
-                    interface += '<td>' + item.direccion + '</td>';
-                    interface += '<td>' + item.password + '</td>';
-                    interface += '<td><img src="' + item.foto + '" high="40" width="40"></td>';
-                    interface += '<td>'
-                    interface += '<div class = "btn-group">'
-                    interface += '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditarPersonal" idPersonal="' + item.idPersonal + '" nombre="' + item.nombre + '" apellido="' + item.apellido + '" documento="' + item.documento + '" telefono="' + item.telefono + '" ciudad="' + item.ciudad + '" correo="' + item.correo + '" estado="' + item.estado + '" idRol="' + item.idRol + '" nombreRol="' + item.nombreRol + '"  direccion="' + item.direccion + '" password="' + item.password + '" foto="' + item.foto + '" data-toggle="modal" data-target="#ventanaModPersonal"><span class="glyphicon glyphicon-pencil"></span></button>'
-                    interface += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnEliminarPersonal" idPersonal="' + item.idPersonal + '" foto="' + item.foto + '"><span class="glyphicon glyphicon-remove"></span></button>';
-                    interface += '</tr>';
+
+                    var foto = '<img src="' + item.foto + '" high="40" width="40">';
+
+                    var objBotones = '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditarPersonal" idPersonal="' + item.idPersonal + '" nombre="' + item.nombre + '" apellido="' + item.apellido + '" documento="' + item.documento + '" telefono="' + item.telefono + '" ciudad="' + item.ciudad + '" correo="' + item.correo + '" estado="' + item.estado + '" idRol="' + item.idRol + '" nombreRol="' + item.nombreRol + '"  direccion="' + item.direccion + '" password="' + item.password + '" foto="' + item.foto + '" data-toggle="modal" data-target="#ventanaModPersonal"><span class="glyphicon glyphicon-pencil"></span></button>'
+                    objBotones += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnEliminarPersonal" idPersonal="' + item.idPersonal + '" foto="' + item.foto + '"><span class="glyphicon glyphicon-remove"></span></button>';
+
+
+                    dataSet.push([item.nombre, item.apellido, item.documento, item.telefono, item.ciudad, item.correo, item.estado, item.nombreRol, item.direccion, item.password, foto, objBotones])
+
 
                 }
 
-                $("#bodyPersonal").html(interface);
+
+                $('#tablaPersonal').DataTable({
+                    data: dataSet,
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        exportOptions: {
+
+                            colums: [0, ':visible']
+
+                        }
+                    },
+
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+
+                            colums: [0, ':visible']
+
+                        }
+                    },
+
+
+
+                        'colvis'
+
+                    ],
+
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No data available in table",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                        "infoEmpty": "Showing 0 to 0 of 0 entries",
+                        "infoFiltered": "(filtered from _MAX_ total entries)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Show _MENU_ entries",
+                        "loadingRecords": "Loading...",
+                        "processing": "Processing...",
+                        "search": "Buscar:",
+                        "zeroRecords": "No se encuentro registros con el criterio de busqueda",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        }
+                    }
+                });
 
 
 
@@ -58,6 +103,19 @@ $(document).ready(function () {
         })
 
 
+
+
+
+    }
+
+    // ------------------------------------------------------------------
+    // --------------------funcion de destruir la tabla--------------------
+    // ------------------------------------------------------------------
+
+    function iniciarTabla() {
+
+        var tabla = $("#tablaPersonal").DataTable();
+        tabla.destroy();
 
 
 
@@ -129,11 +187,21 @@ $(document).ready(function () {
 
     $("#btnRegPersonal").click(function () {
 
+        $("#txtRegNombres").val("");
+        $("#txtRegApellidos").val("");
+        $("#txtRegDocumeto").val("");
+        $("#txtRegTelefono").val("");
+        $("#txtRegCiudad").val("");
+        $("#txtRegCorreo").val("");
+        $("#txtRegDireccion").val("");
+        $("#txtRegPassword").val("");
+        $("txtRegFoto").val("");
+
         listarRoles(1);
 
     })
 
-    
+
     // ------------------------------------------------------------------
     // ----------------Modificar los datos de Personal-------------------
     // ------------------------------------------------------------------
@@ -266,7 +334,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (respuesta) {
 
-                    listarPersonal();
+
 
                     Swal.fire({
                         position: 'top-end',
@@ -276,12 +344,14 @@ $(document).ready(function () {
                         timer: 1500
                     })
 
+                    listarPersonal();
+                    iniciarTabla();
                 }
             })
         }
     })
 
-    
+
     // ------------------------------------------------------------------
     // --------------------Registrar nuevo personal----------------------
     // ------------------------------------------------------------------
@@ -326,22 +396,25 @@ $(document).ready(function () {
             processData: false,
             success: function (respuesta) {
 
-                listarPersonal();
+                if (respuesta == "ok") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Registro Exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    iniciarTabla();
+                    listarPersonal();
+                }
 
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Registro Exitoso',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
 
-                listarPersonal();
+
             }
         })
     })
 
-    
+
     // ------------------------------------------------------------------
     // ------------------Eliminar regsitro de personal-------------------
     // ------------------------------------------------------------------
@@ -391,8 +464,22 @@ $(document).ready(function () {
                                 'Registro eliminado exitosamente.',
                                 'success'
                             )
+                            iniciarTabla();
+                            listarPersonal();
+                        } else if (respuesta == "error") {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Este usuario presenta relaciones',
+                                text: 'Cancelado!',
+
+                            })
+
+
+
                         }
-                        listarPersonal();
+
+
                     }
                 })
             } else if (
@@ -407,70 +494,8 @@ $(document).ready(function () {
         })
     })
 
-    // ------------------------------------------------------------------
-    // --------------Buscar Personal Por documento-----------------------
-    // ------------------------------------------------------------------
-
-    $("#btnBuscarPersonal").click(function(){
-
-        var documento = $("#btnBuscarPersonal").val();
-
-        var objData = new FormData();
-        objData.append("filtroDocumento",documento);
-        
-        $.ajax({
-            url: "control/personalControl.php",
-            type: "post",
-            dataType: "json",
-            data: objData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (respuesta) {
-
-               
-
-                console.log(respuesta);
-                var interface = "";
-                respuesta.forEach(listarPersonal)
-
-                function listarPersonal(item, index) {
-
-                    interface += '<tr>';
-                    interface += '<td>' + item.nombre + '</td>';
-                    interface += '<td>' + item.apellido + '</td>';
-                    interface += '<td>' + item.documento + '</td>';
-                    interface += '<td>' + item.telefono + '</td>';
-                    interface += '<td>' + item.ciudad + '</td>';
-                    interface += '<td>' + item.correo + '</td>';
-                    interface += '<td>' + item.estado + '</td>';
-                    interface += '<td>' + item.nombreRol + '</td>';
-                    interface += '<td>' + item.direccion + '</td>';
-                    interface += '<td>' + item.password + '</td>';
-                    interface += '<td><img src="' + item.foto + '" high="40" width="40"></td>';
-                    interface += '<td>'
-                    interface += '<div class = "btn-group">'
-                    interface += '<button type="button" class="btn btn-warning" title="Editar"  id="btnEditarPersonal" idPersonal="' + item.idPersonal + '" nombre="' + item.nombre + '" apellido="' + item.apellido + '" documento="' + item.documento + '" telefono="' + item.telefono + '" ciudad="' + item.ciudad + '" correo="' + item.correo + '" estado="' + item.estado + '" idRol="' + item.idRol + '" nombreRol="' + item.nombreRol + '"  direccion="' + item.direccion + '" password="' + item.password + '" foto="' + item.foto + '" data-toggle="modal" data-target="#ventanaModPersonal"><span class="glyphicon glyphicon-pencil"></span></button>'
-                    interface += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnEliminarPersonal" idPersonal="' + item.idPersonal + '" foto="' + item.foto + '"><span class="glyphicon glyphicon-remove"></span></button>';
-                    interface += '</tr>';
-
-                }
-
-                $("#bodyPersonal").html(interface);
-
-            }
-        })
 
 
-
-
-
-
-
-    })
-
-
-    
     // ------------------------------------------------------------------
     // --------------Vaciar campos de registrar y modificar--------------
     // ------------------------------------------------------------------

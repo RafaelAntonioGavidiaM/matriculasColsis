@@ -33,10 +33,12 @@
   <!-- diseño modulo -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
   <script src="vista/js/cursos.js"></script>
+  <script src="vista/js/asignatura.js"></script>
 
 
 

@@ -4,6 +4,12 @@ class conexion{
 
 
     public static function conectar(){
+
+        
+        // $nombreServidor="localhost";
+        // $baseDatos="dbcolsis";
+        // $usuarioServidor="root";
+        // $password="";
      
         $nombreServidor="35.225.225.25";
         $baseDatos="dbcolsis";

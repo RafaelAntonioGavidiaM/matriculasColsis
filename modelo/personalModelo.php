@@ -102,7 +102,7 @@ class persnalModelo
         $mensaje = "";
         // ---------------->VALIDACIONES
         // En caso de que el registro no tenga alguna foto asignada entrara por el siguiente if y realizara un delete comun y corriente
-        if ($deleteFoto == "") {
+        if ($deleteFoto == "" || $deleteFoto == "null" || $deleteFoto == null) {
 
             try {
                 $objRespuesta = conexion::conectar()->prepare("DELETE FROM personal WHERE idPersonal='$idPersonal'");
@@ -111,13 +111,13 @@ class persnalModelo
                 if ($objRespuesta->execute()) {
                     $mensaje = "ok";
                 } else {
-                    $mesnaje = "error";
+                    $mensaje = "error";
                 }
 
                 $objRespuesta = null;
             } catch (Exception $e) {
 
-                $mesanje = $e;
+                $mensaje = "error";
             }
         } else {
             // si no entro por el anterior if hara el siguienete proceso eliminara la foto registrada anteriormente de la carpeta asignada del proyecto gracias al unlink
@@ -131,13 +131,13 @@ class persnalModelo
                     if ($objRespuesta->execute()) {
                         $mensaje = "ok";
                     } else {
-                        $mesnaje = "error";
+                        $mensaje = "error";
                     }
 
                     $objRespuesta = null;
                 } catch (Exception $e) {
 
-                    $mesanje = $e;
+                    $mensaje = "error";
                 }
             } else {
 
