@@ -1,58 +1,134 @@
 $(document).ready(function () {
 
+    iniciarTabla();
     cargarEstudiantes();
-    cargarAcudiente(1);
     cargarComboCurso(1);
     cargarComboCursoFiltro(1);
 
     $("#btnRegEstudiante").show();
     $("#btnModEstudiante").hide();
+    $("#moduloImagen").hide();
 
-    //cargar Acudiente en el combo
-    function cargarAcudiente(opcion, principal, idAcudiente) {
-        var cargarAcudiente = "ok";
-        var objcargarAcudiente = new FormData();
-        objcargarAcudiente.append("cargarAcudiente", cargarAcudiente);
-        $.ajax({
-            url: "control/estudianteControl.php",
-            type: "post",
-            dataType: "json",
-            data: objcargarAcudiente,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (respuesta) {
+    //cargar aucudiente
 
-                if (opcion == 1) {
-                    $("#selectAcudiente").html("");
-                    respuesta.forEach(cargarSelectAcudientes);
+    function autocompletarAcudiente() {
+        const inputAcudiente = document.querySelector('#selectAcudiente');
+        let indexFocus = -1;
 
-                    function cargarSelectAcudientes(item, index) {
-                        $("#selectAcudiente").append('<option value="' + item.idAcudiente + '">' + item.nombre + '</option>');
-                    }
+        inputAcudiente.addEventListener("input", function () {
 
-                } else if (opcion == 2) {
-                    var concatenar = "";
-                    respuesta.forEach(cargarSelectAcudientes);
+            const tipoAcudiente = this.value;
+            if (!tipoAcudiente) return false;
 
-                    function cargarSelectAcudientes(item, index) {
-                        if (item.idAcudiente == idAcudiente) {
+            cerraLista();
+            //creat lista
+            const divList = document.createElement("div");
+            divList.setAttribute("id", this.id + "-lista-autocompletar");
+            divList.setAttribute("class", "lista-autocompletar-items");
+            this.parentNode.appendChild(divList);
 
-                        } else {
-                            concatenar = '<option value="' + item.idAcudiente + '">' + item.nombre + '</option>';
+            //conexion a Bd
 
-                        }
+            httpRequest('control/itemsAcudienteControlador.php?auto-acudiente=' + tipoAcudiente, function () {
 
-                    }
+                const arr = JSON.parse(this.responseText);
+                console.log(arr);
+                //validar arreglo
 
-                    $("#selectAcudiente").html(principal + concatenar);
+                if (arr.length == 0) return false;
+
+
+
+                if (arr != null) {
+
+                    const elementoLista = document.createElement("div");
+                    // elementoLista.innerHTML = `<strong>${item.substr(0, tipoAcudiente.length)}</strong>${item.substr(tipoAcudiente.length)}`;
+                    var id = arr[0];
+                    var nombre = arr[1];
+                    var apellido = arr[2];
+                    elementoLista.innerHTML = `<strong>${nombre + ' ' + apellido}</strong>`;
+                    elementoLista.addEventListener('click', function () {
+                        inputAcudiente.value = this.innerText;
+                        $("#selectAcudiente").attr("idAcudiente", id);
+                        cerraLista();
+                        return false;
+                    })
+                    divList.appendChild(elementoLista);
 
                 }
+            });
+        });
 
 
+        inputAcudiente.addEventListener('keydown', function (e) {
+
+            const divList = document.querySelector('#' + this.id + '-lista-autocompletar');
+            let items;
+
+            if (divList) {
+                items = divList.querySelectorAll('div');
+                switch (e.keyCode) {
+
+                    case 40:
+                        indexFocus++;
+                        if (indexFocus > items.length - 1) indexFocus = items.length = 1;
+                        break;
+
+                    case 38:
+                        indexFocus--;
+                        if (indexFocus < 0) indexFocus = 0;
+                        break;
+
+                    case 13:
+                        e.preventDefault();
+                        items[indexFocus].click();
+                        indexFocus = -1;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                seleccionar(items, indexFocus);
+                return false;
             }
-        })
+
+        });
+
+        document.addEventListener('click', function () {
+            cerraLista()
+        });
+
     }
+    autocompletarAcudiente();
+
+    function seleccionar(items, indexFocus) {
+        if (!items || indexFocus == -1) return false;
+        items.forEach(x => { x.classList.remove('autocompletar-active') });
+        items[indexFocus].classList.add('autocompletar-active');
+    }
+
+    function cerraLista() {
+        const items = document.querySelectorAll('.lista-autocompletar-items')
+        items.forEach(item => {
+            item.parentNode.removeChild(item);
+        });
+        indexFocus = -1;
+    }
+
+    function httpRequest(url, callback) {
+        const http = new XMLHttpRequest();
+        http.open('GET', url);
+        http.send();
+
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                callback.apply(http);
+            }
+        }
+    }
+
+
 
     //cargar Curso en el combo
     function cargarComboCurso(opcion, principal, idCurso) {
@@ -99,8 +175,8 @@ $(document).ready(function () {
 
 
             }
-        })
-    }
+        });
+    };
 
     //Regristrar estudiante
 
@@ -114,8 +190,9 @@ $(document).ready(function () {
         var tipoSangre = $("#selectTS").val();
         var seguroEstudiantil = $("#txtSeguroE").val();
         var telefono = $("#txtTelefono").val();
-        var idAcudiente = document.getElementById("selectAcudiente").value;
+        var idAcudiente = $("#selectAcudiente").attr("idAcudiente");
         var idCurso = document.getElementById("selectCurso").value;
+        var foto = document.getElementById("txtFoto").files[0];
 
 
         var objDatRegistrarUsuario = new FormData();
@@ -129,6 +206,7 @@ $(document).ready(function () {
         objDatRegistrarUsuario.append("telefono", telefono);
         objDatRegistrarUsuario.append("acudiente", idAcudiente);
         objDatRegistrarUsuario.append("curso", idCurso);
+        objDatRegistrarUsuario.append("foto", foto);
 
         $.ajax({
             url: "control/estudianteControl.php",
@@ -148,6 +226,7 @@ $(document).ready(function () {
                     });
                     cargarEstudiantes();
                     BlanquearCampos();
+                    iniciarTabla();
                 } else {
                     swal({
                         title: "Error!",
@@ -158,9 +237,9 @@ $(document).ready(function () {
                 }
 
             }
-        })
+        });
 
-    })
+    });
 
     //listar Estudiante
 
@@ -177,39 +256,89 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (respuesta) {
-                var interface = '';
+                var dataSet = [];
                 var contadorFilas = 0;
                 respuesta.forEach(cargarListaEstudiantes);
 
                 function cargarListaEstudiantes(item, index) {
                     contadorFilas += 1;
-                    interface += '<tr>';
-                    interface += '<td>' + contadorFilas + '</td>';
-                    interface += '<td>' + item.nombres + '</td>';
-                    interface += '<td>' + item.apellidos + '</td>';
-                    interface += '<td>' + item.documento + '</td>';
-                    interface += '<td>' + item.tipoDocumento + '</td>';
-                    interface += '<td>' + item.fechaNacimiento + '</td>';
-                    interface += '<td>' + item.tipoSangre + '</td>';
-                    interface += '<td>' + item.seguroEstudiantil + '</td>';
-                    interface += '<td>' + item.telefono + '</td>';
-                    interface += '<td>' + item.nombre + " " + item.apellido + '</td>';
-                    interface += '<td>' + item.nombreCurso + '</td>';
-                    interface += '<td>';
 
-                    interface += '<div class="btn-group">';
-                    interface += '<button id="btnEditarEstudiante" type="button" class="btn btn-warning" title="editar" idEstudiante="' + item.idEstudiante + '" nombres="' + item.nombres + '" apellidos="' + item.apellidos + '" documento="' + item.documento + '" tipoDocumento="' + item.tipoDocumento + '" fechaNacimiento="' + item.fechaNacimiento + '"  tipoSangre="' + item.tipoSangre + '" seguroEstudiantil="' + item.seguroEstudiantil + '" telefono="' + item.telefono + '" idAcudiente="' + item.idAcudiente + '" idCurso="' + item.idCurso + '"  nombreAcudiente="' + item.nombre + " " + item.apellido + '"  nombreCurso="' + item.nombreCurso + '" ><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-pencil"></span></button>';
-                    interface += '<button id="btnEliminarEstudiante" type="button" class="btn btn-danger" title="eliminar" idEstudiante="' + item.idEstudiante + '"><span style="width:5px; height:5px; padding:0px;    " class="glyphicon glyphicon-remove"></span></button>';
-                    interface += '</div>';
-                    interface += '</td>';
-                    interface += '</tr>';
+                    var objBotones = '<button id="btnEditarEstudiante" type="button" class="btn btn-warning" title="editar" idEstudiante="' + item.idEstudiante + '" nombres="' + item.nombres + '" apellidos="' + item.apellidos + '" documento="' + item.documento + '" tipoDocumento="' + item.tipoDocumento + '" fechaNacimiento="' + item.fechaNacimiento + '"  tipoSangre="' + item.tipoSangre + '" seguroEstudiantil="' + item.seguroEstudiantil + '" telefono="' + item.telefono + '" idAcudiente="' + item.idAcudiente + '" idCurso="' + item.idCurso + '"  nombreAcudiente="' + item.nombre + " " + item.apellido + '"  nombreCurso="' + item.nombreCurso + '" url="' + item.url + '" ><span style="width:5px; height:5px; padding:0px;" class="glyphicon glyphicon-pencil"></span></button>';
+                    objBotones += '<button id="btnEliminarEstudiante" type="button" class="btn btn-danger" title="eliminar" idEstudiante="' + item.idEstudiante + '" url="' + item.url + '"><span style="width:5px; height:5px; padding:0px;    " class="glyphicon glyphicon-remove"></span></button>';
+                    var interface = '<td><img src="' + item.url + '"high="70" width="80"></td>';
+
+                    dataSet.push([contadorFilas, item.nombres, item.apellidos, item.documento, item.tipoDocumento, item.fechaNacimiento, item.tipoSangre, item.seguroEstudiantil, item.telefono, item.nombre + " " + item.apellido, item.nombreCurso, interface, objBotones])
                 }
 
-                $("#bodyEstudiantes").html(interface);
+                $('#tablaEstudiantes').DataTable({
+                    data: dataSet,
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                        'colvis'
+                    ],
+                    "scrollX": true,
+
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "info": "Mostrando de _START_ a _END_ de _TOTAL_ de registros",
+                        "infoEmpty": "Mostrando 0 a 0 of de registros",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "No se encontraron registros coincidentes",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending": ": activar para ordenar la columna ascendente",
+                            "sortDescending": ": activar para ordenar la columna descendente"
+                        }
+                    }
+                });
 
             }
-        })
+        });
+    };
+
+    function iniciarTabla() {
+
+        var tabla = $("#tablaEstudiantes").DataTable();
+        tabla.destroy();
+
     }
+
+
 
     $("#btnFiltrarCurso").click(function () {
 
@@ -263,15 +392,16 @@ $(document).ready(function () {
             }
 
 
-        })
+        });
 
-    })
+    });
 
     $("#btnListaCompleta").click(function () {
 
         cargarEstudiantes();
+        iniciarTabla();
 
-    })
+    });
 
     function cargarComboCursoFiltro(opcion, principal, idCurso) {
         var cargarCursoFiltro = "ok";
@@ -314,12 +444,15 @@ $(document).ready(function () {
                 }
 
             }
-        })
-    }
+        });
+    };
 
+    var foto = "";
     $("#tablaEstudiantes").on("click", "#btnEditarEstudiante", function () {
 
         $("#btnModEstudiante").show();
+        $("#btnRegEstudiante").hide();
+        $("#moduloImagen").fadeIn();
 
         var nombreAcudiente = $(this).attr("nombreAcudiente");
         var nombreCurso = $(this).attr("nombreCurso");
@@ -335,6 +468,10 @@ $(document).ready(function () {
         var idAcudiente = $(this).attr("idAcudiente");
         var idCurso = $(this).attr("idCurso");
         var idEstudiante = $(this).attr("idEstudiante");
+        foto = $(this).attr("url");
+
+        $("#imagenActual").attr("src", foto);
+
 
         $("#txtNombre").val(nombres);
         $("#txtApellido").val(apellidos);
@@ -350,13 +487,15 @@ $(document).ready(function () {
 
         cargarAcudiente(2, principal, idAcudiente);
         cargarComboCurso(2, principalCurso, idCurso);
+        $("#txtFoto").val(foto);
 
-        $("#btnRegEstudiante").hide();
 
-    })
-
+    });
 
     $("#btnModEstudiante").click(function () {
+
+        $("#btnModEstudiante").show();
+        $("#moduloImagen").fadeOut();
 
         var nombres = $("#txtNombre").val();
         var apellidos = $("#txtApellido").val();
@@ -369,9 +508,45 @@ $(document).ready(function () {
         var idAcudiente = $("#selectAcudiente").val();
         var idCurso = $("#selectCurso").val();
         var idEstudiante = $(this).attr("estudiante");
+        var rutaFoto = "";
+        var opcion1 = "";
+        var opcion2 = "";
+        var fotoAnterior = "";
+
+        if ($("#txtFoto").val() == null || $("#txtFoto").val() == "") {
+
+            rutaFoto = foto;
+            opcion1 = "fotoNormal";
+            console.log(rutaFoto);
+
+
+
+        } else {
+
+            var fotoNueva = document.getElementById("txtFoto").files[0];
+            rutaFoto = fotoNueva;
+            fotoAnterior = foto;
+            alert(fotoAnterior);
+            opcion2 = "fotoArray";
+        }
+
+        $("#imagenNueva").attr("src", rutaFoto);
 
 
         var objData = new FormData();
+
+        if (opcion1 = "fotoNormal" && opcion2 == "") {
+
+            objData.append("opcion1", opcion1);
+            console.log("foto original");
+
+        } else if (opcion2 = "fotoArray" && opcion1 == "") {
+
+            objData.append("opcion2", opcion2);
+            console.log("foto array");
+
+        };
+
         objData.append("editarNombres", nombres);
         objData.append("editarApellidos", apellidos);
         objData.append("editarDocumento", documento);
@@ -383,6 +558,8 @@ $(document).ready(function () {
         objData.append("editarIdAcudiente", idAcudiente);
         objData.append("editarIdCurso", idCurso);
         objData.append("idEstudiante", idEstudiante);
+        objData.append("modFoto", rutaFoto);
+        objData.append("fotoAnterior", fotoAnterior);
 
         $.ajax({
             url: "control/estudianteControl.php",
@@ -401,8 +578,11 @@ $(document).ready(function () {
                         icon: "success",
                         button: "Aceptar",
                     });
+
+                    iniciarTabla();
                     cargarEstudiantes();
                     BlanquearCampos();
+
                     $("#btnRegEstudiante").show();
                     $("#btnModEstudiante").hide();
                 } else {
@@ -412,12 +592,14 @@ $(document).ready(function () {
                         icon: "error",
                         button: "Aceptar",
                     });
-                }
+                };
 
             }
-        })
+        });
 
-    })
+        $("#btnRegEstudiante").hide();
+
+    });
 
     $("#tablaEstudiantes").on("click", "#btnEliminarEstudiante", function () {
         swal({
@@ -431,9 +613,11 @@ $(document).ready(function () {
                 if (willDelete) {
 
                     var idEstudiante = $(this).attr("idEstudiante");
-                    var objData = new FormData();
+                    var foto = $(this).attr("url");
 
+                    var objData = new FormData();
                     objData.append("eliminarEstudiante", idEstudiante);
+                    objData.append("url", foto);
 
                     $.ajax({
                         url: "control/estudianteControl.php",
@@ -450,8 +634,10 @@ $(document).ready(function () {
                             });
 
                             cargarEstudiantes();
-
+                            iniciarTabla();
                         }
+
+
                     })
 
                 } else {
@@ -459,8 +645,7 @@ $(document).ready(function () {
                 }
 
             });
-
-    })
+    });
 
     function BlanquearCampos() {
         $("#txtNombre").val("");
@@ -474,6 +659,61 @@ $(document).ready(function () {
         $("#selectAcudiente").val("Seleccionar Acudiente");
         $("#selectCurso").val("Seleccionar Curso");
 
-    }
+    };
 
-})
+    $("#txtFoto").click(function () {
+        $("#txtFoto").animate({ width: 561 });
+        $('.col-sm-12').removeClass('col-sm-12');
+        $("#txtFoto").addClass('col-sm-6');
+        
+        function archivo(evt) {
+            var files = evt.target.files;
+
+            for (var i = 0, f; f = files[i]; i++) {
+
+                if (!f.type.match('image.*')) {
+                    continue;
+                };
+
+                var reader = new FileReader();
+
+                reader.onload = (function (theFile) {
+                    return function (e) {
+
+                        document.getElementById("list2").innerHTML = ['<img class="thumb" id="imagenNueva" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                    };
+                })(f);
+
+                reader.readAsDataURL(f);
+            };
+        };
+
+        document.getElementById('txtFoto').addEventListener('change', archivo, false);
+
+    });
+
+    function archivo(evt) {
+        var files = evt.target.files;
+
+        for (var i = 0, f; f = files[i]; i++) {
+
+            if (!f.type.match('image.*')) {
+                continue;
+            };
+
+            var reader = new FileReader();
+
+            reader.onload = (function (theFile) {
+                return function (e) {
+
+                    document.getElementById("list").innerHTML = ['<img class="thumb" id="imagenNueva" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                };
+            })(f);
+
+            reader.readAsDataURL(f);
+        };
+    };
+
+    document.getElementById('txtFoto').addEventListener('change', archivo, false);
+
+});

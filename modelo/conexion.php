@@ -1,6 +1,7 @@
 <?php
 
-class conexion{
+class conexion
+{
 
 
     public static function conectar(){
@@ -18,14 +19,12 @@ class conexion{
 
         try {
 
-            $objConexion = new PDO('mysql:host='.$nombreServidor.';dbname='.$baseDatos.';',$usuarioServidor,$password); //instanciar conexion
+            $objConexion = new PDO('mysql:host=' . $nombreServidor . ';dbname=' . $baseDatos . ';', $usuarioServidor, $password); //instanciar conexion
             $objConexion->exec("set names utf8");
-
         } catch (Exception $e) {
-            $objConexion=$e;
+            $objConexion = $e;
         }
-        
-        return $objConexion;
 
+        return $objConexion;
     }
 }

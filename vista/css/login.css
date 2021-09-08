@@ -58,6 +58,7 @@ input[type="text"] {
   color: white;
   font-family: "Ubuntu", sans-serif;
   font-size: 15px;
+  outline: none;
 }
 
 input[type="password"] {
@@ -71,6 +72,7 @@ input[type="password"] {
   color: white;
   font-family: "Ubuntu", sans-serif;
   font-size: 15px;
+  outline: none;
 }
 
 #ingresar {
@@ -164,6 +166,7 @@ footer {
   border-radius: 50%;
   border-left-color: rgb(39, 216, 107);
   border-right-color: rgb(39, 216, 107);
+  
 
   animation: spin 1s ease infinite;
 }
