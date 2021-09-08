@@ -8,7 +8,7 @@ class conexion
 
         
         $nombreServidor="localhost";
-        $baseDatos="dbcolsis";
+        $baseDatos="colsissena";
         $usuarioServidor="root";
         $password="";
      

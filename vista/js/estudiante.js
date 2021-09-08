@@ -661,37 +661,6 @@ $(document).ready(function () {
 
     };
 
-    $("#txtFoto").click(function () {
-        $("#txtFoto").animate({ width: 561 });
-        $('.col-sm-12').removeClass('col-sm-12');
-        $("#txtFoto").addClass('col-sm-6');
-        
-        function archivo(evt) {
-            var files = evt.target.files;
-
-            for (var i = 0, f; f = files[i]; i++) {
-
-                if (!f.type.match('image.*')) {
-                    continue;
-                };
-
-                var reader = new FileReader();
-
-                reader.onload = (function (theFile) {
-                    return function (e) {
-
-                        document.getElementById("list2").innerHTML = ['<img class="thumb" id="imagenNueva" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
-                    };
-                })(f);
-
-                reader.readAsDataURL(f);
-            };
-        };
-
-        document.getElementById('txtFoto').addEventListener('change', archivo, false);
-
-    });
-
     function archivo(evt) {
         var files = evt.target.files;
 
