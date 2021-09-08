@@ -56,11 +56,16 @@
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'>
 =======
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
+<<<<<<< HEAD
 >>>>>>> 098f483fed15ac45a99bcf04f125366963d56898
+=======
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
+>>>>>>> origin
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
   <script src="vista/js/cursos.js"></script>
+  <script src="vista/js/asignatura.js"></script>
   <script src="vista/js/nota.js"></script>
   <script src="vista/js/asignaturaCurso.js"></script>
 

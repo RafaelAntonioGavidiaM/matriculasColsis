@@ -1,73 +1,96 @@
 <body>
 
-  <!-- ---------------------------------------- -->
-  <!-- -------------jUMBOTRON------------------ -->
-  <!-- ---------------------------------------- -->
 
-  <div class="container-fluid text-center">
-    <div class="jumbotron">
-      <h1>Personal</h1>
-      <p>Apertado para adminsitracion del personal de trabajo.</p>
-    </div>
-  </div>
-  <!-- ---------------------------------------- -->
-  <!-- ------------Filtro de personal---------- -->
-  <!-- ---------------------------------------- -->
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10">
-        <div class="form-group">
-          <label for="txtBuscarPersonal">Buscar Personal</label>
-          <input type="text" class="form-control" placeholder="Ingrese Documento" id="txtBuscarPersonal">
+  <header class="headerPersonal">
+    <div class="container">
+      <div class="texto">
+        <div class="caja">
+          <h1 id="h1rf">Personal</h1>
         </div>
       </div>
-      <div class="col-lg-2">
-
-        <br><br>
-        <button id="btnBuscarPersonal"type="button" class="btn btn-info" title="Buscar"><span class="glyphicon glyphicon-search "></span></button>'
-
-      </div>
-
     </div>
+    <div class="wave" style="height: 150px; overflow: hidden;">
+      <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+        <path d="M-4.22,101.14 C240.12,148.52 305.58,54.77 503.10,122.86 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #fff;"></path>
+      </svg>
+    </div>
+  </header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="margenes">
+
+
+    <!-- ---------------------------------------- -->
+    <!-- -------------jUMBOTRON------------------ -->
+    <!-- ---------------------------------------- -->
+
+    <!-- <div class="container-fluid text-center margenes">
+      <div class="jumbotron">
+        <h1>Personal</h1>
+        <p>Apertado para adminsitracion del personal de trabajo.</p>
+      </div>
+    </div> -->
+
+
+    <!-- ---------------------------------------- -->
+    <!-- -------------tabla de perosnal---------- -->
+    <!-- ---------------------------------------- -->
+
+    <div class="container-fluid margenes">
+      <div class="row">
+        <div class="col-lg-12">
+          <button id="btnRegPersonal" type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#ventanaRegPersonal">Registrar Nuevo personal</button>
+
+          <br><br>
+        </div>
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <center>
+                <h1>👨🏼‍🔧Personal👨🏼‍🔬</h1>
+              </center>
+            </div>
+            <div class="panel-body">
+
+              <table id="tablaPersonal" class="table">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Apelldios</th>
+                    <th>Documento</th>
+                    <th>Telefono</th>
+                    <th>Ciudad</th>
+                    <th>Correo</th>
+                    <th>Estado</th>
+                    <th>Rol</th>
+                    <th>Direccion</th>
+                    <th>Password</th>
+                    <th>Foto</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <!-- -------------cuerpo de la tabla de personal---------- -->
+                <tbody id="bodyPersonal">
+                </tbody>
+              </table>
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
 
   </div>
 
-  <!-- ---------------------------------------- -->
-  <!-- -------------tabla de perosnal---------- -->
-  <!-- ---------------------------------------- -->
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-2">
-        <br><br><br><br><br>
-        <button id="btnRegPersonal" type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ventanaRegPersonal">Registrar Nuevo personal</button>
-      </div>
-      <div class="col-lg-10">
-        <table id="tablaPersonal" class="table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Apelldios</th>
-              <th>Documento</th>
-              <th>Telefono</th>
-              <th>Ciudad</th>
-              <th>Correo</th>
-              <th>Estado</th>
-              <th>Rol</th>
-              <th>Direccion</th>
-              <th>Password</th>
-              <th>Foto</th>
-            </tr>
-          </thead>
-          <!-- -------------cuerpo de la tabla de personal---------- -->
-          <tbody id="bodyPersonal">
-          </tbody>
-        </table>
-
-      </div>
-    </div>
-  </div>
 
 
   <!-- ---------------------------------------- -->
@@ -156,7 +179,7 @@
 
           <!-- pie de modal de rigsitro personal -->
           <div class="modal-footer">
-            <button id="btnNewPersonal" type="button" class="btn btn-success" data-dismiss="modal">Registrar</button>
+            <button id="btnNewPersonal" type="button" class="btn btn-success" data-dismiss="modal">Registrar💾</button>
           </div>
         </div>
 
@@ -253,7 +276,7 @@
 
           <!-- pie de modal de Modificar Personal -->
           <div class="modal-footer">
-            <button id="btnModificarPersonal" type="button" class="btn btn-success" data-dismiss="modal">Modificar</button>
+            <button id="btnModificarPersonal" type="button" class="btn btn-success" data-dismiss="modal">Modificar💾</button>
           </div>
         </div>
 
