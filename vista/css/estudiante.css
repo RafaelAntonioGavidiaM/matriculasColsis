@@ -274,7 +274,6 @@ p {
   object-fit: cover;
   margin: 10px 10px 10px 10px;
   border: rgb(39, 216, 107) solid 3px;
-  position: relative;
   padding: 5px 5px 5px 5px;
   animation: movimiento 2.5s linear infinite;
   
@@ -286,7 +285,6 @@ p {
   object-fit: cover;
   margin: 10px 10px 10px 10px;
   border: rgb(39, 216, 107) solid 3px;
-  position: relative;
   padding: 5px 5px 5px 5px;
   animation: movimiento 2.5s linear infinite;
   
@@ -337,7 +335,4 @@ color: white;
 }
 .autocompletar-active strong{
   color: rgb(0, 0, 0);
-}
-.col-sm-12{
-  margin-bottom: 20px;
 }
