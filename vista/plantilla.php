@@ -14,14 +14,6 @@ if ($_SESSION == null) {
     $objPermisos = rolModelo::mdlConsultaPermisosIdRol($idConsulta);
     $_SESSION["permisos"] = $objPermisos;
 
-
-
-
-
-
-
-
-
     $contador = 0;
     //$ruta = $_GET["ingreso"];
 

@@ -3,7 +3,7 @@
     <center>
         <div class="jumbotron">
             <h1>HORARIO DE CLASES</h1>
-            <p>¡Crea y administra el horario de clases de esta institución!</p>
+            <p>✏️📚¡Crea y administra el horario de clases de esta institución!📚✏️</p>
         </div>
     </center>
 
@@ -35,10 +35,18 @@
 
                     <div class="form-group">
                         <label for="txtDia">DÍA</label>
-                        <select type="text" class="form-control" id="diaSelect">
-                            <p id="cargar"></p>
+                        <select name="select">
+                            <option value="Domingo">Domingo</option>
+                            <option value="Lunes" selected>Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miercoles">Miercoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sabado">Sabado</option>
                         </select>
                     </div>
+
+
 
                     <div class="form-group">
                         <label for="txtHoraInicio">HORA INICIO</label>
@@ -87,6 +95,8 @@
                             <th>MIERCOLES</th>
                             <th>JUEVES</th>
                             <th>VIERNES</th>
+                            <th>SABADO</th>
+                            <th>DOMINGO</th>
                         </tr>
                     </thead>
                     <tbody id="tbodyHorario">
