@@ -1,3 +1,4 @@
+
 <?php
 
 include_once "../modelo/estudianteModelo.php";
@@ -15,13 +16,8 @@ class estudiantesControl
     public $telefono;
     public $idAcudiente;
     public $idCurso;
-
-    //combo Acudiente
-    public function ctrListarAcudientes()
-    {
-        $objRespuesta = modeloEstudiantes::mdlListarAcudientes();
-        echo json_encode($objRespuesta);
-    }
+    public $foto;
+    public $fotoAntigua;
 
     //combo curso
 
@@ -39,7 +35,7 @@ class estudiantesControl
     //CRUD ESTUDIANTE
     public function ctrRegistrarEstudiantes()
     {
-        $objRespuesta = modeloEstudiantes::mdlRegistrarEstudiantes($this->nombres, $this->apellidos, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso);
+        $objRespuesta = modeloEstudiantes::mdlRegistrarEstudiantes($this->nombres, $this->apellidos, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso, $this->foto);
         echo json_encode($objRespuesta);
     }
 
@@ -54,25 +50,22 @@ class estudiantesControl
         $objRespuesta = modeloEstudiantes::mdlFiltrarCursos($this->idCurso);
         echo json_encode($objRespuesta);
     }
-
-    public function ctrModificarEstudiantes()
+    public function ctrModificarEstudiantes1()
     {
-        $objRespuesta = modeloEstudiantes::mdlModificarEstudiantes($this->nombres, $this->apellidos, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso, $this->idEstudiante);
+        $objRespuesta = modeloEstudiantes::mdlModificarPerosonalSinCambioFoto($this->idEstudiante, $this->nombres, $this->apellidos, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso, $this->foto);
+        echo json_encode($objRespuesta);
+    }
+    public function ctrModificarEstudiantes2()
+    {
+        $objRespuesta = modeloEstudiantes::mdlModificarPerosonalConCambioFoto($this->idEstudiante, $this->nombres, $this->apellidos, $this->documento, $this->tipoDocumento, $this->fechaNacimiento, $this->tipoSangre, $this->seguroEstudiantil, $this->telefono, $this->idAcudiente, $this->idCurso,  $this->foto, $this->fotoAntigua);
         echo json_encode($objRespuesta);
     }
 
     public function ctrEliminarEstudiantes()
     {
-        $objRespuesta = modeloEstudiantes::mdlEliminarEstudiantes($this->idEstudiante);
+        $objRespuesta = modeloEstudiantes::mdlEliminarEstudiantes($this->idEstudiante, $this->foto);
         echo json_encode($objRespuesta);
     }
-}
-
-//combo Acudiente
-
-if (isset($_POST["cargarAcudiente"]) == "cargarAcudiente") {
-    $objListarAcudientes = new estudiantesControl();
-    $objListarAcudientes->ctrListarAcudientes();
 }
 
 //combo Curso
@@ -102,6 +95,7 @@ if (isset($_POST["nombres"]) && isset($_POST["apellidos"]) && isset($_POST["docu
     $objEstudiantes->telefono = $_POST["telefono"];
     $objEstudiantes->idAcudiente = $_POST["acudiente"];
     $objEstudiantes->idCurso = $_POST["curso"];
+    $objEstudiantes->foto = $_FILES["foto"];
     $objEstudiantes->ctrRegistrarEstudiantes();
 }
 
@@ -116,7 +110,7 @@ if (isset($_POST["cargarEstudiante"]) == "ok") {
     $objEstudiantes->ctrListarEstudiantes();
 }
 
-if (isset($_POST["editarNombres"]) && isset($_POST["editarApellidos"]) && isset($_POST["editarDocumento"]) && isset($_POST["editarTipoDocumento"]) && isset($_POST["editarFechaNacimiento"]) && isset($_POST["editarTipoSangre"]) && isset($_POST["editarSeguroEstudiantil"]) && isset($_POST["editarTelefono"]) && isset($_POST["editarIdAcudiente"]) && isset($_POST["editarIdCurso"]) && isset($_POST["idEstudiante"])) {
+if (isset($_POST["opcion1"]) == "fotoNormal") {
     $objEstudiantes = new estudiantesControl();
     $objEstudiantes->nombres = $_POST["editarNombres"];
     $objEstudiantes->apellidos = $_POST["editarApellidos"];
@@ -129,11 +123,30 @@ if (isset($_POST["editarNombres"]) && isset($_POST["editarApellidos"]) && isset(
     $objEstudiantes->idAcudiente = $_POST["editarIdAcudiente"];
     $objEstudiantes->idCurso = $_POST["editarIdCurso"];
     $objEstudiantes->idEstudiante = $_POST["idEstudiante"];
-    $objEstudiantes->ctrModificarEstudiantes();
+    $objEstudiantes->foto = $_POST["modFoto"];
+    $objEstudiantes->ctrModificarEstudiantes1();
 }
 
-if (isset($_POST["eliminarEstudiante"])) {
+if (isset($_POST["opcion2"]) == "fotoArray") {
+    $objEstudiantes = new estudiantesControl();
+    $objEstudiantes->nombres = $_POST["editarNombres"];
+    $objEstudiantes->apellidos = $_POST["editarApellidos"];
+    $objEstudiantes->documento = $_POST["editarDocumento"];
+    $objEstudiantes->tipoDocumento = $_POST["editarTipoDocumento"];
+    $objEstudiantes->fechaNacimiento = $_POST["editarFechaNacimiento"];
+    $objEstudiantes->tipoSangre = $_POST["editarTipoSangre"];
+    $objEstudiantes->seguroEstudiantil = $_POST["editarSeguroEstudiantil"];
+    $objEstudiantes->telefono = $_POST["editarTelefono"];
+    $objEstudiantes->idAcudiente = $_POST["editarIdAcudiente"];
+    $objEstudiantes->idCurso = $_POST["editarIdCurso"];
+    $objEstudiantes->idEstudiante = $_POST["idEstudiante"];
+    $objEstudiantes->foto = $_FILES["modFoto"];
+    $objEstudiantes->fotoAntigua = $_POST["fotoAnterior"];
+    $objEstudiantes->ctrModificarEstudiantes2();
+}
+if (isset($_POST["eliminarEstudiante"]) && isset($_POST["url"])) {
     $objEstudiantes = new estudiantesControl();
     $objEstudiantes->idEstudiante = $_POST["eliminarEstudiante"];
+    $objEstudiantes->foto = $_POST["url"];
     $objEstudiantes->ctrEliminarEstudiantes();
 }
