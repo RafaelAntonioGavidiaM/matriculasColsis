@@ -90,12 +90,54 @@ Periodo:
 
   </div>
 
-  <div class="container">
-    <table class="table" id="tablaNota">
+  <br><br><br><br><br>
 
-  
-      
-      
+  <div class="container">
+    <table class="table table-bordered" id="tablaNota">
+
+
+      <thead >
+        
+        <tr id="cabecera"></tr>
+
+        
+
+
+      </thead>
+
+      <tbody id="cuerpoTabla">
+
+      </tbody>
+
+
+
+
+
+
+
     </table>
 
   </div>
+
+  <div id="editarNota" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="tituloModal"></h4>
+      </div>
+      <div class="modal-body">
+
+
+      <div id="contenedorNotas"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+

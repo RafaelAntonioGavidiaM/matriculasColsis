@@ -196,7 +196,7 @@ class notaModelo{
         }
         
 
-        $objConsultaNotas=conexion::conectar()->prepare("select idCursoF,idAsignaturaF,cod_Estudiante, Nombre,Apellidos,".$concatenar." from (select nota.idCurso as idCursoF ,asignatura.idasignatura as idAsignaturaF,estudiante.idEstudiante as cod_Estudiante, estudiante.nombres as Nombre,estudiante.apellidos as Apellidos,asignatura.nombreAsignatura as Asignatura,nota.nombreNota as Nnota,asignaturanota.nota as Calificacion from asignaturanota inner join estudiante on asignaturanota.idEstudiante=estudiante.idEstudiante inner join nota on asignaturanota.idNota=nota.idNota inner join asignatura on nota.idAsignatura=asignatura.idAsignatura where nota.idCurso=".$idCurso." and nota.idAsignatura=".$idAsignatura." and nota.idPeriodo=".$idPeriodo.") as tb group by Nombre ");
+        $objConsultaNotas=conexion::conectar()->prepare("select idAsignaturaNota, idCursoF,idAsignaturaF,cod_Estudiante, Nombre,Apellidos,".$concatenar." from (select asignaturanota.idAsignaturaNota as idAsignaturaNota, nota.idCurso as idCursoF ,asignatura.idasignatura as idAsignaturaF,estudiante.idEstudiante as cod_Estudiante, estudiante.nombres as Nombre,estudiante.apellidos as Apellidos,asignatura.nombreAsignatura as Asignatura,nota.nombreNota as Nnota,asignaturanota.nota as Calificacion from asignaturanota inner join estudiante on asignaturanota.idEstudiante=estudiante.idEstudiante inner join nota on asignaturanota.idNota=nota.idNota inner join asignatura on nota.idAsignatura=asignatura.idAsignatura where nota.idCurso=".$idCurso." and nota.idAsignatura=".$idAsignatura." and nota.idPeriodo=".$idPeriodo.") as tb group by Nombre ");
 
         $objConsultaNotas->execute();
 
@@ -210,6 +210,14 @@ class notaModelo{
 
 
 
+    } 
+    public static function mdlConsultarNotasAeditar(int $idEstudiante,int $idCurso,int $idAsignatura)//trae los datos para cargarlos en la modal 
+    {
+       $objConsulta=conexion::conectar()->prepare("select asignaturanota.idAsignaturaNota,nota.idNota,nota.nombreNota,asignaturanota.nota from asignaturanota inner join nota on nota.idNota=asignaturanota.idNota inner join estudiante on asignaturanota.idEstudiante =estudiante.idEstudiante where estudiante.idEstudiante=".$idEstudiante." and nota.idAsignatura=".$idAsignatura." and nota.idCurso=".$idCurso." and nota.estadoNota=1");
+       $objConsulta->execute();
+       $lista=$objConsulta->fetchAll();
+       $objConsulta=null;
+       return $lista;
     }
 
     

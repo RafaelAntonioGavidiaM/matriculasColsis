@@ -6,6 +6,7 @@ class notaControl{
     public $nombreNota;
     public $asignatura;
     public $permiso;
+    public $idEstudiante;
     
            
     
@@ -70,6 +71,13 @@ class notaControl{
 
 
     }
+    public function ctrlCargarNotasAeditar(){
+        $objRespuesta= notaModelo::mdlConsultarNotasAeditar($this->idEstudiante,$this->idCurso,$this->asignatura);
+        echo json_encode($objRespuesta);
+
+
+
+    }
    
 
 
@@ -129,6 +137,19 @@ if(isset($_POST["MAsignatura"]) && isset($_POST["MGrado"])){
 
 
 }
+
+if(isset($_POST["cidEstudiante"]) && isset($_POST["cidCurso"]) && isset($_POST["casignatura"])){
+
+   
+    $objCargar = new notaControl();
+    $objCargar->idEstudiante=$_POST["cidEstudiante"];
+    $objCargar->idCurso=$_POST["cidCurso"];
+    $objCargar->asignatura= $_POST["casignatura"];
+    $objCargar->ctrlCargarNotasAeditar();
+
+
+}
+
 
 
 
