@@ -220,6 +220,31 @@ class notaModelo{
        return $lista;
     }
 
+    public static function mdlCambiarValorNota($idAsignaturaNota,float $valorNota){
+          $mensaje="";
+        $objConexion=conexion::conectar()->prepare("UPDATE asignaturanota set nota=".$valorNota." where idAsignaturaNota=".$idAsignaturaNota." ");
+        if($objConexion->execute()){
+
+            $mensaje="ok";
+
+
+        }else{
+            $mensaje="Error";
+        }
+
+        return $mensaje;
+    }
+   public static function mdlConsultarNotasdeAsignaturayCurso($asignatura,$curso){
+
+     $objConsulta=conexion::conectar()->prepare("select * from nota where idAsignatura=".$asignatura." and idCurso=".$curso."");
+     $objConsulta->execute();
+     $lista=$objConsulta->fetchAll();
+     $objConsulta=null;
+     return $lista;
+     
+
+   }
+
     
 
     

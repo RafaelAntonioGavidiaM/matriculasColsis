@@ -7,16 +7,7 @@ class conexion
     public static function conectar(){
 
         
-<<<<<<< HEAD
         // $nombreServidor="localhost";
-=======
-        $nombreServidor="localhost";
-        $baseDatos="colsissena";
-        $usuarioServidor="root";
-        $password="";
-     
-        // $nombreServidor="35.225.225.25";
->>>>>>> origin/master
         // $baseDatos="dbcolsis";
         // $usuarioServidor="root";
         // $password="";
