@@ -2,7 +2,7 @@
 
 include_once "modelo/rolModelo.php";
 
-session_start();
+session_start(); 
 
 if ($_SESSION == null) {
 
