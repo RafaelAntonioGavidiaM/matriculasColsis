@@ -31,7 +31,7 @@ Periodo:
 
 
     <button type="button" id="btnCrearNota" class="btn btn-primary" data-toggle="modal">Crear Nota </button>
-    <button type="button" id="btnCrearModificar" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#modalCrearN">Modificar </button>
+    <button type="button" id="btnCrearModificar" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" >Modificar </button>
     <button type="button" id="btnCrearEliminarNota" class="btn btn-primary" data-dismiss="modal">Eliminar Nota</button>
 
   </div>
@@ -130,6 +130,10 @@ Periodo:
       </div>
       <div class="modal-body">
 
+     
+      
+        
+
 
       <div id="contenedorNotas"></div>
       </div>
@@ -139,5 +143,35 @@ Periodo:
     </div>
 
   </div>
+
+
+
+ 
 </div>
+<div id="modificarNotas" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="tituloModal"></h4>
+      </div>
+      <div class="modal-body">
+
+      Seleccione Nombre Nota: <select name="" id="SelectnombreNotas"></select>
+      Nombre: <input type="text" id="inpNombreNota">
+      Estado: <select name="" id="mEstadoNota"></select>
+      
+        
+
+
+      <div id="contenedorNotas"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 

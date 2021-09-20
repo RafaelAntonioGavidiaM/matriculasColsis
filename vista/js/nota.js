@@ -105,6 +105,7 @@ $(document).ready(function() {
 
     $("#btnCrearNota").click(function() {
 
+
         var devuelto = validarSaleccionMaterias();
         if (devuelto == 1) {
             $("#modalCrearN").modal('show');
@@ -116,8 +117,9 @@ $(document).ready(function() {
     })
 
     function validarSaleccionMaterias() {
-
         var valor = $("#Asignaturas").val();
+
+
         var opcion = 0;
 
 
@@ -145,6 +147,82 @@ $(document).ready(function() {
         return opcion;
 
     }
+
+
+    $("#btnCrearModificar").click(function() {
+        var devuelto = validarSaleccionMaterias();
+        if (devuelto == 1) {
+            $("#modificarNotas").modal('show');
+
+            var idAsignatura = $("#Asignaturas").val();
+            var idCurso = $("#grado").val();
+            objData = new FormData();
+            objData.append("consultarNotasAsignatura", idAsignatura);
+            objData.append("consultarNotasidCurso", idCurso);
+
+            $.ajax({
+                url: "control/notaControles.php",
+                type: "post",
+                dataType: "json",
+                data: objData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(respuesta) {
+                    var concatenar = "";
+
+                    respuesta.forEach(cargarSelectModificar);
+
+                    function cargarSelectModificar(item, index) {
+
+                        concatenar += '<option value=' + item.idNota + '   estado=' + item.estadoNota + ' nombreNota=' + item.nombreNota + '> ' + item.nombreNota + '</option>';
+
+
+                    }
+
+                    $("#SelectnombreNotas").html(concatenar);
+
+
+                }
+            })
+
+
+        }
+
+
+    })
+
+    $("#SelectnombreNotas").change(function() {
+        $("#mEstadoNota").html("");
+        var estado = $("#SelectnombreNotas").find(':selected').attr("estado");
+        var nombre = $("#SelectnombreNotas").find(':selected').attr("nombreNota");
+        alert(estado);
+
+        $("#inpNombreNota").val(nombre);
+
+        if (estado = 1) {
+            $("#mEstadoNota").append('<option value=1>Habilitado</option>');
+            $("#mEstadoNota").append('<option value=2>Desabilitado</option>');
+
+
+
+        } else if (estado = 0) {
+            $("#mEstadoNota").append('<option value=2>Desabilitado</option>');
+            $("#mEstadoNota").append('<option value=1>Habilitado</option>');
+
+        }
+
+
+
+
+
+
+
+
+    })
+
+
+
 
 
     $("#GuardarNota").click(function() {
@@ -199,11 +277,21 @@ $(document).ready(function() {
 
     $("#Asignaturas").change(function() {
 
-        // destruirTabla();
 
-        var dataSet = [];
+        cargarTablaToda();
 
-        var idAsignaturaCurso = $(this).val();
+
+
+
+
+
+
+    })
+
+    function cargarTablaToda(idAsignaturaCurso) {
+        var idAsignaturaCurso = $("#Asignaturas").val();
+
+
         var idCurso = $("#grado").val();
 
         var objData = new FormData();
@@ -224,9 +312,7 @@ $(document).ready(function() {
             success: function(respuesta) {
 
                 if (respuesta != null) {
-                    // console.log(respuesta);
-                    // var hola = cargarCabeceraTabla(respuesta);
-                    //console.log(hola);
+
 
 
 
@@ -279,9 +365,8 @@ $(document).ready(function() {
 
         })
 
+    }
 
-
-    })
 
     function cargarCabeceraTabla(respuestaDatos) {
         // destruirTabla();
@@ -425,7 +510,8 @@ $(document).ready(function() {
 
 
                             cuerpo += '<td>';
-                            cuerpo += parseFloat(respuestaDatos[index][contador]);
+                            // Number.parseFloat(x).toFixed(2);
+                            cuerpo += Number.parseFloat(respuestaDatos[index][contador]).toFixed(1);
 
                             cuerpo += '</td>';
 
@@ -453,7 +539,7 @@ $(document).ready(function() {
 
 
                     }
-                    alert(cuerpo);
+                    // alert(cuerpo);
 
                     $("#cuerpoTabla").html(cuerpo);
 
@@ -502,6 +588,10 @@ $(document).ready(function() {
 
 
     }
+
+
+
+
 
 
     $("#tablaNota").on("click", "#btnEditarNota", function() {
@@ -558,13 +648,43 @@ $(document).ready(function() {
 
         var idAsignaturaNota = $(this).attr("idAsignatura");
         var valorNota = $(this).val();
-        alert(idAsignaturaNota + " " + valorNota);
+        //alert(idAsignaturaNota + " " + valorNota);
         var objData = new FormData();
         objData.append("idAsignaturaNotaCambiar", idAsignaturaNota);
         objData.append("notaCambiar", valorNota);
 
         $.ajax({
-            url: "control/controlesnota.php",
+            url: "control/notaControles.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(respuesta) {
+                if (respuesta == "ok") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Se realizo el cambio de nota',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                    cargarTablaToda();
+                } else if (respuesta == "Error") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Lo lamentamos no fue posible realizar el cambio',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+
+
+
+            }
         })
 
 

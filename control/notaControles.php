@@ -5,6 +5,8 @@ class notaControl{
     public $idCurso=0; 
     public $nombreNota;
     public $asignatura;
+    public $asignaturaNota;
+    public $valorNota;
     public $permiso;
     public $idEstudiante;
     
@@ -78,6 +80,20 @@ class notaControl{
 
 
     }
+
+    public function ctrlCambiarValorNota(){
+        $objRespuesta=notaModelo::mdlCambiarValorNota($this->asignaturaNota,$this->valorNota);
+        echo json_encode($objRespuesta);
+
+
+    }
+
+    public function ctrlConsultarNotasAModificar(){
+
+        $objRespuesta=notaModelo::mdlConsultarNotasdeAsignaturayCurso($this->asignatura,$this->idCurso);
+        echo json_encode($objRespuesta);
+
+    }
    
 
 
@@ -147,6 +163,21 @@ if(isset($_POST["cidEstudiante"]) && isset($_POST["cidCurso"]) && isset($_POST["
     $objCargar->asignatura= $_POST["casignatura"];
     $objCargar->ctrlCargarNotasAeditar();
 
+
+}
+if(isset($_POST["idAsignaturaNotaCambiar"]) && isset($_POST["notaCambiar"])){
+    $objCargar = new notaControl();
+    $objCargar->asignaturaNota=$_POST["idAsignaturaNotaCambiar"];
+    $objCargar->valorNota=$_POST["notaCambiar"];
+    $objCargar->ctrlCambiarValorNota();
+
+}
+
+if(isset($_POST["consultarNotasAsignatura"]) && isset($_POST["consultarNotasidCurso"])){
+    $objCargar = new notaControl();
+    $objCargar->asignatura=$_POST["consultarNotasAsignatura"];
+    $objCargar->idCurso=$_POST["consultarNotasidCurso"];
+    $objCargar->ctrlConsultarNotasAModificar();
 
 }
 
