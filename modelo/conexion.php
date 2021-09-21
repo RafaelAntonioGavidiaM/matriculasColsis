@@ -8,14 +8,11 @@ class conexion
 
         
         // $nombreServidor="localhost";
-<<<<<<< HEAD
         // $baseDatos="colsissena";
         // $usuarioServidor="root";
         // $password="";
      
         // $nombreServidor="35.225.225.25";
-=======
->>>>>>> dad95e26331f562be3818a5baf634c4b1adb5813
         // $baseDatos="dbcolsis";
         // $usuarioServidor="root";
         // $password="";
