@@ -50,6 +50,29 @@
   <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.4/css/colReorder.dataTables.min.css">
   <!-- diseño modulo -->
+
+
+
+  <!--alert toarst-->
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
 <<<<<<< HEAD
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>

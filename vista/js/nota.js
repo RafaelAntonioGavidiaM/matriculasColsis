@@ -1,9 +1,11 @@
 $(document).ready(function() {
+    $("#contenido").hide();
 
 
 
     cargarGradosNota();
 
+    ///Carga Cursos Para Ser Seleccionados
 
     function cargarGradosNota() {
         var mensaje = "ok";
@@ -51,57 +53,62 @@ $(document).ready(function() {
 
     }
 
+    ///Selecciona Asignatura
+
     $("#Seleccion").click(function() {
 
-        var idCurso = $("#grado").val();
+            $("#contenido").show();
 
-        var mensaje = "ok";
-        var objData = new FormData();
+            var idCurso = $("#grado").val();
+
+            var mensaje = "ok";
+            var objData = new FormData();
 
 
 
-        objData.append("idCurso", idCurso);
+            objData.append("idCurso", idCurso);
 
-        var principalSELCET = ' <option value="novalido" >Seleccione Asignatura</option>';
+            var principalSELCET = ' <option value="novalido" >Seleccione Asignatura</option>';
 
-        $.ajax({
-            url: "control/notaControles.php",
-            type: "post",
-            dataType: "json",
-            data: objData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(respuesta) {
+            $.ajax({
+                url: "control/notaControles.php",
+                type: "post",
+                dataType: "json",
+                data: objData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(respuesta) {
 
-                var interface = "";
+                    var interface = "";
 
-                respuesta.forEach(cargarSelectCurso);
+                    respuesta.forEach(cargarSelectCurso);
 
-                function cargarSelectCurso(item, index) {
+                    function cargarSelectCurso(item, index) {
 
-                    interface += ' <option value=' + item.idAsignatura + '>' + item.nombreAsignatura + '</option>';
+                        interface += ' <option value=' + item.idAsignatura + '>' + item.nombreAsignatura + '</option>';
+                    }
+
+
+                    $("#Asignaturas").html(principalSELCET + interface);
+
+
+
+
+
+
+
+
+
                 }
-
-
-                $("#Asignaturas").html(principalSELCET + interface);
-
+            })
 
 
 
 
 
-
-
-
-            }
         })
-
-
-
-
-
-    })
+        /// Abre Modal de Crear Nota
 
     $("#btnCrearNota").click(function() {
 
@@ -115,6 +122,8 @@ $(document).ready(function() {
 
 
     })
+
+    ////Valida que haya seleccionado una materia
 
     function validarSaleccionMaterias() {
         var valor = $("#Asignaturas").val();
@@ -147,6 +156,9 @@ $(document).ready(function() {
         return opcion;
 
     }
+
+
+    ///Valida y Abre Modal de Modificar Nota 
 
 
     $("#btnCrearModificar").click(function() {
@@ -192,23 +204,166 @@ $(document).ready(function() {
 
     })
 
+    ///Eliminar Nota : Selecciona una nota y despues elige si desea eliminarla. Esto afectara registros en nota y asignaturanota.
+
+    $("#btnEliminarNota").click(function() {
+
+        var devuelto = validarSaleccionMaterias();
+        if (devuelto == 1) {
+
+            var idAsignatura = $("#Asignaturas").val();
+            var idCurso = $("#grado").val();
+            objData = new FormData();
+            objData.append("consultarNotasAsignatura", idAsignatura);
+            objData.append("consultarNotasidCurso", idCurso);
+
+
+            $.ajax({
+                url: "control/notaControles.php",
+                type: "post",
+                dataType: "json",
+                data: objData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(respuesta) {
+
+                    var concatenar = "<option value='enserio'>Seleccione una nota a eliminar</option>";
+
+                    respuesta.forEach(cargarNotasAEliminar);
+
+                    function cargarNotasAEliminar(item, index) {
+
+                        concatenar += '<option value=' + item.idNota + '>' + item.nombreNota + '</option>';
+
+                    }
+
+
+                    $("#notaAeliminar").html(concatenar);
+
+
+                }
+
+
+            })
+
+
+            Swal.fire({
+                title: '¿Esta Seguro?',
+                text: "Los datos se podran recuperar!",
+
+                icon: 'warning',
+                html: '<select id="notaAeliminar"></select>',
+
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Quiero Eliminarla!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var idNotaEliminar = $("#notaAeliminar").val();
+
+                    //alert(idNotaEliminar);
+
+                    if (idNotaEliminar == "enserio") {
+
+                        Command: toastr["error"]("Debe Seleccionar una Nota", "Error")
+                    }
+                    else {
+
+                        var objData2 = new FormData();
+                        objData2.append("idNotaEliminar", idNotaEliminar);
+
+                        $.ajax({
+                            url: "control/notaControles.php",
+                            type: "post",
+                            dataType: "json",
+                            data: objData2,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function(respuesta) {
+
+                                if (respuesta == "ok") {
+                                    Swal.fire(
+                                        'Eliminada!',
+                                        'Se ha eliminado nota y sus registros.',
+                                        'success'
+                                    )
+                                    cargarTablaToda();
+                                } else {
+
+                                    Command: toastr["error"](respuesta, "Error")
+
+
+                                }
+
+
+                            }
+
+                        })
+
+
+
+
+
+
+
+                    }
+
+
+
+
+
+
+                }
+            })
+
+
+        }
+
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Si el select de modificar Nota cambia se asignan datos a las variables segun los attr
+
     $("#SelectnombreNotas").change(function() {
         $("#mEstadoNota").html("");
         var estado = $("#SelectnombreNotas").find(':selected').attr("estado");
         var nombre = $("#SelectnombreNotas").find(':selected').attr("nombreNota");
-        alert(estado);
+        // alert(estado);
+        validarEstado(estado);
 
         $("#inpNombreNota").val(nombre);
 
-        if (estado = 1) {
-            $("#mEstadoNota").append('<option value=1>Habilitado</option>');
-            $("#mEstadoNota").append('<option value=2>Desabilitado</option>');
+        function validarEstado(estadoNota) {
+            if (estadoNota == 1) {
+                $("#mEstadoNota").append('<option value=1>Habilitado</option>');
+                $("#mEstadoNota").append('<option value=0>Desabilitado</option>');
 
 
 
-        } else if (estado = 0) {
-            $("#mEstadoNota").append('<option value=2>Desabilitado</option>');
-            $("#mEstadoNota").append('<option value=1>Habilitado</option>');
+            } else if (estadoNota == 0) {
+                $("#mEstadoNota").append('<option value=0>Desabilitado</option>');
+                $("#mEstadoNota").append('<option value=1>Habilitado</option>');
+
+            }
+
+
 
         }
 
@@ -219,9 +374,85 @@ $(document).ready(function() {
 
 
 
+
+
+    })
+
+    ///Modifica los campos de la nota en la bd Tabla Nota
+
+    $("#modificarNota").click(function() {
+
+        var nombre = $("#inpNombreNota").val();
+        var estado = $("#mEstadoNota").val();
+        var idNota = $("#SelectnombreNotas").val();
+
+        alert(nombre + " " + estado + " " + idNota);
+
+        var objData = new FormData();
+        objData.append("mnombreNota", nombre);
+        objData.append("mestado", estado);
+        objData.append("midNota", idNota);
+
+        $.ajax({
+            url: "control/notaControles.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(respuesta) {
+
+                if (respuesta == "ok") {
+                    Command: toastr["success"]("Cambio realizado correctamente", "Success ")
+
+                        toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+
+
+                        cargarTablaToda();
+                    limpiarCampos();
+
+                    function limpiarCampos() {
+                        $("#inpNombreNota").val(" ");
+                        $("#mEstadoNota").html("");
+
+
+                    }
+
+
+                }
+
+
+
+            }
+
+
+        })
+
+
     })
 
 
+
+
+
+    ///Creacion de Notas 
 
 
 
@@ -246,6 +477,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
+                cargarTablaToda();
 
 
 
@@ -274,6 +506,9 @@ $(document).ready(function() {
 
     })
 
+    //Si la asigntura cambia se recarga la tabla
+
+
 
     $("#Asignaturas").change(function() {
 
@@ -288,7 +523,9 @@ $(document).ready(function() {
 
     })
 
-    function cargarTablaToda(idAsignaturaCurso) {
+    ///Funcion que recarga la tabla segun curso y asignatura 
+
+    function cargarTablaToda() {
         var idAsignaturaCurso = $("#Asignaturas").val();
 
 
@@ -311,7 +548,14 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
+                // alert(respuesta);
+                //console.log(respuesta);
+
                 if (respuesta != null) {
+                    $("#contenedorTabla").hide();
+
+
+
 
 
 
@@ -335,6 +579,17 @@ $(document).ready(function() {
 
 
 
+                } else if (respuesta == null || respuesta == 0) {
+                    // alert("hola");
+
+                    $("#contenedorTabla").show();
+
+                    $("#cabecera").empty();
+                    $("#cuerpoTabla").empty();
+                    $("#contenedorTabla").css("witdh", "20px");
+                    $("#contenedorTabla").css("height", "100px");
+                    $("#contenedorTabla").css("background-color", "white");
+                    $("#contenedorTabla").html("<h1>No hay Notas Creadas</h1>");
                 }
 
 
@@ -366,6 +621,8 @@ $(document).ready(function() {
         })
 
     }
+
+    ///Solo carga la cabecera de la tabla, Esto debido a una consulta organizada
 
 
     function cargarCabeceraTabla(respuestaDatos) {
@@ -400,6 +657,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
+                console.log(respuesta);
 
                 if (respuesta != null) {
 
@@ -592,6 +850,8 @@ $(document).ready(function() {
 
 
 
+    ///cargar las notas segun estudiante , para ser modificadas una por una . 
+
 
 
     $("#tablaNota").on("click", "#btnEditarNota", function() {
@@ -644,6 +904,9 @@ $(document).ready(function() {
 
     })
 
+    //Si los inputs de las notas cambian los datos se cargaran a la base de datos 
+
+
     $("#contenedorNotas").on("change", "#nota", function() {
 
         var idAsignaturaNota = $(this).attr("idAsignatura");
@@ -663,23 +926,32 @@ $(document).ready(function() {
             contentType: false,
             success: function(respuesta) {
                 if (respuesta == "ok") {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Se realizo el cambio de nota',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    Command: toastr["info"]("Cambio realizado correctamente", "Success ")
 
-                    cargarTablaToda();
-                } else if (respuesta == "Error") {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'Lo lamentamos no fue posible realizar el cambio',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+
+
+                        cargarTablaToda();
+                }
+                else if (respuesta == "Error") {
+                    Command: toastr["error"]("No se pudo actualizar el valor", "Error")
+
+                        toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
                 }
 
 
@@ -694,6 +966,8 @@ $(document).ready(function() {
 
 
 
+
+    ///ESTA FUNCION ESTA INABILITADA 
 
 
     function destruirTabla() {

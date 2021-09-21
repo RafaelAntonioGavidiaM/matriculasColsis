@@ -3,12 +3,14 @@
 require_once "../modelo/notaModelo.php";
 class notaControl{
     public $idCurso=0; 
+    public $idNota;
     public $nombreNota;
     public $asignatura;
     public $asignaturaNota;
     public $valorNota;
     public $permiso;
     public $idEstudiante;
+    public $estado;
     
            
     
@@ -92,6 +94,21 @@ class notaControl{
 
         $objRespuesta=notaModelo::mdlConsultarNotasdeAsignaturayCurso($this->asignatura,$this->idCurso);
         echo json_encode($objRespuesta);
+
+    }
+
+    public function ctrlModificarNotas(){
+        $objRespuesta=notaModelo::mdlModificarNotas($this->idNota,$this->nombreNota,$this->estado);
+        echo json_encode($objRespuesta);
+
+
+    }
+    public function ctrlEliminarNota(){
+
+        $objRespuesta=notaModelo::mdlEliminarNota($this->idNota);
+        echo json_encode($objRespuesta);
+
+
 
     }
    
@@ -180,7 +197,24 @@ if(isset($_POST["consultarNotasAsignatura"]) && isset($_POST["consultarNotasidCu
     $objCargar->ctrlConsultarNotasAModificar();
 
 }
+if(isset($_POST["mnombreNota"]) && isset($_POST["mestado"]) && isset($_POST["midNota"])){
 
+    $objCargar = new notaControl();
+    $objCargar->nombreNota=$_POST["mnombreNota"];
+    $objCargar->estado=$_POST["mestado"];
+    $objCargar->idNota=$_POST["midNota"];
+    $objCargar->ctrlModificarNotas();
+
+
+}
+
+if(isset($_POST["idNotaEliminar"])){
+    $objCargar=new notaControl();
+    $objCargar->idNota=$_POST["idNotaEliminar"];
+    $objCargar->ctrlEliminarNota();
+
+
+}
 
 
 
