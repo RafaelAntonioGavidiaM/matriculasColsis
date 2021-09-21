@@ -51,16 +51,11 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.4/css/colReorder.dataTables.min.css">
   <!-- diseño modulo -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
-<<<<<<< HEAD
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
-  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'>
-=======
+  <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
-<<<<<<< HEAD
->>>>>>> 098f483fed15ac45a99bcf04f125366963d56898
-=======
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
->>>>>>> origin
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/normalize.css'>
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>

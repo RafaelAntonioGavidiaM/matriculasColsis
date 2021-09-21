@@ -112,70 +112,75 @@
           </div>
 
           <!-- cuerpo de la modal de registro personal -->
-          <div class="form-group">
-            <label for="txtRegNombres">Nombres:</label>
-            <input type="text" class="form-control" id="txtRegNombres">
-          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="txtRegNombres">Nombres:</label>
+              <input type="text" class="form-control" id="txtRegNombres">
+            </div>
 
-          <div class="form-group">
-            <label for="txtRegApellidos">Apellidos:</label>
-            <input type="text" class="form-control" id="txtRegApellidos">
-          </div>
+            <div class="form-group">
+              <label for="txtRegApellidos">Apellidos:</label>
+              <input type="text" class="form-control" id="txtRegApellidos">
+            </div>
 
-          <div class="form-group">
-            <label for="txtRegDocumeto">Documento:</label>
-            <input type="text" class="form-control" id="txtRegDocumeto">
-          </div>
+            <div class="form-group">
+              <label for="txtRegDocumeto">Documento:</label>
+              <input type="text" class="form-control" id="txtRegDocumeto">
+            </div>
 
-          <div class="form-group">
-            <label for="txtRegTelefono">Telefono</label>
-            <input type="text" class="form-control" id="txtRegTelefono">
-          </div>
+            <div class="form-group">
+              <label for="txtRegTelefono">Telefono</label>
+              <input type="text" class="form-control" id="txtRegTelefono">
+            </div>
 
-          <div class="form-group">
-            <label for="txtRegCiudad">Ciudad</label>
-            <input type="text" class="form-control" id="txtRegCiudad">
-          </div>
+            <div class="form-group">
+              <label for="txtRegCiudad">Ciudad</label>
+              <input type="text" class="form-control" id="txtRegCiudad">
+            </div>
 
-          <div class="form-group">
-            <label for="txtRegCorreo">Correo</label>
-            <input type="text" class="form-control" id="txtRegCorreo">
-          </div>
-          <!-- -------------select de estado cargado manualmente----------- -->
-          <div>
-            <label for="esatodosPersonal">Estado</label><br>
-            <select name="estado" id="esatodosPersonal">
-              <option value="Habilitado">Habilitado</option>
-              <option value="Deshabilitado">DesHabilitado</option>
-            </select>
-          </div>
-          <!-- -------------select de rol cargado por la tabla rol---------- -->
-          <div>
-            <label for="regRol">Rol</label>
-            <br>
-            <select name="rol" id="regRol">
-
-
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="txtRegDireccion">Direccion</label>
-            <input type="text" class="form-control" id="txtRegDireccion">
-          </div>
-
-          <div class="form-group">
-            <label for="txtRegPassword">Password</label>
-            <input type="text" class="form-control" id="txtRegPassword">
-          </div>
+            <div class="form-group">
+              <label for="txtRegCorreo">Correo</label>
+              <input type="text" class="form-control" id="txtRegCorreo">
+            </div>
+            <!-- -------------select de estado cargado manualmente----------- -->
+            <div>
+              <label for="esatodosPersonal">Estado</label><br>
+              <select name="estado" id="esatodosPersonal">
+                <option value="Habilitado">Habilitado</option>
+                <option value="Deshabilitado">DesHabilitado</option>
+              </select>
+            </div>
+            <!-- -------------select de rol cargado por la tabla rol---------- -->
+            <div>
+              <label for="regRol">Rol</label>
+              <br>
+              <select name="rol" id="regRol">
 
 
-          <!-- -------------Caja de texto de type="file" para cargar la foto---------- -->
-          <div class="form-group">
-            <label for="txtRegFoto">Foto:</label>
-            <img src="" id="regFoto">
-            <input type="file" class="form-control" id="txtRegFoto">
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="txtRegDireccion">Direccion</label>
+              <input type="text" class="form-control" id="txtRegDireccion">
+            </div>
+
+            <div class="form-group">
+              <label for="txtRegPassword">Password</label>
+              <input type="text" class="form-control" id="txtRegPassword">
+            </div>
+
+
+            <!-- -------------Caja de texto de type="file" para cargar la foto---------- -->
+            <div class="form-group">
+              <label for="txtRegFoto">Foto:</label>
+              <img src="" id="regFoto">
+              <input type="file" class="form-control" id="txtRegFoto">
+            </div>
+
           </div>
+          
+
 
           <!-- pie de modal de rigsitro personal -->
           <div class="modal-footer">

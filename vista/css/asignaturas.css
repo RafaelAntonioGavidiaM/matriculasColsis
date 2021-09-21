@@ -2,7 +2,7 @@
 
     width: 100%;
     position: relative;
-    height: 700px;
+    height: 500px;
     background: #009fff; /* fallback for old browsers */
     background: -webkit-linear-gradient(
         to right,
@@ -20,15 +20,144 @@
     background-attachment: fixed;
     background-position: center;
 
+}
+/* modal */
 
+.modal{
+
+  top: 30px;
 
 }
+
 
 /* margenes */
 
 .margenesAsignatura{
-
   padding-top: 25px;
   padding-bottom: 25px;
+}
+
+/* Ocultar formularios de Rgeistro */
+#ventadeRegistroAera{
+  display: none;
+}
+
+#ventadeRegistroAsignatura{
+  display: none;
+}
+
+/* Ocultar tablas de Area y Asignatura */
+
+#contenidoDeArea{
+  display: none;;
+}
+
+#contenidoDeAsignatura{
+  display: none;
+}
+
+/* Diseño de boton de success */
+.diseño_boton_success{
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.diseño_boton_success:hover{
+  color: white;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+
+.btn_color_letra_success:hover{
+  color:white;
+  text-decoration: none;
+}
+ 
+/* Diseño de boton de informacion-info */
+
+.diseño_boton_info{
+  color: #1e8eb1;
+  border-color: #1e8eb1;
+}
+
+.diseño_boton_info:hover{
+  color: white;
+  background-color: #1e8eb1;
+  border-color: #1e8eb1;
+}
+
+
+.btn_color_letra_info{
+  color:#1e8eb1;
+  text-decoration: none;
+}
+
+/* Posicion del boton de Cerrrar*/
+
+.posicion_Boton{
+  float: right;  
+}
+
+/* Diseño de boton de cerrar */
+
+.diseño_boton_cerrar{
+
+  color: white;
+  background-color: rgb(197, 2, 2);
 
 }
+
+
+.diseño_boton_cerrar:hover{
+  background-color:rgb(155, 3, 3) ;
+  transform: scale(1.1);
+  box-shadow: inset 0px 0px .1rem black;
+  color: white;
+}
+
+/* Diseño de boton para mostrar las tablas de Area y Asignatura */
+
+.diseño_boton_tablas{
+  color: rgb(255, 104, 50);
+  background-color: white;
+  border-color: rgb(255, 104, 50);
+
+}
+
+.diseño_boton_tablas:hover{
+  color: white;
+  background-color: rgb(255, 104, 50);
+  box-shadow: 2px 2px 1rem rgb(121, 46, 18);
+  
+
+
+}
+
+.btn_color_letra_tablas{
+
+  color: rgb(255, 104, 50);
+  text-decoration: none;
+
+}
+
+
+/* Mover divs de conetnido */
+
+
+
+.mover_contenido_abajo{
+
+  transform: translateY(25px);
+  transition: .7s ease;
+}
+
+.mover_contenido_arriba{
+
+  transform: translateY(-20px);
+  transition: .7s ease;
+
+}
+
+
+

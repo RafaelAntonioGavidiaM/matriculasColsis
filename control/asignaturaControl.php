@@ -69,14 +69,16 @@ class asignaturaControl
     public function ctrRegistrarAsignatura(){
 
 
-    
+        $objRespuesta = asignatuaModelo::mdlRegistrarAsignatura($this->nombreAsignatura,$this->nombreArea);
+        echo json_encode($objRespuesta);
 
 
     }
 
     public function ctrModificarAsignatura(){
 
-
+        $objRespuesta =  asignatuaModelo::mdlModificarAsignatura($this->idAsignatura,$this->nombreAsignatura, $this->idArea);
+        echo json_encode($objRespuesta);
 
 
     }
@@ -84,7 +86,8 @@ class asignaturaControl
 
     public function ctrEliminarAsignatura(){
 
-
+        $objRespuesta = asignatuaModelo::mdlEliminarAsigantura($this->idAsignatura);
+        echo json_encode($objRespuesta);
 
 
     }
@@ -165,12 +168,41 @@ if (isset($_POST["listarSelectArea"]) ==  "ok") {
 // --------------Reguistrar Asignatura ------------------------------
 // ------------------------------------------------------------------
 
-if(isset($_POST["nombreAsignatura"]) && isset($_POST["nombreArea"])){
+if(isset($_POST["nombreAsignatura"]) && isset($_POST["regNombreArea"])){
 
     $objRegistrarAsignatura = new asignaturaControl();
     $objRegistrarAsignatura->nombreAsignatura = $_POST["nombreAsignatura"];
-    $objRegistrarAsignatura->nombreArea = $_POST["nombreArea"];
+    $objRegistrarAsignatura->nombreArea = $_POST["regNombreArea"];
     $objRegistrarAsignatura->ctrRegistrarAsignatura();
+
+
+}
+
+// ------------------------------------------------------------------
+// --------------Modificar una Asignatura registrada-----------------
+// ------------------------------------------------------------------
+
+if(isset($_POST["idModAsignatura"])&& isset($_POST["modNombreAsignatura"]) && isset($_POST["idModArea"])){
+
+
+    $objModificarAsignatura =  new asignaturaControl();
+    $objModificarAsignatura->idAsignatura = $_POST["idModAsignatura"];
+    $objModificarAsignatura->nombreAsignatura = $_POST["modNombreAsignatura"];
+    $objModificarAsignatura->idArea = $_POST["idModArea"];
+    $objModificarAsignatura->ctrModificarAsignatura();
+
+
+}
+
+// ------------------------------------------------------------------
+// --------------Eliminar una Asignatura registrada-----------------
+// ------------------------------------------------------------------
+
+if(isset($_POST["idDeleteAsignatura"])){
+
+    $objEliminarAsignatura =  new asignaturaControl();
+    $objEliminarAsignatura->idAsignatura = $_POST["idDeleteAsignatura"];
+    $objEliminarAsignatura->ctrEliminarAsignatura();
 
 
 }
