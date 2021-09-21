@@ -5,9 +5,18 @@ include_once "../modelo/horarioModelo.php";
 class horarioControl
 {
 
+    public $idHorario;
+    public $asignatura;
+    public $cursoAsignatura;
+    public $dia;
+    public $horaInicio;
+    public $horaFin;
+
+
     public function ctrInsertar()
     {
-        
+        $ObjRespuesta = horarioModelo::mdlInsertar($this->asignatura, $this->cursoAsignatura, $this->dia, $this->horaInicio, $this->horaFin);
+        echo json_encode($ObjRespuesta);
     }
 
     public function ctrModificar()
@@ -22,7 +31,8 @@ class horarioControl
 
     public function ctrListarHorario()
     {
-        
+        $ObjRespuesta = horarioModelo::mdlListarTodos();
+        echo json_encode($ObjRespuesta);
     }
 
     public function ctrlCargarAsignatura()
@@ -43,11 +53,6 @@ class horarioControl
         echo json_encode($objRespuesta);
     }
 
-    public function ctrlCargarDia()
-    {
-        $objRespuesta=horarioModelo::mdlCargarDia();
-        echo json_encode($objRespuesta);
-    }
 }
 
 
@@ -69,7 +74,18 @@ if (isset($_POST["cargarDatosCursosHorario"])) {
     $objconsulta->ctrlCargarDatosCursoHorario();
 }
 
-if (isset($_POST["cargarDia"])){
-    $objconsulta = new horarioControl();
-    $objconsulta->ctrlCargarDia();
+
+if (isset($_POST["asignatura"]) && isset($_POST["idCurso"]) && isset($_POST["dia"]) && isset($_POST["horaInicio"]) && isset($_POST["horaFin"])) {
+    $objHorario = new horarioControl();
+    $objHorario->asignatura = $_POST["curasignaturaso"];
+    $objHorario->idCurso = $_POST["idCurso"];
+    $objHorario->dia = $_POST["dia"];
+    $objHorario->horaInicio = $_POST["horaInicio"];
+    $objHorario->horaFin = $_POST["horaFin"];
+    $objHorario->ctrInsertar();
+}
+
+if (isset($_POST["listaHorio"]) == "ok") {
+    $objListaHorario = new horarioControl();
+    $objListaHorario->ctrListarHorario();
 }

@@ -4,11 +4,11 @@ include_once "../modelo/cursosModelo.php";
 
 class cursosControl
 {
-    public  $idCurso;
-    public   $curso;
+    public $idCurso;
+    public $curso;
     public $nombreCurso;
     public $año;
-    public  $docente;
+    public $docente;
 
     public function ctrInsertar()
     {

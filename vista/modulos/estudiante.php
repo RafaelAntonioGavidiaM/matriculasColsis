@@ -89,7 +89,8 @@
                             </div>
                         </div>
 
-                        <div id="moduloImagen">
+                        <div class="col-sm-12" id="moduloImagen">
+
                             <div class="col-sm-6">
                                 <div class="well text-center">Foto Actual</div>
                                 <center>
@@ -103,6 +104,7 @@
                                     <output id="list"></output>
                                 </center>
                             </div>
+
                         </div>
 
                         <div class="col-sm-12">

@@ -4,6 +4,7 @@
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Colsis</title>
+  <link rel="icon" type="icon/.png" href="vista/imgs/colsis_logotipo.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -50,6 +51,29 @@
   <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.4/css/colReorder.dataTables.min.css">
   <!-- diseño modulo -->
+
+
+
+  <!--alert toarst-->
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
   <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
