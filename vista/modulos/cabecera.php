@@ -87,6 +87,7 @@
   <script src="vista/js/asignatura.js"></script>
   <script src="vista/js/nota.js"></script>
   <script src="vista/js/asignaturaCurso.js"></script>
+  <script src="vista/js/horario.js"></script>
 
 
 
