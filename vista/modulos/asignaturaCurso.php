@@ -1,10 +1,29 @@
-<div class="container">
-  <center>
-    <div class="jumbotron">
-      <h1>Creacion de Asignatura Curso</h1>
-      <p>Crea y administra los dococentes encargados de cada materia por curso.</p>
+
+<header>
+    <div class="container">
+        <div class="texto">
+            <div class="caja">
+                <h1 id="h1rf">Asignar docente a una asignatura</h1>
+            </div>
+        </div>
     </div>
-  </center>
+
+    <div class="wave" style="height: 150px; overflow: hidden;">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+            <path d="M-4.22,101.14 C240.12,148.52 305.58,54.77 503.10,122.86 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(235, 235, 235);"></path>
+        </svg>
+    </div>
+</header>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<div class="container">
 
   <button id="btnAsignaturaCurso" class="btn btn-success" data-toggle="modal" data-target="#mdAsignaturaCurso"> Crear Asignatura</button>
 
