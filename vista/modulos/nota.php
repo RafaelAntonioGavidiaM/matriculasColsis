@@ -4,7 +4,7 @@
 
 
 
-Periodo:
+
 <div class="container center">
 
 

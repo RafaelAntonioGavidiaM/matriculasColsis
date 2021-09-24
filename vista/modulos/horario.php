@@ -1,110 +1,129 @@
 <div class="container">
 
-    <center>
-        <div class="jumbotron">
-            <h1>HORARIO DE CLASES</h1>
-            <p>✏️📚¡Crea y administra el horario de clases de esta institución!📚✏️</p>
-        </div>
-    </center>
 
-    <div class="row">
-        <div class="col-lg-12 ">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Horario!</h1>
+            <p>Gestiona horarios , recursos</p>
+            <p>
 
+            </p>
         </div>
     </div>
 
-    <br>
-    <div id="blanco">
-        <div class="row">
-            <div class="col-lg-4">
-                <form>
 
-                    <div class="form-group">
-                        <label for="txtCurso">CURSO</label>
-                        <select type="text" class="form-control" id="cursoSelect">
-                            <p id="cargar"></p>
-                        </select>
+    <br><br><br>
+
+
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            
+                <div class="form-group">
+
+                    <label for="">Curso</label>
+
+                    <select name="" id="selectCursoForm1234" class="form-control" required="required">
+
+                    </select>
+
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="">Asignaturas</label>
+
+                    <select name="" id="selectAsignaturasCarga" class="form-control" required="required">
+
+                    </select>
+
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="">Dias</label>
+
+                    <select name="" id="dias" class="form-control" required="required">
+                    </select>
+
+
+
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="">Hora Inicio</label>
+
+                    <input type="time" id="horaInicio" class="form-control">
+
+
+                </div>
+
+                <div class="form-group">
+
+
+
+
+                    <label for="">Hora Fin</label>
+
+                    <input type="time" id="horaFin" class="form-control">
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button class="btn btn-primary" id="btnRegistrarHorario">Registrar Horario</button>
                     </div>
+                </div>
+            
 
-                    <div class="form-group">
-                        <label for="txtAsignatura">ASIGNATURA</label>
-                        <select type="text" class="form-control" id="asignaturaSelect">
-                            <p id="cargar"></p>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="txtDia">DÍA</label>
-                        <select name="select">
-                            <option value="Domingo">Domingo</option>
-                            <option value="Lunes" selected>Lunes</option>
-                            <option value="Martes">Martes</option>
-                            <option value="Miercoles">Miercoles</option>
-                            <option value="Jueves">Jueves</option>
-                            <option value="Viernes">Viernes</option>
-                            <option value="Sabado">Sabado</option>
-                        </select>
-                    </div>
+        </div>
 
 
 
-                    <div class="form-group">
-                        <label for="txtHoraInicio">HORA INICIO</label>
-                        <input type="time" name="hora" class="form-control" id="txtHoraInicio">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="txtHoraFin">HORA FIN</label>
-                        <input type="time" name="hora" class="form-control" id="txtHoraFin">
-                    </div>
-
-                    <button type="button" class="btn btn-success" id="btnCrearHorario" class="btn btn-default">Registrar</button>
-                    <button type="button" class="btn btn-success" id="btnModificarHorario" class="btn btn-default">Modificar</button>
-                    <button type="button" class="btn btn-success" id="btnEliminarHorario" class="btn btn-default">Eliminar</button>
-                </form>
-                <br>
-            </div>
+        <div class="col-sm-8" color="white" >
 
 
 
-            <div class="col-lg-8">
+        
+        <select name="" id="buscarIdCurso" class="form-control" required="required">
 
-                <center>
+            
+        </select>
+        
+            <table id="tablaHorario" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                    <th>Hora</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miercoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sabado</th>
+                        <th>Domingo</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTablaHorario">
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
-                    <div class="row">
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="txtCurso">SELECCIONA EL GRADO AL QUE DESEA VER EL HORARIO</label>
-                                <select type="text" class="form-control" id="cursoHorarioSelect">
-                                    <p id="cargar"></p>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-4"></div>
-                    </div>
-
-                </center>
-
-                <table id="tablaHorario" class="table table-hover table-bordered">
-                    <thead class="cabeceraTablaHorario">
-                        <tr>
-                            <th>HORA</th>
-                            <th>LUNES</th>
-                            <th>MARTES</th>
-                            <th>MIERCOLES</th>
-                            <th>JUEVES</th>
-                            <th>VIERNES</th>
-                            <th>SABADO</th>
-                            <th>DOMINGO</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyHorario">
-
-                    </tbody>
-                </table>
-
-            </div>
 
         </div>
     </div>

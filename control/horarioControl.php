@@ -11,11 +11,12 @@ class horarioControl
     public $dia;
     public $horaInicio;
     public $horaFin;
+    public $idCurso;
 
 
     public function ctrInsertar()
     {
-        $ObjRespuesta = horarioModelo::mdlInsertar($this->asignatura, $this->cursoAsignatura, $this->dia, $this->horaInicio, $this->horaFin);
+        $ObjRespuesta = horarioModelo::mdlInsertar($this->asignatura, $this->idCurso, $this->dia, $this->horaInicio, $this->horaFin);
         echo json_encode($ObjRespuesta);
     }
 
@@ -31,15 +32,16 @@ class horarioControl
 
     public function ctrListarHorario()
     {
-        $ObjRespuesta = horarioModelo::mdlListarTodos();
-        echo json_encode($ObjRespuesta);
+        $objRespuesta = horarioModelo::mdlListarTodos($this->idCurso);
+        echo json_encode($objRespuesta);
+        
     }
 
-    public function ctrlCargarAsignatura()
-    {
-        $objRespuesta = horarioModelo::mdlCargarAsignatura();
-        echo json_encode($objRespuesta);
-    }
+    // public function ctrlCargarAsignatura()
+    // {
+    //     $objRespuesta = horarioModelo::mdlCargarAsignatura();
+    //     echo json_encode($objRespuesta);
+    // }
 
     public function ctrlCargarDatosCursos()
     {
@@ -53,39 +55,60 @@ class horarioControl
         echo json_encode($objRespuesta);
     }
 
+    public function ctrlConsultarAsignaturasdeCurso(){
+
+        $objRespuesta = horarioModelo::mdlCargarAsignaturadeIdCurso($this->idCurso);
+        echo json_encode($objRespuesta);
+
+    }
+
 }
 
+$objHorario = new horarioControl();
+$objconsulta= new horarioControl();
 
 if (isset($_POST["cargarDatosAsignatura"])) {
 
-    $objconsulta = new horarioControl();
-    $objconsulta->ctrlCargarAsignatura();
+    
+    //$objconsulta->ctrlCargarAsignatura();
 }
 
-if (isset($_POST["cargarDatosCursos"])) {
+if (isset($_POST["cargarCursosHorario"])) {
 
-    $objconsulta = new horarioControl();
+   
     $objconsulta->ctrlCargarDatosCursos();
 }
 
 if (isset($_POST["cargarDatosCursosHorario"])) {
 
-    $objconsulta = new horarioControl();
+    
     $objconsulta->ctrlCargarDatosCursoHorario();
 }
 
 
-if (isset($_POST["asignatura"]) && isset($_POST["idCurso"]) && isset($_POST["dia"]) && isset($_POST["horaInicio"]) && isset($_POST["horaFin"])) {
-    $objHorario = new horarioControl();
-    $objHorario->asignatura = $_POST["curasignaturaso"];
-    $objHorario->idCurso = $_POST["idCurso"];
+if (isset($_POST["asignatura"]) && isset($_POST["curso"]) && isset($_POST["dia"]) && isset($_POST["horaInicio"]) && isset($_POST["horaFin"])) {
+
+    $objHorario->asignatura = $_POST["asignatura"];
+    $objHorario->idCurso = $_POST["curso"];
     $objHorario->dia = $_POST["dia"];
     $objHorario->horaInicio = $_POST["horaInicio"];
     $objHorario->horaFin = $_POST["horaFin"];
     $objHorario->ctrInsertar();
 }
 
-if (isset($_POST["listaHorio"]) == "ok") {
-    $objListaHorario = new horarioControl();
-    $objListaHorario->ctrListarHorario();
+if(isset($_POST["idCurso"])){
+
+    $objHorario->idCurso=$_POST["idCurso"];
+    $objHorario->ctrlConsultarAsignaturasdeCurso();
+
+ 
+    
+    
+}
+
+if(isset($_POST["horario"])){
+
+    $objHorario->idCurso=$_POST["horario"];
+
+    $objHorario->ctrListarHorario();
 }
