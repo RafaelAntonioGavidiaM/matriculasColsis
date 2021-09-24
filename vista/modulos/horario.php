@@ -1,8 +1,9 @@
+
 <header>
     <div class="container">
         <div class="texto">
             <div class="caja">
-                <h1 id="h1rf">HORARIO DE CLASES</h1>
+                <h1 id="h1rf">Horario</h1>
             </div>
         </div>
     </div>
@@ -23,7 +24,9 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-lg-12 "></div>
+        <div class="col-lg-12 ">
+
+        </div>
     </div>
 
     <br>
