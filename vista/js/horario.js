@@ -31,13 +31,7 @@ $(document).ready(function() {
         var dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
 
 
-        var lunes = [];
-        var martes = [];
-        var miercoles = [];
-        var jueves = [];
-        var viernes = [];
-        var sabado = [];
-        var domingo = [];
+
 
 
         var mensaje = $("#buscarIdCurso").val();
@@ -56,62 +50,21 @@ $(document).ready(function() {
             success: function(respuesta) {
                 console.log(respuesta);
 
-
-
-                respuesta.forEach(cargararrays);
-
-                function cargararrays(item, index2) {
-
-                    var hora = item.Hora;
-                    var asignatura = item.nombreAsignatura;
-                    var vacio = "";
-
-                    if (item.dia == "Lunes") {
-
-                        lunes.push({ hora, asignatura });
-                    } else if (item.dia == "Martes") {
-
-                        martes.push({ hora, asignatura });
-                    } else if (item.dia == "Miercoles") {
-
-                        miercoles.push({ hora, asignatura });
-                    } else if (item.dia == "Jueves") {
-
-                        jueves.push({ hora, asignatura });
-                    } else if (item.dia == "Viernes") {
-
-                        viernes.push({ hora, asignatura });
-                    } else if (item.dia == "Sabado") {
-
-                        sabado.push({ hora, asignatura });
-                    } else if (item.dia == "Domingo") {
-
-                        domingo.push({ hora, asignatura });
-                    }
-
-                }
-
-                var horaUnica = [...new Set(respuesta)];
-
-                console.log(horaUnica);
-
-                console.log(lunes, martes, miercoles, jueves, viernes, sabado, domingo);
-
-
-                dataset.push({ lunes, martes, miercoles, jueves, viernes, sabado, domingo });
-                console.log(dataset);
-
                 // $("#tablaHorario").DataTable(dataset);
 
 
                 var horaAnterior = "";
                 var horaActual = "";
 
+
                 var datos = [];
 
                 contador = 0;
 
                 for (let index = 0; index < respuesta.length; index++) {
+                    var hora = "";
+
+
 
                     var dia3 = respuesta[index]["dia"];
                     horaActual = respuesta[index]["Hora"];
@@ -122,18 +75,23 @@ $(document).ready(function() {
                     if (contador == 0) {
 
                         horaAnterior = respuesta[index]["Hora"];
-                        datos.push({ horaAnterior, dia3, asignatura3 })
+                        hora = horaAnterior;
+                        datos.push({ hora, dia3, asignatura3 })
 
                     } else {
                         if (horaActual == horaAnterior) {
-                            datos.push({ dia3, asignatura3 });
+
+                            hora = "";
+                            datos.push({ hora, dia3, asignatura3 });
 
 
 
 
                         } else if (horaActual != horaAnterior) {
+
                             horaAnterior = respuesta[index]["Hora"];
-                            datos.push({ horaActual, dia3, asignatura3 });
+                            hora = horaAnterior;
+                            datos.push({ hora, dia3, asignatura3 });
 
                         }
 
@@ -146,6 +104,159 @@ $(document).ready(function() {
                 }
 
                 console.log(datos);
+
+                var resultados = [];
+
+                var concatenarR = "";
+
+                var contadorConcatenar = 0;
+                var ultimodia = 0;
+
+
+
+
+                for (let index = 0; index < datos.length; index++) {
+
+                    var diaValidar = datos[index]["dia3"];
+
+
+
+
+
+
+
+
+
+                    if (datos[index]["hora"] != "") {
+
+                        if (index == 1) {
+                            concatenarR += '<tr>';
+                            ultimodia = 0;
+
+                        } else {
+                            concatenarR += '</tr>';
+                            concatenarR += '<tr>';
+                            ultimodia = 0;
+
+
+
+
+                        }
+                        concatenarR += '<td>' + datos[index]["hora"] + '</td>';
+                        for (let index2 = ultimodia; index2 < dias.length; index2++) {
+
+                            //alert(ultimodia);
+                            // alert(diaValidar + " " + dias[index2]);
+
+
+
+                            if (diaValidar !== dias[index2]) {
+                                concatenarR += '<td>' + '</td>';
+
+
+
+
+
+                            } else {
+                                ultimodia = index2 + 1;
+                                //alert("Entro");
+                                break;
+
+
+
+                            }
+
+
+
+
+
+
+
+
+
+                        }
+
+                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+
+
+
+
+
+
+
+
+
+
+
+
+                    } else {
+
+                        for (let index2 = ultimodia; index2 < dias.length; index2++) {
+
+                            //alert(ultimodia);
+                            //alert(diaValidar + "" + dias[index2]);
+
+
+
+                            if (diaValidar !== dias[index2]) {
+                                concatenarR += '<td>' + '</td>';
+
+
+
+
+
+                            } else {
+                                ultimodia = index2 + 1;
+                                // alert("Entro");
+                                break;
+
+
+
+                            }
+
+
+
+
+
+
+
+
+
+                        }
+
+
+
+
+
+
+
+
+                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+                concatenarR += '<tr>';
+                alert(concatenarR);
+                $("#cuerpoTablaHorario").html(concatenarR);
+
+
+
 
 
 

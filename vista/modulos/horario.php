@@ -15,8 +15,7 @@
 
 
 
-
-    <div class="row">
+<div class="container">
         <div class="col-sm-4">
             
                 <div class="form-group">
@@ -117,9 +116,7 @@
                     </tr>
                 </thead>
                 <tbody id="cuerpoTablaHorario">
-                    <tr>
-                        <td></td>
-                    </tr>
+                    
                 </tbody>
             </table>
 
@@ -127,4 +124,5 @@
         </div>
     </div>
 
+</div>
 </div>
