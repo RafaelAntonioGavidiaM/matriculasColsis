@@ -1,5 +1,5 @@
 <header>
-    <div class="container">
+    <div class="containerInicio">
         <div class="texto">
             <div class="caja">
                 <h1 id="h1rf"></h1>

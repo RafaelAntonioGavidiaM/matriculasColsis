@@ -1,7 +1,7 @@
-header {
+.containerHorario {
     width: 100%;
     position: relative;
-    height: 500px;
+    height: 700px;
     background: #009fff;
     /* fallback for old browsers */
     background: -webkit-linear-gradient( to right, rgba(62, 66, 64, 0.678), rgba(62, 66, 64, 0.678)), url("../imgs/horario/horario.jpg");

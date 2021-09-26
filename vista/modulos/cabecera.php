@@ -73,10 +73,10 @@
 
 
 
-
+ <link rel='stylesheet' type="text/css" media="screan" href='vista/css/horario.css'>
   <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
-  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/horario.css'>
+  
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/cursos.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
@@ -84,6 +84,7 @@
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturaCurso.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/normalize.css'>
+  
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>

@@ -121,12 +121,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
                     if (datos[index]["hora"] != "") {
 
                         if (index == 1) {
@@ -155,38 +149,17 @@ $(document).ready(function() {
 
 
 
-
-
                             } else {
                                 ultimodia = index2 + 1;
                                 //alert("Entro");
                                 break;
 
-
-
                             }
-
-
-
-
-
-
-
 
 
                         }
 
                         concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
-
-
-
-
-
-
-
-
-
-
 
 
                     } else {
@@ -202,33 +175,16 @@ $(document).ready(function() {
                                 concatenarR += '<td>' + '</td>';
 
 
-
-
-
                             } else {
                                 ultimodia = index2 + 1;
                                 // alert("Entro");
                                 break;
 
 
-
                             }
 
 
-
-
-
-
-
-
-
                         }
-
-
-
-
-
-
 
 
                         concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
@@ -237,41 +193,10 @@ $(document).ready(function() {
                     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
                 concatenarR += '<tr>';
                 alert(concatenarR);
                 $("#cuerpoTablaHorario").html(concatenarR);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -308,24 +233,18 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
-
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Registro Exitoso',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
             }
         })
 
-
-
-
     })
-
-
-
-
-
-    // cargarDatosCursos(1, "", "");
-    // cargarDatosAsignatura(1);
-    // cargarDatosCursoHorario(1);
-
 
 
     // /*--------------------------------------------------------------------------------------------------------*/
