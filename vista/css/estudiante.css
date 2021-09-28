@@ -21,7 +21,7 @@ body {
 header {
   width: 100%;
   position: relative;
-  height: 700px;
+  height: 100vh;
   background: #009fff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
       to right,
