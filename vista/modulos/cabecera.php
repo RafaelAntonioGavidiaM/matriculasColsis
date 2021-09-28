@@ -53,7 +53,7 @@
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
 <<<<<<< HEAD
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
-  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/'>
 =======
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
 <<<<<<< HEAD
@@ -68,6 +68,7 @@
   <script src="vista/js/asignatura.js"></script>
   <script src="vista/js/nota.js"></script>
   <script src="vista/js/asignaturaCurso.js"></script>
+  <script src="vista/js/reporte.js"></script>
 
 
 

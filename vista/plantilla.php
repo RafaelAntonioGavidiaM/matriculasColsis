@@ -40,7 +40,7 @@ if ($_SESSION == null) {
 
                 if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante" 
                     || $_GET["ruta"] == "cursos" ||  $_GET["ruta"] == "nota" ||  $_GET["ruta"] == "asignaturacurso" 
-                    || $_GET["ruta"] == "asignatura" || $_GET["ruta"] == "horario") {
+                    || $_GET["ruta"] == "asignatura" || $_GET["ruta"] == "horario" || $_GET["ruta"] == "reporte")  {
 
 
                     include_once "vista/modulos/" . $_GET["ruta"] . ".php";
