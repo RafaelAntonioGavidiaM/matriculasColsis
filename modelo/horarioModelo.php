@@ -85,13 +85,32 @@ class horarioModelo
 
     public static function mdlListarTodos($idCurso)
     {
-        $ObjRespuesta = conexion::conectar()->prepare(" select  concat(horaInicio,'-',horaFinal)as Hora , asignatura.nombreAsignatura ,dia from horario inner join asignaturacurso on asignaturacurso.idAsignaturaCurso=horario.idAsignaturaCurso inner join asignatura on asignatura.idAsignatura= asignaturacurso.idAsignatura where  asignaturacurso.idCurso=:id order by Hora asc, field(dia, 'Lunes','Martes', 'Miercoles','Jueves', 'Viernes','Sabado','Domingo'); ");
+        $ObjRespuesta = conexion::conectar()->prepare(" select  concat(horaInicio,'-',horaFinal)as Hora ,horario.idHorario, asignatura.nombreAsignatura ,dia from horario inner join asignaturacurso on asignaturacurso.idAsignaturaCurso=horario.idAsignaturaCurso inner join asignatura on asignatura.idAsignatura= asignaturacurso.idAsignatura where asignaturacurso.idCurso=:id order by Hora asc, field(dia, 'Lunes','Martes', 'Miercoles','Jueves', 'Viernes','Sabado','Domingo'); ");
         $ObjRespuesta-> bindParam(":id",$idCurso,PDO::PARAM_INT);
         $ObjRespuesta->execute();
         $listaHorario = $ObjRespuesta->fetchAll();
 
         $ObjRespuesta = null;
         return $listaHorario;
+    }
+
+    public static function mdlEliminarHorario($idHorario){
+        $mensaje="";
+
+        $objConsulta=conexion::conectar()->prepare("DELETE FROM horario where idHorario=".$idHorario."");
+        if($objConsulta->execute()){
+
+            $mensaje="ok";
+
+        }else{
+
+            $mensaje="error";
+        }
+
+        return $mensaje;
+        
+
+
     }
     
 
