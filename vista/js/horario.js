@@ -63,6 +63,7 @@ $(document).ready(function() {
 
                 for (let index = 0; index < respuesta.length; index++) {
                     var hora = "";
+                    var idHorario = respuesta[index]["idHorario"];
 
 
 
@@ -76,13 +77,14 @@ $(document).ready(function() {
 
                         horaAnterior = respuesta[index]["Hora"];
                         hora = horaAnterior;
-                        datos.push({ hora, dia3, asignatura3 })
+
+                        datos.push({ hora, dia3, idHorario, asignatura3 })
 
                     } else {
                         if (horaActual == horaAnterior) {
 
                             hora = "";
-                            datos.push({ hora, dia3, asignatura3 });
+                            datos.push({ hora, dia3, idHorario, asignatura3 });
 
 
 
@@ -91,7 +93,7 @@ $(document).ready(function() {
 
                             horaAnterior = respuesta[index]["Hora"];
                             hora = horaAnterior;
-                            datos.push({ hora, dia3, asignatura3 });
+                            datos.push({ hora, dia3, idHorario, asignatura3 });
 
                         }
 
@@ -159,7 +161,7 @@ $(document).ready(function() {
 
                         }
 
-                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+                        concatenarR += '<td><button type="button" id="btnAsignaturaHorario" class="btn btn-info" idHorario=' + datos[index]["idHorario"] + ' data-toggle="modal" data-target="#modalHorario">' + datos[index]["asignatura3"] + ' </button></td>';
 
 
                     } else {
@@ -187,7 +189,7 @@ $(document).ready(function() {
                         }
 
 
-                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+                        concatenarR += '<td><button type="button" id="btnAsignaturaHorario" class="btn btn-info" idHorario=' + datos[index]["idHorario"] + ' data-toggle="modal" data-target="#modalHorario">' + datos[index]["asignatura3"] + ' </button></td>';
 
 
                     }
@@ -206,6 +208,71 @@ $(document).ready(function() {
 
     })
 
+    $("#tablaHorario").on("click", "#btnAsignaturaHorario", function() {
+        var idHorario = $(this).attr("idHorario");
+        alert(idHorario);
+        $("#eidHorario").attr("idEliminar", idHorario);
+
+
+
+
+
+
+
+
+    })
+
+    $("#eidHorario").click(function() {
+
+        var idHorario = $(this).attr("idEliminar");
+
+        Swal.fire({
+            title: '¿Seguro?',
+            text: "No se podran revertir los cambios ",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                var objData = new FormData();
+                objData.append("idEliminar", idHorario);
+
+                $.ajax({
+                    url: "control/horarioControl.php",
+                    type: "post",
+                    dataType: "json",
+                    data: objData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(respuesta) {
+
+                        if (respuesta == "ok") {
+                            Command: toastr["success"]("Registro eliminado correctamente", "Succes")
+
+                        }
+                        else {
+                            Command: toastr["error"]("Registro no  eliminado correctamente", "Error")
+
+                        }
+
+                    }
+                })
+
+
+
+
+
+            }
+        })
+
+
+
+    });
+    $
 
 
 
@@ -393,7 +460,7 @@ $(document).ready(function() {
                 // alert(concatenar);
 
                 $("#selectAsignaturasCarga").html(concatenar);
-                
+
 
 
             }
@@ -432,7 +499,7 @@ $(document).ready(function() {
                 // alert(concatenar);
 
                 $("#selectEliminarHorarioAsignatura").html(concatenar);
-                
+
 
 
             }

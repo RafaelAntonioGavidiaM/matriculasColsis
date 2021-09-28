@@ -62,6 +62,13 @@ class horarioControl
 
     }
 
+    public function ctrlEliminarHorario(){
+        $objRespuesta=horarioModelo::mdlEliminarHorario($this->idHorario);
+        echo json_encode($objRespuesta);
+
+
+    }
+
 }
 
 $objHorario = new horarioControl();
@@ -111,4 +118,11 @@ if(isset($_POST["horario"])){
     $objHorario->idCurso=$_POST["horario"];
 
     $objHorario->ctrListarHorario();
+}
+
+if(isset($_POST["idEliminar"])){
+    
+    $objHorario->idHorario=$_POST["idEliminar"];
+    $objHorario->ctrlEliminarHorario();
+
 }

@@ -5,15 +5,18 @@ $(document).ready(function() {
 
     //Inciializacion de variables 
 
-    listarAsistencia();
-
+   
     // listar asistencias
 
     function listarAsistencia() {
 
+        var idCurso = $("#selectCurso").val();
+        var idAsignatura = $("#selectAsignaturaAsistencia").val();
         var listaAsistencia = "ok";
         var objListaAsistencia = new FormData;
         objListaAsistencia.append("listaAsistencia", listaAsistencia);
+        objListaAsistencia.append("idCurso",idCurso);
+        objListaAsistencia.append("idAsignatura",idAsignatura);
 
         $.ajax({
 
@@ -72,10 +75,11 @@ $(document).ready(function() {
         })
     }
 
+    $("#btnCrearAsistencia").click(function(){
 
+        listarAsistencia();
 
-
-
+    })
 
     // funcion de carga asignaturas de Asistencia
     $("#btnCargarAsignaturas").click(function() {

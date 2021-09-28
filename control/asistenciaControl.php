@@ -6,6 +6,7 @@ include_once "../modelo/asistenciaModelo.php";
 class asistenciaControl{
 
     public $idCurso;
+    public $idAsignatura;
 
     public function ctrCargarSelectAsignaturaAsistencia(){
 
@@ -17,7 +18,7 @@ class asistenciaControl{
 
     public function ctrCargarAsistencia(){
 
-        $objRespuesta = asistenciaModelo::mdlCargarAsistenciaSegunCurso();
+        $objRespuesta = asistenciaModelo::mdlCargarAsistenciaSegunCurso($this->idCurso,$this->idAsignatura);
         echo json_encode($objRespuesta);
     }
 
@@ -42,8 +43,11 @@ if(isset($_POST["listaAsignatura"]) == "ok" && isset($_POST["idCurso"])){
 
 // Listar datatable asistencia
 
-if (isset($_POST["listaAsistencia"]) == "ok") {
+if (isset($_POST["listaAsistencia"]) == "ok" && isset($_POST["idCurso"]) && isset($_POST["idAsignatura"])) {
     
     $objCargarAsistencia =  new asistenciaControl();
+    $objCargarAsistencia->idCurso = $_POST["idCurso"];
+    $objCargarAsistencia->idAsignatura = $_POST["idAsignatura"];
     $objCargarAsistencia->ctrCargarAsistencia();
+
 }
