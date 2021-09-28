@@ -1,5 +1,5 @@
 
-<header>
+<header class="headerCurso">
     <div class="container">
         <div class="texto">
             <div class="caja">

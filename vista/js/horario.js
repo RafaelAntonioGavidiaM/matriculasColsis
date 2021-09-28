@@ -63,6 +63,7 @@ $(document).ready(function() {
 
                 for (let index = 0; index < respuesta.length; index++) {
                     var hora = "";
+                    var idHorario = respuesta[index]["idHorario"];
 
 
 
@@ -76,13 +77,14 @@ $(document).ready(function() {
 
                         horaAnterior = respuesta[index]["Hora"];
                         hora = horaAnterior;
-                        datos.push({ hora, dia3, asignatura3 })
+
+                        datos.push({ hora, dia3, idHorario, asignatura3 })
 
                     } else {
                         if (horaActual == horaAnterior) {
 
                             hora = "";
-                            datos.push({ hora, dia3, asignatura3 });
+                            datos.push({ hora, dia3, idHorario, asignatura3 });
 
 
 
@@ -91,7 +93,7 @@ $(document).ready(function() {
 
                             horaAnterior = respuesta[index]["Hora"];
                             hora = horaAnterior;
-                            datos.push({ hora, dia3, asignatura3 });
+                            datos.push({ hora, dia3, idHorario, asignatura3 });
 
                         }
 
@@ -118,12 +120,6 @@ $(document).ready(function() {
                 for (let index = 0; index < datos.length; index++) {
 
                     var diaValidar = datos[index]["dia3"];
-
-
-
-
-
-
 
 
 
@@ -155,38 +151,17 @@ $(document).ready(function() {
 
 
 
-
-
                             } else {
                                 ultimodia = index2 + 1;
                                 //alert("Entro");
                                 break;
 
-
-
                             }
-
-
-
-
-
-
-
 
 
                         }
 
-                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
-
-
-
-
-
-
-
-
-
-
+                        concatenarR += '<td><button type="button" id="btnAsignaturaHorario" class="btn btn-info" idHorario=' + datos[index]["idHorario"] + ' data-toggle="modal" data-target="#modalHorario">' + datos[index]["asignatura3"] + ' </button></td>';
 
 
                     } else {
@@ -202,52 +177,22 @@ $(document).ready(function() {
                                 concatenarR += '<td>' + '</td>';
 
 
-
-
-
                             } else {
                                 ultimodia = index2 + 1;
                                 // alert("Entro");
                                 break;
 
 
-
                             }
-
-
-
-
-
-
-
 
 
                         }
 
 
-
-
-
-
-
-
-                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+                        concatenarR += '<td><button type="button" id="btnAsignaturaHorario" class="btn btn-info" idHorario=' + datos[index]["idHorario"] + ' data-toggle="modal" data-target="#modalHorario">' + datos[index]["asignatura3"] + ' </button></td>';
 
 
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 }
@@ -257,6 +202,16 @@ $(document).ready(function() {
 
 
 
+            }
+        })
+
+
+    })
+
+    $("#tablaHorario").on("click", "#btnAsignaturaHorario", function() {
+        var idHorario = $(this).attr("idHorario");
+        alert(idHorario);
+        $("#eidHorario").attr("idEliminar", idHorario);
 
 
 
@@ -265,11 +220,47 @@ $(document).ready(function() {
 
 
 
+    })
 
+    $("#eidHorario").click(function() {
 
+        var idHorario = $(this).attr("idEliminar");
 
+        Swal.fire({
+            title: '¿Seguro?',
+            text: "No se podran revertir los cambios ",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
 
+                var objData = new FormData();
+                objData.append("idEliminar", idHorario);
 
+                $.ajax({
+                    url: "control/horarioControl.php",
+                    type: "post",
+                    dataType: "json",
+                    data: objData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(respuesta) {
+
+                        if (respuesta == "ok") {
+                            Command: toastr["success"]("Registro eliminado correctamente", "Succes")
+
+                        }
+                        else {
+                            Command: toastr["error"]("Registro no  eliminado correctamente", "Error")
+
+                        }
+
+                    }
+                })
 
 
 
@@ -279,8 +270,9 @@ $(document).ready(function() {
         })
 
 
-    })
 
+    });
+    $
 
 
 
@@ -308,24 +300,18 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
-
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Registro Exitoso',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
             }
         })
 
-
-
-
     })
-
-
-
-
-
-    // cargarDatosCursos(1, "", "");
-    // cargarDatosAsignatura(1);
-    // cargarDatosCursoHorario(1);
-
 
 
     // /*--------------------------------------------------------------------------------------------------------*/
@@ -419,6 +405,7 @@ $(document).ready(function() {
                     $("#selectGrado").html(concatenarCursoHorario);
                     $("#selectCursoForm1234").html(concatenarCursoHorario);
                     $("#buscarIdCurso").html(concatenarCursoHorario);
+                    $("#selectEliminarHorarioCurso").html(concatenarCursoHorario);
 
                 } else if (opcion == 2) {
 
@@ -473,6 +460,46 @@ $(document).ready(function() {
                 // alert(concatenar);
 
                 $("#selectAsignaturasCarga").html(concatenar);
+
+
+
+            }
+        })
+
+    })
+
+    $("#selectEliminarHorarioCurso").on("change", function() {
+
+
+        var idCurso = $("#selectEliminarHorarioCurso").val();
+        var objData = new FormData();
+        objData.append("idCurso", idCurso);
+
+
+        $.ajax({
+            url: "control/horarioControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                var concatenar = "";
+                console.log(respuesta);
+
+                respuesta.forEach(cargarAsignaturasSelect);
+
+                function cargarAsignaturasSelect(item, index) {
+
+                    concatenar += '<option value=' + item.idAsignatura + '>' + item.nombreAsignatura + '</option>';
+
+                }
+                // alert(concatenar);
+
+                $("#selectEliminarHorarioAsignatura").html(concatenar);
+
 
 
             }

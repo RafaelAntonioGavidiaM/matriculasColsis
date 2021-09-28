@@ -1,0 +1,17 @@
+.headerHorario {
+    width: 100%;
+    position: relative;
+    height: 100vh;
+    background-image: linear-gradient(to right, rgba(62, 66, 64, 0.678), rgba(62, 66, 64, 0.678)), url("../imgs/horario/horario.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: contain;
+    
+}
+
+.wave {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}

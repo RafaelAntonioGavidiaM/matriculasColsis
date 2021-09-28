@@ -729,7 +729,7 @@ $(document).ready(function () {
 
 
     $("#btnMostrarRegArea").click(function () {
-        $("#ventadeRegistroAera").fadeIn().addClass('mover_contenido_abajo');
+        $("#ventadeRegistroAera").fadeIn().addClass('mover_contenido_abajo animate__animated animate__pulse');
     })
 
     $("#btnCerrarRegistroArea").click(function () {
@@ -737,7 +737,7 @@ $(document).ready(function () {
     })
 
     $("#btnMostrarRegAsignatura").click(function () {
-        $("#ventadeRegistroAsignatura").fadeIn().addClass('mover_contenido_abajo');
+        $("#ventadeRegistroAsignatura").fadeIn().addClass('mover_contenido_abajo animate__animated animate__pulse');
     })
 
     $("#btnCerrarRegistroAsignatura").click(function () {
