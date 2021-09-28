@@ -94,13 +94,13 @@
 
                                 <div class="form-group">
                                     <label for="">Curso</label>
-                                    <select name="" id="SelectEliminarHorarioCurso" class="form-control" required="required">
+                                    <select name="" id="selectEliminarHorarioCurso" class="form-control" required="required">
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Asignatura</label>
-                                    <select name="" id="SelectEliminarHorarioAsignatura" class="form-control" required="required">
+                                    <select name="" id="selectEliminarHorarioAsignatura" class="form-control" required="required">
                                     </select>
                                 </div>
 
