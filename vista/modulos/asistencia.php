@@ -84,7 +84,7 @@
 
                         <div class="panel-body">
                             
-                            <table class="table table-hover">
+                            <table id="tablaAsistencia" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -94,9 +94,10 @@
                                         <th>Asignatura</th>
                                         <th>Fecha</th>
                                         <th>Asistencia</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="bodyAsistencias">
                                     <tr>
                                         <td></td>
                                     </tr>
