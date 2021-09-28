@@ -1,0 +1,103 @@
+.headerAsistencia{
+
+    width: 100%;
+    position: relative;
+    height: 500px;
+    background: #009fff; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to right,
+        rgba(62, 66, 64, 0.678),
+        rgba(62, 66, 64, 0.678)
+      ),
+      url("../imgs/Asistencia/cabecera_Asistencia.jpg"); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        rgba(62, 66, 64, 0.678),
+        rgba(62, 66, 64, 0.678)
+      ),
+      url("../imgs/Asistencia/cabecera_Asistencia.jpg"); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+
+}
+
+/* Diseño de paneles */
+
+.cabecera_panel{
+
+    background-color: rgb(77, 194, 77) !important;
+
+}
+
+
+.borde_panel{
+
+    border-radius: 15px !important;
+    border-color: rgb(77, 194, 77) !important;
+
+}
+
+.borde_panel_Cabecera{
+
+
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+
+}
+
+.borde_panel_pie{
+
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+
+
+}
+
+.tamaño_letra_encabezado_tabla{
+
+    font-size: 26px;
+
+}
+
+/* Crear una nueva asistencia Diseño */
+
+
+
+.tamaño_selecurso{
+
+    width: 75%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    
+}
+
+.mover_btnCargarAsignatura{
+
+  
+    float: right;
+    position: relative;
+    top: 25px;
+    width: 25%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    
+
+
+}
+
+.color_btnCargar{
+
+    color:rgb(255, 123, 0);
+    background-color: white;
+    border-color: rgb(255, 123, 0);
+
+}
+
+.color_btnCargar:hover{
+
+    color:white;
+    background-color: rgb(255, 123, 0);
+    box-shadow: 1px 1px .5rem rgba(0, 255, 128, 0.452) ;
+
+}

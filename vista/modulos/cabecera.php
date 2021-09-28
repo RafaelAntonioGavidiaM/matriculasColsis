@@ -80,6 +80,8 @@
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/normalize.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asistencia.css'>
+  <script src="vista/js/asistencia.js"></script>
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
