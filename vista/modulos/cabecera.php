@@ -55,9 +55,9 @@
 
 
   <!--alert toarst-->
-  
- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
 
 
@@ -73,7 +73,7 @@
 
 
 
- 
+
   <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
@@ -82,9 +82,14 @@
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturaCurso.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/cursos.css'>
-  <link rel='stylesheet' type="text/css" media="screan" href='vista/css/horarios.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/horarios.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/normalize.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asistencia.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/rol.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/nota.css'>
+
+
+
   <script src="vista/js/asistencia.js"></script>
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>

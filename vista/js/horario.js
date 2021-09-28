@@ -338,7 +338,7 @@ $(document).ready(function() {
                     $("#selectGrado").html(concatenarCursoHorario);
                     $("#selectCursoForm1234").html(concatenarCursoHorario);
                     $("#buscarIdCurso").html(concatenarCursoHorario);
-                    $("#SelectEliminarHorario").html(concatenarCursoHorario);
+                    $("#selectEliminarHorarioCurso").html(concatenarCursoHorario);
 
                 } else if (opcion == 2) {
 
@@ -393,6 +393,46 @@ $(document).ready(function() {
                 // alert(concatenar);
 
                 $("#selectAsignaturasCarga").html(concatenar);
+                
+
+
+            }
+        })
+
+    })
+
+    $("#selectEliminarHorarioCurso").on("change", function() {
+
+
+        var idCurso = $("#selectEliminarHorarioCurso").val();
+        var objData = new FormData();
+        objData.append("idCurso", idCurso);
+
+
+        $.ajax({
+            url: "control/horarioControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                var concatenar = "";
+                console.log(respuesta);
+
+                respuesta.forEach(cargarAsignaturasSelect);
+
+                function cargarAsignaturasSelect(item, index) {
+
+                    concatenar += '<option value=' + item.idAsignatura + '>' + item.nombreAsignatura + '</option>';
+
+                }
+                // alert(concatenar);
+
+                $("#selectEliminarHorarioAsignatura").html(concatenar);
+                
 
 
             }
