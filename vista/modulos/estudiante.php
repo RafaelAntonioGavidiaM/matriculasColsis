@@ -1,6 +1,6 @@
 <body>
 
-    <header>
+    <header class="headerEstudiante">
         <div class="container">
             <div class="texto">
                 <div class="caja">
