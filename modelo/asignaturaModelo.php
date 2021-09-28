@@ -27,17 +27,22 @@ class asignatuaModelo
     {
 
         $mensaje = "";
+        try {
+            $objRegistrarArea = conexion::conectar()->prepare("INSERT INTO area(nombreArea) VALUES (:nombreArea)");
+            $objRegistrarArea->bindParam(":nombreArea", $nombreArea, PDO::PARAM_STR);
 
-        $objRegistrarArea = conexion::conectar()->prepare("INSERT INTO area(nombreArea) VALUES (:nombreArea)");
-        $objRegistrarArea->bindParam(":nombreArea", $nombreArea, PDO::PARAM_STR);
+            if ($objRegistrarArea->execute()) {
 
-        if ($objRegistrarArea->execute()) {
+                $mensaje = "ok";
+            } else {
 
-            $mensaje = "ok";
-        } else {
+                $mensaje = "error";
+            }
+        } catch (Exception $e) {
 
-            $mensaje = "error";
+            $mensaje = $e;
         }
+
 
         return $mensaje;
     }
@@ -63,9 +68,8 @@ class asignatuaModelo
             }
 
             $objRespuesta = null;
-
         } catch (Exception $e) {
-            
+
             $mensaje = $e;
         }
 
@@ -84,8 +88,8 @@ class asignatuaModelo
         try {
 
             $objRespuesta = conexion::conectar()->prepare("DELETE FROM area WHERE idArea='$idArea'");
-            
-            
+
+
             if ($objRespuesta->execute()) {
 
                 $mensaje = "ok";
@@ -95,19 +99,17 @@ class asignatuaModelo
             }
 
             $objRespuesta = null;
-
         } catch (Exception $e) {
-            
+
             $mensaje = "error";
-        } 
+        }
 
 
         return $mensaje;
-
     }
 
 
-    
+
     // ------------------------->Consultas a asignatura<-----------------------
 
     // ------------------------------------------------------------------
@@ -123,24 +125,101 @@ class asignatuaModelo
         return $listaAsignatura;
     }
 
-    public static function mdlRegistrarAsignatura($nombreAsignatura,$nombreArea){
+    // ------------------------------------------------------------------
+    // -------Registrar Una asignatura nueva a la tabla------------------
+    // ------------------------------------------------------------------
+  
+
+    public static function mdlRegistrarAsignatura($nombreAsignatura, $nombreArea)
+    {
 
         $mensaje = "";
+        try {
+            $objRegistrarAsignatura = conexion::conectar()->prepare("INSERT INTO asignatura(nombreAsignatura,idArea) VALUES (:nombreAsignatura,:idArea)");
+            $objRegistrarAsignatura->bindParam(":nombreAsignatura", $nombreAsignatura, PDO::PARAM_STR);
+            $objRegistrarAsignatura->bindParam(":idArea", $nombreArea, PDO::PARAM_STR);
 
-        $objRegistrarAsignatura = conexion::conectar()->prepare("INSERT INTO asignatura(nombreAsignatura,idArea) VALUES (:nombreAsignatura,:idArea)");
-        $objRegistrarAsignatura->bindParam(":nombreAsignatura", $nombreAsignatura, PDO::PARAM_STR);
-        $objRegistrarAsignatura->bindParam(":idArea", $nombreArea, PDO::PARAM_STR);
+            if ($objRegistrarAsignatura->execute()) {
 
-        if($objRegistrarAsignatura->execute()){
+                $mensaje = "ok";
+            } else {
 
-            $mensaje = "ok";
+                $mensaje = "error";
+            }
+
+            $objRegistrarAsignatura = null;
+        } catch (Exception $e) {
+
+            $mensaje =  $e;
+        }
 
 
-        }   
+        return $mensaje;
+    }
+
+    // ------------------------------------------------------------------
+    // -------Modificar una asignatura ya registrada ------------------
+    // ------------------------------------------------------------------
+  
+
+    public static function mdlModificarAsignatura($idAsignatura, $nombreAsignatura, $idArea)
+    {
+
+        $mensaje =  "";
+
+        try {
+
+            $objModificarAsignatura = conexion::conectar()->prepare("UPDATE asignatura SET nombreAsignatura='$nombreAsignatura', idArea= '$idArea' WHERE idAsignatura='$idAsignatura'");
+
+            if ($objModificarAsignatura->execute()) {
+
+                $mensaje = "ok";
+            } else {
+
+                $mensaje = "error";
+            }
+
+            $objModificarAsignatura =  null;
+        } catch (Exception $e) {
+            
+            $mensaje=  $e;
+        }
+
+        return $mensaje;
+    }
+
+    // ------------------------------------------------------------------
+    // -------Eliminar una asignatura ya registrada----------------------
+    // ------------------------------------------------------------------
+  
+
+    public static function mdlEliminarAsigantura($idAsignatura){
+
+        $mensaje =  "";
+            
+        try {
 
 
+            $objEliminarAsignatura = conexion::conectar()->prepare("DELETE FROM asignatura WHERE idAsignatura='$idAsignatura'");
+        
+            if($objEliminarAsignatura->execute()){
+    
+                $mensaje = "ok";
+    
+            }else{
+    
+                $mensaje =  "error";
+    
+            }
+    
+            $objEliminarAsignatura =  null;
+        } catch (Exception $e) {
+            
+            $mensaje =  "error2";
+            
+        }
+
+        return $mensaje;
 
     }
 }
-
-

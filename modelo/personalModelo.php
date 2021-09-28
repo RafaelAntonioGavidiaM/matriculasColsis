@@ -256,11 +256,5 @@ class persnalModelo
     }
 
 
-    public static function mdlFiltrarPersonal(){
-
-
-
-
-        
-    }
+    
 }

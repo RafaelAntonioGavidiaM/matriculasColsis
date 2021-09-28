@@ -26,37 +26,50 @@
 
 
         <div class="container-fluid margenes">
+
+            <!-- Botonoes de mostrar formularios de registros -->
+
             <div class="row">
                 <div class="col-lg-6">
-                    <button id="btnMostrarRegArea" type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#ventanaRegPersonal">Registro una nueva Area✏️</button>
-                    <br>
+                    <button id="btnMostrarRegArea" type="button" class="btn_color_letra_success btn-block diseño_boton_success btn-lg">Registro una nueva Area✏️</button>
                     <br>
                 </div>
                 <div class="col-lg-6">
-                    <button id="btnMostrarRegAsignatura" type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#ventanaRegPersonal">Registrar una nueva asignatura✏️</button>
-                    <br>
+                    <button id="btnMostrarRegAsignatura" type="button" class="btn_color_letra_success diseño_boton_success btn-lg btn-block">Registrar una nueva asignatura✏️</button>
                     <br>
                 </div>
             </div>
+
+            <!-- Formulario de registro de Asignatura -->
+
             <div class="row">
+
+
                 <div class="col-lg-6">
 
-                    <form action="/action_page.php">
+                    <form id="ventadeRegistroAera" action="">
+                        <div>
+                            <button id="btnCerrarRegistroArea" type="button" class="btn diseño_boton_cerrar posicion_Boton "><span class="glyphicon glyphicon-remove color_icono" aria-hidden="true"></span></button>
+                        </div>
+                        <br>
                         <div class="form-group">
                             <label for="txtRegArea">Area:</label>
                             <input type="text" class="form-control" id="txtRegArea">
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Mostrar Registros de Areas</label>
-                        </div>
+
                         <center><button id="btnNewArea" type="button" class="btn btn-warning">Guardar Area</button></center>
                         <br>
                         <br>
                     </form>
 
                 </div>
+
                 <div class="col-lg-6">
-                    <form action="/action_page.php">
+                    <form id="ventadeRegistroAsignatura" action="">
+                        <div>
+                            <button id="btnCerrarRegistroAsignatura" type="button" class="btn diseño_boton_cerrar posicion_Boton"><span class="glyphicon glyphicon-remove color_icono" aria-hidden="true"></span></button>
+                        </div>
+                        <br>
                         <div class="form-group">
                             <label for="txtRegAsignatura">Asignatura:</label>
                             <input type="text" class="form-control" id="txtRegAsignatura">
@@ -69,19 +82,33 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Mostrar Registros de Asignaturas</label>
-                        </div>
+
                         <center><button id="btnNewAsignatura" type="button" class="btn btn-warning">Agregar Asignatura</button></center>
                         <br>
-                        <br>
+                        
                     </form>
                 </div>
             </div>
+            
+            <br>
             <div class="row">
-                <!-- tabala de areas -->
-                <div class="col-lg-6">
+                
+                <div class="col-lg-12">
+                    <button id="btnTablasDeContenido" type="button" class="btn_color_letra_tablas diseño_boton_tablas btn-lg btn-block"> 📝Registros💾</button>
+                </div>
+                
+            </div>
+            <br>
+            <br>
+
+            <!-- Tabla de listado de Area -->
+
+            <div id="tablasDeContenido" class="row">
+
+
+                <div id="contenidoDeArea" class="col-lg-6">
                     <div class="panel panel-default">
+                        <!-- Cabecera de Area -->
                         <div class="panel-heading">
                             <center>
                                 <h1>📚Areas de formacion📚</h1>
@@ -106,7 +133,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div id="contenidoDeAsignatura" class="col-lg-6">
                     <!-- tabla de asignaturas -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -137,10 +164,9 @@
 
             <div class="row">
                 <div class="col-lg-12">
+                    
                     <br>
-                    <br>
-                    <button id="btnRegPersonal" type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" data-target="#ventanaRegPersonal">Asignar una asigantura a un curso</button>
-
+                    <a href="asignaturacurso" class="btn btn_color_letra_info diseño_boton_info btn-lg btn-block">Asignar a un curso</a>
 
                 </div>
 
@@ -161,7 +187,7 @@
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modificar Area</h4>
+                    <h4 class="modal-title text-center">Modificar Area</h4>
                 </div>
                 <!-- cuerpo modal de Area -->
                 <div class="modal-body">
@@ -197,7 +223,7 @@
                     </div>
                     <div class="form-group">
                         <div>
-                            <label for=selectModArea">Area</label><br>
+                            <label for="selectModArea">Area</label><br>
                             <select id="selectModArea">
 
                             </select>
@@ -205,7 +231,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <center><button id="btnModArea" type="button" class="btn btn-success" data-dismiss="modal">Modificar Area</button></center>
+                    <center><button id="btnModAsignatura" type="button" class="btn btn-success" data-dismiss="modal">Modificar Area</button></center>
                 </div>
             </div>
 

@@ -2,7 +2,7 @@
 
 include_once "modelo/rolModelo.php";
 
-session_start();
+session_start(); 
 
 if ($_SESSION == null) {
 
@@ -13,14 +13,6 @@ if ($_SESSION == null) {
 
     $objPermisos = rolModelo::mdlConsultaPermisosIdRol($idConsulta);
     $_SESSION["permisos"] = $objPermisos;
-
-
-
-
-
-
-
-
 
     $contador = 0;
     //$ruta = $_GET["ingreso"];
@@ -51,6 +43,9 @@ if ($_SESSION == null) {
         $contador++;
 
         include_once "vista/modulos/cabecera.php";
+        include_once "vista/modulos/inicio.php";
+        
+
     }
 
 
