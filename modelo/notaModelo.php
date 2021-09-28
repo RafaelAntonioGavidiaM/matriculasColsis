@@ -127,8 +127,23 @@ class notaModelo
 
         $objPerido = new notaModelo;
         $periodo = $objPerido->retornarIdPeriodo();
+        $idPeriodo=0;
+        
+        if($periodo==false){
+            
 
-        $idPeriodo = $periodo[0][0];
+
+            return $periodo;
+
+
+
+        }else{
+
+            $idPeriodo=$periodo[0][0];
+        }
+        
+
+        
         $objConsulta = conexion::conectar()->prepare(" select  nombreNota  from nota where idCurso=:curso and idAsignatura=:asignatura and idPeriodo=:periodo");
         $objConsulta->bindParam(":curso", $idCurso, PDO::PARAM_INT);
         $objConsulta->bindParam(":asignatura", $idAsignatura, PDO::PARAM_INT);
@@ -139,18 +154,36 @@ class notaModelo
         return $lista;
     }
 
+
+    
+
     public static function mdlConsultarNotas($idAsignatura, $idCurso)
     { //consulto las notas  de asignatura y curso
 
-        
+
         $concatenar = "";
 
         $objRespuestaNombreNotas = notaModelo::cargarNotas($idAsignatura, $idCurso);
         $objPerido = new notaModelo;
         $periodo = $objPerido->retornarIdPeriodo();
 
-        $idPeriodo = $periodo[0][0];
 
+        if($periodo==false){
+
+            $mensaje="No se ha realizado la creacion del periodo";
+            return $mensaje;
+
+
+
+        }else{
+
+            $idPeriodo = $periodo[0][0];
+
+
+        }
+
+
+        
         $ciclosNotas = count($objRespuestaNombreNotas);
         $contado = 0;
 
@@ -177,20 +210,39 @@ class notaModelo
 
             return $lista;
         } catch (Exception $e) {
-            $nada =null;
+            $nada = "No hay notas";
 
             return $nada;
-            
         }
     }
     public static function mdlConsultarNotasAeditar(int $idEstudiante, int $idCurso, int $idAsignatura) //trae los datos para cargarlos en la modal 
     {
-        $objConsulta = conexion::conectar()->prepare("select asignaturanota.idAsignaturaNota,nota.idNota,nota.nombreNota,asignaturanota.nota from asignaturanota inner join nota on nota.idNota=asignaturanota.idNota inner join estudiante on asignaturanota.idEstudiante =estudiante.idEstudiante where estudiante.idEstudiante=" . $idEstudiante . " and nota.idAsignatura=" . $idAsignatura . " and nota.idCurso=" . $idCurso . " and nota.estadoNota=1");
+        $objPerido= new notaModelo();
+        $periodo= $objPerido->retornarIdPeriodo();
+        
+        if($periodo==false){
+
+            $mensaje="No se ha realizado la creacion del periodo";
+            return $mensaje;
+
+
+
+        }else{
+         $objConsulta = conexion::conectar()->prepare("select asignaturanota.idAsignaturaNota,nota.idNota,nota.nombreNota,asignaturanota.nota from asignaturanota inner join nota on nota.idNota=asignaturanota.idNota inner join estudiante on asignaturanota.idEstudiante =estudiante.idEstudiante inner join periodo on periodo.idPeriodo =nota.idPeriodo where estudiante.idEstudiante=".$idEstudiante." and nota.idAsignatura=".$idAsignatura." and nota.idCurso=".$idCurso." and nota.estadoNota=1 and periodo.idPeriodo=".$periodo[0][0]." ");
         $objConsulta->execute();
         $lista = $objConsulta->fetchAll();
         $objConsulta = null;
         return $lista;
     }
+
+           
+
+
+        }
+
+
+
+        
 
     public static function mdlCambiarValorNota($idAsignaturaNota, float $valorNota)
     {
@@ -206,13 +258,28 @@ class notaModelo
         return $mensaje;
     }
     public static function mdlConsultarNotasdeAsignaturayCurso($asignatura, $curso)
-    {
 
-        $objConsulta = conexion::conectar()->prepare("select * from nota where idAsignatura=" . $asignatura . " and idCurso=" . $curso . "");
+
+    {
+        $objPerido= new notaModelo();
+       $periodo=  $objPerido->retornarIdPeriodo();
+
+       if($periodo==false){
+        $mensaje="No se ha realizado la creacion del periodo";
+        return $mensaje;
+
+
+
+       }else{
+        $objConsulta = conexion::conectar()->prepare("select * from nota inner join periodo on periodo.idPeriodo=nota.idPeriodo where idAsignatura=".$asignatura." and idCurso=".$curso." and periodo.idPeriodo=".$periodo[0][0]."");
         $objConsulta->execute();
         $lista = $objConsulta->fetchAll();
         $objConsulta = null;
         return $lista;
+
+       }
+
+        
     }
     public static function mdlModificarNotas($idNota, $nombreNota, $estadoNota)
     {
