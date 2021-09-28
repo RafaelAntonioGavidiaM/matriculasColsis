@@ -74,46 +74,7 @@
                 </div>
             </div>
 
-            <!-- Modal -->
-            <br><br><br><br><br><br><br><br>
-            <div class="modal fade" id="mdHorario" role="dialog">
-                <div class="modal-dialog">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <br>
-                        <center>
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">¡Eliminar horario!</h4>
-                            </div>
-                        </center>
-
-                        <div class="modal-body">
-                            <form>
-
-                                <div class="form-group">
-                                    <label for="">Curso</label>
-                                    <select name="" id="selectEliminarHorarioCurso" class="form-control" required="required">
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Asignatura</label>
-                                    <select name="" id="selectEliminarHorarioAsignatura" class="form-control" required="required">
-                                    </select>
-                                </div>
-
-                            </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="btnEliminarHorario" class="btn btn-default" data-dismiss="modal">Eliminar</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <!-- Fin Modal -->
             <br><br><br><br><br><br>
 
@@ -156,4 +117,31 @@
 
     </div>
     </div>
+
+
+
+
+<!-- Modal -->
+<div id="modalHorario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Acciones Horario</h4>
+      </div>
+      <div class="modal-body">
+       
+       <button type="button" id="eidHorario" idEliminar="" class="btn btn-danger">Eliminar</button>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
