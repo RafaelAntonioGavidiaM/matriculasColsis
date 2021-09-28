@@ -15,7 +15,11 @@ class asistenciaControl{
 
     }
 
+    public function ctrCargarAsistencia(){
 
+        $objRespuesta = asistenciaModelo::mdlCargarAsistenciaSegunCurso();
+        echo json_encode($objRespuesta);
+    }
 
 
 
@@ -34,4 +38,12 @@ if(isset($_POST["listaAsignatura"]) == "ok" && isset($_POST["idCurso"])){
     $objCargarSelectAsignaturaAsistencia->idCurso = $_POST["idCurso"];
     $objCargarSelectAsignaturaAsistencia->ctrCargarSelectAsignaturaAsistencia();
     
+}
+
+// Listar datatable asistencia
+
+if (isset($_POST["listaAsistencia"]) == "ok") {
+    
+    $objCargarAsistencia =  new asistenciaControl();
+    $objCargarAsistencia->ctrCargarAsistencia();
 }
