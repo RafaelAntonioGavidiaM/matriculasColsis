@@ -27,12 +27,13 @@
         <div class="row">
             <div class="col-sm-3">
                 <form>
-                    <select id="selectPerido" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <select id="selectPeriodo" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                         <option selected place>Seleccionar Periodo</option>
                     </select>
-                    <select id="selectPerido" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                        <option selected place>Seleccionar Grado</option>
+                    <select id="selectGrado" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <option selected place>Seleccionar Curso</option>
                     </select>
+                    <button type="button" id="btnFiltrar">Filtrar</button>
                 </form>
             </div>
             <div class="col-sm-9">
@@ -45,13 +46,15 @@
                             <th>Apellido</th>
                             <th>Acudiente</th>
                             <th>Curso</th>
-                            <th>Foto</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="bodyReportes">
                     </tbody>
                 </table>
+                <div id="seleccionarReporte">
+                    <h1 class="tituloReporte">Seleccione Un Periodo Y Grado</h1>
+                </div>
             </div>
         </div>
 </body>

@@ -6,7 +6,6 @@ $(document).ready(function() {
 
         var valor = $("#nombreRol").val();
         var nombre = valor.toUpperCase();
-        alert(nombre);
 
         var objData = new FormData();
         objData.append("nombreRol", nombre);
@@ -21,7 +20,6 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
-                alert(respuesta);
                 destruirTabla();
                 cargarRoles();
             }
@@ -99,8 +97,6 @@ $(document).ready(function() {
                 });
 
 
-
-
             }
         })
 
@@ -115,12 +111,6 @@ $(document).ready(function() {
         // alert(nombreRol);
 
         $("#nombreRolMod").val(nombreRol);
-
-
-
-
-
-
 
 
     })
@@ -153,10 +143,6 @@ $(document).ready(function() {
 
             }
         })
-
-
-
-
 
 
     })
@@ -193,10 +179,6 @@ $(document).ready(function() {
 
                     var orden = "";
 
-
-
-
-
                     concatenar += "<tr>";
                     concatenar += "<td>" + item.nombreFormulario + "</td>";
 
@@ -216,14 +198,8 @@ $(document).ready(function() {
 
                     }
 
-
-
-
                     concatenar += "<td>" + '<select id="permisos" name="permisos" idFormulario=' + item.idFormulario + '>' + orden + '</select>' + "</td >";
                     concatenar += "</tr>";
-
-
-
 
                 }
                 $("#tbodyPermisos").html(concatenar);
@@ -253,18 +229,8 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
-                alert(respuesta);
-
-
-
-
             }
         })
-
-
-
-
-
 
 
     })
@@ -309,44 +275,19 @@ $(document).ready(function() {
 
                         } else {
 
-                            alert(respuesta);
                         }
 
 
                     }
                 })
 
-
-
-
-
-
-
-
-
-
-
-
             }
         })
-
-
-
-
-
-
-
-
-
-
-
-
 
     })
 
 
     $("#CerrarPermiso").click(function() {
-        alert("hola");
         location.reload();
     })
 
@@ -354,11 +295,6 @@ $(document).ready(function() {
         tabla = $("#tablaRol").DataTable();
         tabla.destroy();
     }
-
-
-
-
-
 
 
 

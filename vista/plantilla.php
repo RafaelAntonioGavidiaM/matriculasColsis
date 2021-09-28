@@ -32,7 +32,7 @@ if ($_SESSION == null) {
 
                 if ($_GET["ruta"] == "rol" || $_GET["ruta"] == "personal" || $_GET["ruta"] == "estudiante" 
                     || $_GET["ruta"] == "cursos" ||  $_GET["ruta"] == "nota" ||  $_GET["ruta"] == "asignaturacurso" 
-                    || $_GET["ruta"] == "asignatura" || $_GET["ruta"] == "horario" || $_GET["ruta"] == "asistencia") {
+                    || $_GET["ruta"] == "asignatura" || $_GET["ruta"] == "horario" || $_GET["ruta"] == "reporte" || $_GET["ruta"] == "asistencia")  {
 
 
                     include_once "vista/modulos/" . $_GET["ruta"] . ".php";
@@ -43,6 +43,9 @@ if ($_SESSION == null) {
         $contador++;
 
         include_once "vista/modulos/cabecera.php";
+        include_once "vista/modulos/inicio.php";
+        
+
     }
 
 

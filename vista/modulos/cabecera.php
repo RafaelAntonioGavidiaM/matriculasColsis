@@ -73,22 +73,33 @@
 
 
 
-
+ 
+  <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
-  <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
+=======
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/personal.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/inicio.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturas.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asignaturaCurso.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='vista/css/cursos.css'>
+  <link rel='stylesheet' type="text/css" media="screan" href='vista/css/horarios.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/normalize.css'>
+<<<<<<< HEAD
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/asistencia.css'>
   <script src="vista/js/asistencia.js"></script>
+=======
+  
+>>>>>>> b25c92eef9b1cf576896d63a5f25fa5645907715
   <script src="vista/js/rol.js"></script>
   <script src="vista/js/personal.js"></script>
   <script src="vista/js/estudiante.js"></script>
   <script src="vista/js/cursos.js"></script>
   <script src="vista/js/asignatura.js"></script>
   <script src="vista/js/nota.js"></script>
+  <script src="vista/js/horario.js"></script>
   <script src="vista/js/asignaturaCurso.js"></script>
+  <script src="vista/js/reporte.js"></script>
 
 
 

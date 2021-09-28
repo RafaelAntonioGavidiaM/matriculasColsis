@@ -1,11 +1,255 @@
 $(document).ready(function() {
-    cargarDatosCursos(1);
-    cargarDatosAsignatura(1);
-    cargarDatosCursoHorario(1);
+    cargarDatosCursoHorario(1, "", "");
+    dias();
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*-----------------------------------------CARGAR DATOS ASIGNATURA----------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
+
+
+
+    function dias() {
+
+        var dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+
+
+
+        console.log(dias);
+        var concatenar = "";
+
+        for (let index = 0; index < dias.length; index++) {
+
+            concatenar += '<option value=' + dias[index] + '>' + dias[index] + '</option>';
+
+        }
+
+        $("#dias").html(concatenar);
+
+    }
+
+
+    $("#buscarIdCurso").on("change", function horario() {
+
+        var dataset = [];
+        var dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+
+
+
+
+
+        var mensaje = $("#buscarIdCurso").val();
+
+        var objData = new FormData();
+        objData.append("horario", mensaje);
+
+        $.ajax({
+            url: "control/horarioControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                console.log(respuesta);
+
+                // $("#tablaHorario").DataTable(dataset);
+
+
+                var horaAnterior = "";
+                var horaActual = "";
+
+
+                var datos = [];
+
+                contador = 0;
+
+                for (let index = 0; index < respuesta.length; index++) {
+                    var hora = "";
+
+
+
+                    var dia3 = respuesta[index]["dia"];
+                    horaActual = respuesta[index]["Hora"];
+
+                    // alert(horaActual + " " + dia3);
+                    var asignatura3 = respuesta[index]["nombreAsignatura"];
+
+                    if (contador == 0) {
+
+                        horaAnterior = respuesta[index]["Hora"];
+                        hora = horaAnterior;
+                        datos.push({ hora, dia3, asignatura3 })
+
+                    } else {
+                        if (horaActual == horaAnterior) {
+
+                            hora = "";
+                            datos.push({ hora, dia3, asignatura3 });
+
+
+
+
+                        } else if (horaActual != horaAnterior) {
+
+                            horaAnterior = respuesta[index]["Hora"];
+                            hora = horaAnterior;
+                            datos.push({ hora, dia3, asignatura3 });
+
+                        }
+
+                    }
+
+
+
+                    contador++;
+
+                }
+
+                console.log(datos);
+
+                var resultados = [];
+
+                var concatenarR = "";
+
+                var contadorConcatenar = 0;
+                var ultimodia = 0;
+
+
+
+
+                for (let index = 0; index < datos.length; index++) {
+
+                    var diaValidar = datos[index]["dia3"];
+
+
+
+                    if (datos[index]["hora"] != "") {
+
+                        if (index == 1) {
+                            concatenarR += '<tr>';
+                            ultimodia = 0;
+
+                        } else {
+                            concatenarR += '</tr>';
+                            concatenarR += '<tr>';
+                            ultimodia = 0;
+
+
+
+
+                        }
+                        concatenarR += '<td>' + datos[index]["hora"] + '</td>';
+                        for (let index2 = ultimodia; index2 < dias.length; index2++) {
+
+                            //alert(ultimodia);
+                            // alert(diaValidar + " " + dias[index2]);
+
+
+
+                            if (diaValidar !== dias[index2]) {
+                                concatenarR += '<td>' + '</td>';
+
+
+
+                            } else {
+                                ultimodia = index2 + 1;
+                                //alert("Entro");
+                                break;
+
+                            }
+
+
+                        }
+
+                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+
+
+                    } else {
+
+                        for (let index2 = ultimodia; index2 < dias.length; index2++) {
+
+                            //alert(ultimodia);
+                            //alert(diaValidar + "" + dias[index2]);
+
+
+
+                            if (diaValidar !== dias[index2]) {
+                                concatenarR += '<td>' + '</td>';
+
+
+                            } else {
+                                ultimodia = index2 + 1;
+                                // alert("Entro");
+                                break;
+
+
+                            }
+
+
+                        }
+
+
+                        concatenarR += '<td>' + datos[index]["asignatura3"] + '</td>';
+
+
+                    }
+
+
+                }
+                concatenarR += '<tr>';
+                alert(concatenarR);
+                $("#cuerpoTablaHorario").html(concatenarR);
+
+
+
+            }
+        })
+
+
+    })
+
+
+
+
+    $("#btnRegistrarHorario").click(function() {
+
+        var curso = $("#selectCursoForm1234").val();
+        var asignatura = $("#selectAsignaturasCarga").val();
+        var dia = $("#dias").val();
+        var horaInicio = $("#horaInicio").val();
+        var horaFin = $("#horaFin").val();
+
+        var objData = new FormData();
+        objData.append("curso", curso);
+        objData.append("asignatura", asignatura);
+        objData.append("dia", dia);
+        objData.append("horaInicio", horaInicio);
+        objData.append("horaFin", horaFin);
+
+        $.ajax({
+            url: "control/horarioControl.php",
+            type: "post",
+            datatype: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Registro Exitoso',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            }
+        })
+
+    })
+
+
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*-----------------------------------------CARGAR DATOS ASIGNATURA----------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
 
     function cargarDatosAsignatura(opcion, principal, nombreAsignatura) {
         var mensajeAsignatura = "cargarDatosAsignatura";
@@ -33,7 +277,10 @@ $(document).ready(function() {
 
 
                     }
-                    $("#asignaturaSelect").html(concatenarAsignaturaCurso);
+                    //$("#asignaturaSelect").html(concatenarAsignaturaCurso);
+
+
+
 
                 } else if (opcion == 2) {
 
@@ -56,57 +303,7 @@ $(document).ready(function() {
     }
 
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*--------------------------------------------CARGAR DATOS CURSO------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
 
-    function cargarDatosCursos(opcion, principal, nombreCurso) {
-        var mensajeCursos = "cargarDatosCursos";
-        var objData = new FormData();
-        objData.append("cargarDatosCursos", mensajeCursos);
-        $.ajax({
-            url: "control/horarioControl.php",
-            type: "post",
-            dataType: "json",
-            data: objData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(respuesta) {
-
-                if (opcion == 1) {
-                    var concatenarCurso = "";
-
-
-                    respuesta.forEach(forCargarCurso);
-
-                    function forCargarCurso(item, index) {
-
-                        concatenarCurso += '<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>';
-
-
-                    }
-                    $("#cursoSelect").html(concatenarCurso);
-
-                } else if (opcion == 2) {
-
-                    var concatenarCurso = "";
-                    respuesta.forEach(forCargarCurso);
-
-                    function forCargarCurso(item, index) {
-                        if (item.idCurso == nombreCurso) {
-
-
-                        } else {
-
-                            concatenarCurso += '<option value="' + item.idCurso + '">' + item.nombreCurso + '</option>';
-                        }
-                    }
-                    $("#txtModCursoSelect").html(principal + concatenarCurso);
-                }
-            }
-        })
-    }
 
     /*--------------------------------------------------------------------------------------------------------*/
     /*----------------------------------------CARGAR DATOS HORARIO--------------------------------------------*/
@@ -138,7 +335,10 @@ $(document).ready(function() {
 
 
                     }
-                    $("#cursoHorarioSelect").html(concatenarCursoHorario);
+                    $("#selectGrado").html(concatenarCursoHorario);
+                    $("#selectCursoForm1234").html(concatenarCursoHorario);
+                    $("#buscarIdCurso").html(concatenarCursoHorario);
+                    $("#SelectEliminarHorario").html(concatenarCursoHorario);
 
                 } else if (opcion == 2) {
 
@@ -160,24 +360,15 @@ $(document).ready(function() {
         })
     }
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*-------------------------------------------CARGAR DATOS HORARIO-----------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
 
-    cargarDatos();
-    $("#btnCrearHorario").click(function() {
-        var asignatura = $("#asignaturaSelect").val();
-        var cursoAsignatura = $("#cursoSelect").val();
-        var dia = $("#txtDia").val();
-        var horaInicio = $("#txtHoraInicio").val();
-        var horaFin = $("#txtHoraFin").val();
+
+    $("#selectCursoForm1234").on("change", function() {
+
+
+        var idCurso = $("#selectCursoForm1234").val();
         var objData = new FormData();
+        objData.append("idCurso", idCurso);
 
-        objData.append("asignatura", asignatura);
-        objData.append("cursoAsignatura", cursoAsignatura);
-        objData.append("dia", dia);
-        objData.append("horaInicio", horaInicio);
-        objData.append("horaFin", horaFin);
 
         $.ajax({
             url: "control/horarioControl.php",
@@ -188,92 +379,142 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: 'Registro Exitoso',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                cargarDatos();
+
+                var concatenar = "";
+                console.log(respuesta);
+
+                respuesta.forEach(cargarAsignaturasSelect);
+
+                function cargarAsignaturasSelect(item, index) {
+
+                    concatenar += '<option value=' + item.idAsignatura + '>' + item.nombreAsignatura + '</option>';
+
+                }
+                // alert(concatenar);
+
+                $("#selectAsignaturasCarga").html(concatenar);
+
+
             }
         })
+
+
     })
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*-----------------------------------------LISTAR DATOS HORARIO-------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*-------------------------------------------CARGAR DATOS HORARIO-----------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
 
-    function cargarDatos() {
-        var listaHorio = "ok";
-        var datosCargarHorario = [];
-        var objListaHorario = new FormData();
-        objListaHorario.append("listaHorio", listaHorio);
+    // cargarDatos();
+    // $("#btnCrearHorario").click(function() {
+    //     var asignatura = $("#asignaturaSelect").val();
+    //     var cursoAsignatura = $("#cursoSelect").val();
+    //     var dia = $("#txtDia").val();
+    //     var horaInicio = $("#txtHoraInicio").val();
+    //     var horaFin = $("#txtHoraFin").val();
+    //     var objData = new FormData();
 
-        $.ajax({
-            url: "control/horarioControl.php",
-            type: "post",
-            dataType: "json",
-            data: objListaHorario,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(respuesta) {
+    //     objData.append("asignatura", asignatura);
+    //     objData.append("cursoAsignatura", cursoAsignatura);
+    //     objData.append("dia", dia);
+    //     objData.append("horaInicio", horaInicio);
+    //     objData.append("horaFin", horaFin);
 
-                var concatentarHorario = "";
+    //     $.ajax({
+    //         url: "control/horarioControl.php",
+    //         type: "post",
+    //         dataType: "json",
+    //         data: objData,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function(respuesta) {
+    //             Swal.fire({
+    //                 position: 'top-center',
+    //                 icon: 'success',
+    //                 title: 'Registro Exitoso',
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             })
+    //             cargarDatos();
+    //         }
+    //     })
+    // })
 
-                respuesta.forEach(cargarTablaHorario);
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*-----------------------------------------LISTAR DATOS HORARIO-------------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
 
-                function cargarTablaHorario(item, index) {
+    // function cargarDatos() {
+    //     var listaHorio = "ok";
+    //     var datosCargarHorario = [];
+    //     var objListaHorario = new FormData();
+    //     objListaHorario.append("listaHorio", listaHorio);
 
-                    var btnCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarHorario" idHorario="' + item.idHorario + '"  lunes="' + item.lunes + '" martes="' + item.martes + '" miercoles="' + item.miercoles + '" jueves="' + item.jueves + '"  viernes="' + item.viernes + '"  sabado="' + item.sabado + '"  domingo="' + item.domingo + '" data-toggle="modal" data-target="#mdHorarioModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
-                    btnCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarHorario" idHorario="' + item.idHorario + '"><span class="glyphicon glyphicon-trash"></span></button>';
+    //     $.ajax({
+    //         url: "control/horarioControl.php",
+    //         type: "post",
+    //         dataType: "json",
+    //         data: objListaHorario,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function(respuesta) {
 
-                    datosCargarHorario.push([item.lunes, item.martes, item.miercoles, item.jueves, item.viernes, item.sabado, item.domingo]);
-                }
+    //             var concatentarHorario = "";
 
-                $("#tablaHorario").DataTable({
-                    data: datosCargarHorario,
-                    dom: 'Bfrtip',
-                    buttons: [{
-                            extend: 'copyHtml5',
-                            exportOptions: {
-                                columns: [0, ':visible']
-                            }
-                        },
-                        {
-                            extend: 'excelHtml5',
-                            exportOptions: {
-                                columns: [0, ':visible']
-                            }
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            exportOptions: {
-                                columns: [0, ':visible']
-                            }
-                        },
-                        'colvis'
-                    ],
+    //             respuesta.forEach(cargarTablaHorario);
 
-                });
-            }
-        })
-    }
+    //             function cargarTablaHorario(item, index) {
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*------------------------------------------FUNCION DESTUIR TABLA-----------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
+    //                 var btnCursos = '<button type="button" class="btn btn-success" title="Editar" id="btn-editarHorario" idHorario="' + item.idHorario + '"  lunes="' + item.lunes + '" martes="' + item.martes + '" miercoles="' + item.miercoles + '" jueves="' + item.jueves + '"  viernes="' + item.viernes + '"  sabado="' + item.sabado + '"  domingo="' + item.domingo + '" data-toggle="modal" data-target="#mdHorarioModificar"><span class="glyphicon glyphicon-pencil"></span></button>';
+    //                 btnCursos += '<button type="button" class="btn btn-danger" title="Eliminar" id="btn-eliminarHorario" idHorario="' + item.idHorario + '"><span class="glyphicon glyphicon-trash"></span></button>';
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*------------------------------------------CARGAR DATOS MODAL--------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
+    //                 datosCargarHorario.push([item.lunes, item.martes, item.miercoles, item.jueves, item.viernes, item.sabado, item.domingo]);
+    //             }
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*----------------------------------------EDITAR DATOS HORARIO--------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
+    //             $("#tablaHorario").DataTable({
+    //                 data: datosCargarHorario,
+    //                 dom: 'Bfrtip',
+    //                 buttons: [{
+    //                         extend: 'copyHtml5',
+    //                         exportOptions: {
+    //                             columns: [0, ':visible']
+    //                         }
+    //                     },
+    //                     {
+    //                         extend: 'excelHtml5',
+    //                         exportOptions: {
+    //                             columns: [0, ':visible']
+    //                         }
+    //                     },
+    //                     {
+    //                         extend: 'pdfHtml5',
+    //                         exportOptions: {
+    //                             columns: [0, ':visible']
+    //                         }
+    //                     },
+    //                     'colvis'
+    //                 ],
 
-    /*--------------------------------------------------------------------------------------------------------*/
-    /*---------------------------------------------ELIMINAR DATOS---------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------------------*/
+    //             });
+    //         }
+    //     })
+    // }
+
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*------------------------------------------FUNCION DESTUIR TABLA-----------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
+
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*------------------------------------------CARGAR DATOS MODAL--------------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
+
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*----------------------------------------EDITAR DATOS HORARIO--------------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
+
+    // /*--------------------------------------------------------------------------------------------------------*/
+    // /*---------------------------------------------ELIMINAR DATOS---------------------------------------------*/
+    // /*--------------------------------------------------------------------------------------------------------*/
 })

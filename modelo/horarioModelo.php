@@ -4,9 +4,9 @@ require "conexion.php";
 
 class horarioModelo
 {
-    public static function mdlCargarAsignatura()
+    public static function mdlCargarAsignaturadeIdCurso($idCurso)
     {
-        $objConsulta = conexion::conectar()->prepare("SELECT * from asignatura");
+        $objConsulta = conexion::conectar()->prepare("select * from asignaturacurso inner join asignatura on asignatura.idAsignatura=asignaturacurso.idAsignatura where idCurso=".$idCurso."");
         $objConsulta->execute();
 
         $lista = $objConsulta->fetchAll();
@@ -15,6 +15,11 @@ class horarioModelo
 
         return $lista;
     }
+
+
+
+    /////
+
 
     public static function mdlCargarCurso()
     {
@@ -40,16 +45,17 @@ class horarioModelo
         return $lista;
     }
 
-    public static function mdlInsertar(int $asignatura, int $cursoAsignatura, $dia, int $horaInicio, int $horaFin)
+    public static function mdlInsertar($asignatura, $cursoAsignatura, $dia,  $horaInicio, $horaFin)
     {
+
+        $idAsignaturaCurso=horarioModelo::consultarAsignaturaCurso($cursoAsignatura,$asignatura);
         $mensaje = "";
         try {
-            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO horario(asignatura,cursoAsignatura,dia,horaInicio,horaFin)VALUES(:aignatura,:cursoAsignatura,:dia,:horaInico,:horaFin)");
-            $objRespuesta->bindParam("asigantura", $asignatura, PDO::PARAM_INT);
-            $objRespuesta->bindParam("cursoAsignatura", $cursoAsignatura);
-            $objRespuesta->bindParam("dia", $dia, PDO::PARAM_INT);
-            $objRespuesta->bindParam("horaInicio", $horaInicio, PDO::PARAM_INT);
-            $objRespuesta->bindParam("horaFin", $horaFin, PDO::PARAM_INT);
+            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO horario(dia,horaInicio,horaFinal,idAsignaturaCurso)VALUES(:dia,:horaInicio,:horaFin,:id)");
+            $objRespuesta->bindParam(":dia", $dia, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":horaInicio", $horaInicio, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":horaFin", $horaFin, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":id", $idAsignaturaCurso, PDO::PARAM_INT);
             if ($objRespuesta->execute()) {
                 $mensaje = "ok";
             } else {
@@ -63,21 +69,30 @@ class horarioModelo
         return $mensaje;
     }
 
-    public static function mdlListarTodos()
+
+ public static function consultarAsignaturaCurso($idCurso,$idAsignatura){
+
+    $objConsulta=conexion::conectar()->prepare("SELECT idAsignaturaCurso from asignaturacurso where idCurso=".$idCurso." and idAsignatura=".$idAsignatura."");
+    $objConsulta->execute();
+    $lista=$objConsulta->fetch();
+
+    $devolver=$lista[0];
+
+    return $devolver;
+
+
+ }
+
+    public static function mdlListarTodos($idCurso)
     {
-        $ObjRespuesta = Conexion::conectar()->prepare("select  concat(horaInicio,"-",horaFinal)as Hora ,
-            case when dia ='Lunes' then asignatura.nombreAsignatura else '' end as 'Lunes',
-            case when dia ='Martes' then  asignatura.nombreAsignatura else '' end as 'Martes',
-            case when dia ='Miércoles' then  asignatura.nombreAsignatura else '' end as 'Miércoles',
-            case when dia ='Jueves' then  asignatura.nombreAsignatura else '' end as 'Jueves',
-            case when dia ='Viernes' then  asignatura.nombreAsignatura else '' end as 'Viernes', 
-            case when dia ='Sábado' then  asignatura.nombreAsignatura else '' end as 'Sábado',
-            case when dia ='Domingo' then  asignatura.nombreAsignatura else '' end as 'Domingo'
-            from horario inner join asignaturacurso on asignaturacurso.idAsignaturaCurso=horario.idAsignaturaCurso inner join asignatura on asignatura.idAsignatura= asignaturacurso.idAsignatura where  asignaturacurso.idCurso=2  order by Hora asc");
+        $ObjRespuesta = conexion::conectar()->prepare(" select  concat(horaInicio,'-',horaFinal)as Hora , asignatura.nombreAsignatura ,dia from horario inner join asignaturacurso on asignaturacurso.idAsignaturaCurso=horario.idAsignaturaCurso inner join asignatura on asignatura.idAsignatura= asignaturacurso.idAsignatura where  asignaturacurso.idCurso=:id order by Hora asc, field(dia, 'Lunes','Martes', 'Miercoles','Jueves', 'Viernes','Sabado','Domingo'); ");
+        $ObjRespuesta-> bindParam(":id",$idCurso,PDO::PARAM_INT);
         $ObjRespuesta->execute();
         $listaHorario = $ObjRespuesta->fetchAll();
+
         $ObjRespuesta = null;
         return $listaHorario;
     }
+    
 
 }
