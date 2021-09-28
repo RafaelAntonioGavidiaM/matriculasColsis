@@ -338,6 +338,7 @@ $(document).ready(function() {
                     $("#selectGrado").html(concatenarCursoHorario);
                     $("#selectCursoForm1234").html(concatenarCursoHorario);
                     $("#buscarIdCurso").html(concatenarCursoHorario);
+                    $("#SelectEliminarHorario").html(concatenarCursoHorario);
 
                 } else if (opcion == 2) {
 
