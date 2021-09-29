@@ -108,6 +108,15 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetMargins(10, 30, 20, 20);
     $objPfd->SetFont('Arial', '', 12);
     $objPfd->SetTextColor(255, 255, 255);
+    if ($datos["idPeriodo"] == 1) {
+        $objPfd->SetTitle('REPORTE PERIODO I');
+    } elseif ($datos["idPeriodo"] == 2) {
+        $objPfd->SetTitle('REPORTE PERIODO II');
+    } elseif ($datos["idPeriodo"] == 3) {
+        $objPfd->SetTitle('REPORTE PERIODO III' );
+    } elseif ($datos["idPeriodo"] == 4) {
+        $objPfd->SetTitle('REPORTE PERIODO IV');
+    }
 
     $objPfd->SetFont('Arial', 'B', 30);
     $objPfd->SetTextColor(255, 255, 255);
