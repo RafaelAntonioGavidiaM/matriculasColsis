@@ -28,12 +28,25 @@ class modeloReportes
         $objCargarReportes = null;
         return $listaReportes;
     }
-    public static function mdlListarReportesPdf($idEstudiante)
+    public static function mdlListarReportesPdf($idEstudiante,$idPeriodo)
     {
         $objListaReporte = Conexion::conectar()->prepare("select  estudiante.idEstudiante,estudiante.nombres,estudiante.apellidos,estudiante.url,estudiante.idAcudiente,acudiente.nombre,acudiente.apellido,curso.idCurso,curso.nombreCurso from  estudiante inner join acudiente on acudiente.idAcudiente=estudiante.idAcudiente inner join curso on curso.idCurso=estudiante.idCurso  where estudiante.idEstudiante ='$idEstudiante'");
+        $objListaPeriodo = Conexion::conectar()->prepare("select * from periodo where idPeriodo='$idPeriodo'");
         $objListaReporte->execute();
+        $objListaPeriodo->execute();
         $listaReporte = $objListaReporte->fetch();
+        $listaPeriodo= $objListaPeriodo->fetch();
         $objListaReporte = null;
-        return $listaReporte;
+        $objListaPeriodo = null;
+        return $listaReporte + $listaPeriodo;
+    }
+    
+    public static function mdlListarAsignaturasReportesPdf($idCurso)
+    {
+        $objCargarAsignaturaReportes = Conexion::conectar()->prepare("select distinct( asignaturacurso.idAsignatura) , nombreasignatura from asignaturacurso inner join asignatura on asignatura.idAsignatura=asignaturacurso.idAsignatura where idCurso='$idCurso';");
+        $objCargarAsignaturaReportes->execute();
+        $listaAsignaturaReportes = $objCargarAsignaturaReportes->fetchAll();
+        $objCargarAsignaturaReportes = null;
+        return $listaAsignaturaReportes;
     }
 }

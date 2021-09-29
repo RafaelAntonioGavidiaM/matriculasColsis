@@ -79,9 +79,11 @@ $(document).ready(function () {
         iniciarTabla();
 
         var idCurso = document.getElementById("selectGrado").value;
+        var idPeriodo = document.getElementById("selectPeriodo").value;
 
         var objData = new FormData();
         objData.append("filtroGrado", idCurso);
+        objData.append("filtroPeriodo", idPeriodo);
         $.ajax({
             url: "control/reporteControl.php",
             type: "post",
@@ -98,7 +100,7 @@ $(document).ready(function () {
                 function cargarListaReporte(item, index) {
                     contadorFilas += 1;
 
-                    var objBotones = '<button id="btnCrearPdf" type="button" class="btn btn-success" title="PDF" idEstudiante="' + item.idEstudiante + '"><span class="glyphicon glyphicon-file"></span></button>';
+                    var objBotones = '<button id="btnCrearPdf" type="button" class="btn btn-success" title="PDF" idEstudiante="' + item.idEstudiante + '" idPeriodo="' + item.idPeriodo + '"><span class="glyphicon glyphicon-file"></span></button>';
 
                     dataSet.push([contadorFilas, item.nombres, item.apellidos, item.nombre + " " + item.apellido, item.nombreCurso, objBotones])
                 }
@@ -171,9 +173,11 @@ $(document).ready(function () {
     }
     $("#tablaReportes").on("click", "#btnCrearPdf", function () {
 
+        var idPeriodo = document.getElementById("selectPeriodo").value;
+        var idCurso = document.getElementById("selectGrado").value;
         var idEstudiante = $(this).attr("idEstudiante");
-        alert(idEstudiante);
-        window.open("vista/modulos/informes/estudianteInformeP1.php?idEstudiante=" + idEstudiante, "_blank");
+
+        window.open("vista/modulos/informes/estudianteInformeP.php?idEstudiante="+idEstudiante+"&idPeriodo="+idPeriodo+"&idCurso="+idCurso);
 
     })
 
