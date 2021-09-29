@@ -2,6 +2,7 @@
 
 require("../../librerias/pdf/fpdf.php");
 require_once("../../../modelo/reporteModelo.php");
+require_once("../../../modelo/conexion.php");
 class PDF extends FPDF
 {
 
@@ -17,9 +18,71 @@ class PDF extends FPDF
         return $objRespuesta;
     }
     public function cargarAsignaturasReporte()
+
     {
-        $objRespuesta = modeloReportes::mdlListarAsignaturasReportesPdf($this->idCurso);
+        $idCurso2 = $_GET["idCurso"];
+        $objRespuesta = modeloReportes::mdlListarAsignaturasReportesPdf($idCurso2);
         return $objRespuesta;
+    }
+
+    public function resultadosNota()
+    {
+
+        $nota = array();
+        $idCurso2 = $_GET["idCurso"];
+        $idPeriodo = $_GET["idPeriodo"];
+        $idEstudiante = $_GET["idEstudiante"];
+
+
+
+        $objPfd = new PDF();
+        $asignaturas = $objPfd->cargarAsignaturasReporte();
+
+        foreach ($asignaturas as $key => $value) {
+
+            $idAsignatura = $value["idAsignatura"];
+
+            $nombreAsignatura = $value["nombreasignatura"];
+
+
+
+
+
+
+            $objConsulta = conexion::conectar()->prepare("select avg(nota) as nota from nota  inner join asignaturanota on  nota.idNota=asignaturanota.idNota   where idPeriodo=" . $idPeriodo . " and idAsignatura=" . $idAsignatura . " and  idEstudiante=" . $idEstudiante . " and nota.idCurso=" . $idCurso2 . "");
+
+            if ($objConsulta->execute()) {
+
+                $notaFinal = $objConsulta->fetch();
+
+
+                array_push($nota, [$nombreAsignatura, $notaFinal["nota"]]);
+            }
+        }
+
+        return $nota;
+    }
+
+
+
+    function BasicTable($header, $data)
+    {
+        // Cabecera
+        $this->SetXY(40, 120);
+        $this->SetFont('Arial', 'B', 11);
+        $this->SetTextColor(0, 0, 0);
+        foreach ($header as $col)
+            $this->Cell(70, 10, $col, 1, 0, 'C');
+        $this->Ln();
+        // Datos
+        foreach ($data as $row) {
+            $this->SetX(40);
+            $this->SetFont('Arial', 'I', 10);
+
+            foreach ($row as $col)
+                $this->Cell(70, 8, $col, 1, 0, 'L');
+            $this->Ln();
+        }
     }
 
     function Header()
@@ -31,6 +94,7 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 30);
         $this->SetTextColor(255, 255, 255);
         $this->Write(5, 'REPORTE PERIODO');
+
         $this->Image('../../../vista/imgs/colsis_logotipo.png', 165, -2, 50, 50);
         $this->ln(40);
     }
@@ -53,38 +117,6 @@ class PDF extends FPDF
         $this->SetX(11);
         $this->Write(5, '+(57)7889-8787');
     }
-    // function cabeceraHorizontal($cabecera)
-    // {
-    //     $this->SetXY(10, 10);
-    //     $this->SetFont('Arial', 'B', 10);
-    //     $this->SetTextColor(0,0,0);
-    //     foreach ($cabecera as $fila) {
-    //         //Atención!! el parámetro valor 0, hace que sea horizontal
-    //         $this->Cell(24, 7, utf8_decode($fila), 1, 0, 'L');
-    //     }
-    // }
-
-    // function datosHorizontal($datos)
-    // {
-    //     $this->SetXY(10, 17);
-    //     $this->SetFont('Arial', '', 10);
-    //     //Siendo un array tipo: $datos => $fila
-    //     //Significa que $datos tiene 'nombre' 'apellido' 'matricula'
-    //     //$fila tiene cada valor de los antes mencionados
-    //     foreach ($datos as $fila) {
-    //         $this->Cell(24, 7, utf8_decode($fila['nombre']), 1, 0, 'L');
-    //         $this->Cell(24, 7, utf8_decode($fila['apellido']), 1, 0, 'L');
-    //         $this->Cell(24, 7, utf8_decode($fila['matricula']), 1, 0, 'L');
-    //         $this->Ln(); //Salto de línea para generar otra fila
-    //     }
-    // }
-
-    // //Integrando cabecera y datos en un solo método
-    // function tablaHorizontal($cabeceraHorizontal, $datosHorizontal)
-    // {
-    //     $this->cabeceraHorizontal($cabeceraHorizontal);
-    //     $this->datosHorizontal($datosHorizontal);
-    // }
 }
 $rutaImagen = "../../../";
 
@@ -93,6 +125,10 @@ $fecha = date("d-m-Y");
 $hora = date("H:i");
 
 if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["idCurso"])) {
+
+    $idEstudiante = $_GET["idEstudiante"];
+
+
 
 
     $objPfd = new PDF();
@@ -113,7 +149,7 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     } elseif ($datos["idPeriodo"] == 2) {
         $objPfd->SetTitle('REPORTE PERIODO II');
     } elseif ($datos["idPeriodo"] == 3) {
-        $objPfd->SetTitle('REPORTE PERIODO III' );
+        $objPfd->SetTitle('REPORTE PERIODO III');
     } elseif ($datos["idPeriodo"] == 4) {
         $objPfd->SetTitle('REPORTE PERIODO IV');
     }
@@ -142,7 +178,12 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
 
     $objPfd->SetFont('Arial', 'B', 15);
     $objPfd->SetTextColor(0, 0, 0);
-    $objPfd->Image($rutaImagen . $datos["url"], 10, 60, 40, 50);
+    if ($datos["url"] == null || $datos["url"] == "") {
+        $objPfd->Image('../../../vista/imgs/usuarioDefecto.png', 10, 55, 50, 50);
+    } else {
+        $objPfd->Image($rutaImagen . $datos["url"], 10, 60, 50, 50);
+    }
+
     $objPfd->SetY(70);
     $objPfd->SetX(60);
     $objPfd->Write(5, 'Estudiante: ' . $datos["nombres"] . " " . $datos["apellidos"]);
@@ -164,25 +205,13 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetTextColor(255, 255, 255);
     $objPfd->SetFillColor(39, 216, 107);
 
-    for ($i = 0; $i < count($datosAsignatura); $i++) {
-        $objPfd->Cell(30, 10, $datosAsignatura[$i]["nombreasignatura"], 1, 0, 'L', 1);
-        $objPfd->Ln();
-    }
+    $notas = $objPfd->resultadosNota();
 
+    $header = array('Asignatura', 'Nota');
 
-    // $miCabecera = array('Nombre', 'Apellido', 'Matrícula');
+    $objPfd->SetTextColor(0, 0, 0);
 
-    // $misDatos = array(
-    //     array('nombre' => 'Hugo', 'apellido' => 'Martínez', 'matricula' => '20420423'),
-    //     array('nombre' => 'Araceli', 'apellido' => 'Morales', 'matricula' =>  '204909'),
-    //     array('nombre' => 'Georgina', 'apellido' => 'Galindo', 'matricula' =>  '2043442'),
-    //     array('nombre' => 'Luis', 'apellido' => 'Dolores', 'matricula' => '20411122'),
-    //     array('nombre' => 'Mario', 'apellido' => 'Linares', 'matricula' => '2049990'),
-    //     array('nombre' => 'Viridiana', 'apellido' => 'Badillo', 'matricula' => '20418855'),
-    //     array('nombre' => 'Yadira', 'apellido' => 'García', 'matricula' => '20443335')
-    // );
-
-    // $objPfd->tablaHorizontal($miCabecera, $misDatos);
+    $objPfd->BasicTable($header, $notas);
 
     $objPfd->SetTextColor(0, 0, 0);
     $objPfd->SetFillColor(255, 255, 255);
