@@ -124,23 +124,14 @@
         <div class="modal-dialog">
 
             <!-- Modal content-->
-<<<<<<< HEAD
-            <div class="modal-content" >
-                <div class="modal-header" >
-=======
             <div class="modal-content">
                 <div class="modal-header">
->>>>>>> origin/master
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Acciones Horario</h4>
                 </div>
                 <div class="modal-body">
 
                     <button type="button" id="eidHorario" idEliminar="" class="btn btn-danger">Eliminar</button>
-<<<<<<< HEAD
-
-                </div>
-=======
                     <button type="button" id="btnEditarHorario" idEditar="" class="btn btn-info">Editar</button>
 
 
@@ -181,7 +172,6 @@
 
 
 
->>>>>>> origin/master
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
