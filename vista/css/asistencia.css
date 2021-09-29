@@ -21,6 +21,7 @@
 }
 
 .borde_panel {
+
     border-radius: 15px !important;
     border-color: rgb(77, 194, 77) !important;
 }
@@ -38,7 +39,13 @@
 .tamaño_letra_encabezado_tabla {
     font-size: 26px;
 }
+/* tamaño de panel de asistencia */
 
+.tamaño_panel_asistencias{
+
+    width: 110%;
+
+}
 
 /* Crear una nueva asistencia Diseño */
 

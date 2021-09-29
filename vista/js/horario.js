@@ -211,6 +211,7 @@ $(document).ready(function() {
     $("#tablaHorario").on("click", "#btnAsignaturaHorario", function() {
         var idHorario = $(this).attr("idHorario");
         alert(idHorario);
+        $("#btnEditarHorario").attr("idEditar", idHorario);
         $("#eidHorario").attr("idEliminar", idHorario);
 
 
@@ -220,7 +221,110 @@ $(document).ready(function() {
 
 
 
+
     })
+
+    $("#btnEditarHorario").click(function() {
+
+        var dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+
+        var idHorario = $(this).attr("idEditar");
+        var objData = new FormData();
+        objData.append("idEditarHorario", idHorario);
+
+        $.ajax({
+            url: "control/horarioControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                if (respuesta != null) {
+                    var principal = "";
+                    var concatenar = "";
+
+                    respuesta.forEach(cargarDatosHorarioEditar);
+
+
+                    function cargarDatosHorarioEditar(item, index) {
+
+
+
+                        $("#nombreAsignatura").val(item.nombreAsignatura);
+
+                        for (let index2 = 0; index2 < dias.length; index2++) {
+
+                            if (item.dia == dias[index2]) {
+
+                                principal = '<option value=' + item.dia + '>' + item.dia + '</option>';
+
+
+
+                            } else {
+                                concatenar += '<option value=' + dias[index2] + '>' + dias[index2] + '</option>';
+                            }
+
+                        }
+
+                        $("#horaInicioEditar").val(item.horaInicio);
+                        $("#horaFinEditar").val(item.horaFinal);
+
+
+
+
+
+                    }
+
+
+
+                }
+
+                $("#selectEHorario").html(principal + concatenar);
+
+            }
+        })
+
+
+    })
+
+    $("#buttonEditar").click(function() {
+
+        var idHorario = $("#btnEditarHorario").attr("idEditar");
+        var dia = $("#selectEHorario").val();
+        var horaInicio = $("#horaInicioEditar").val();
+        var horaFinal = $("#horaFinEditar").val();
+
+        var objData = new FormData();
+        objData.append("idE", idHorario);
+        objData.append("diaE", dia);
+        objData.append("horaInicioE", horaInicio);
+        objData.append("horaFinEditar", horaFinal);
+
+        $.ajax({
+            url: "control/horarioControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+            }
+        })
+
+
+
+
+
+    })
+
+
+
+
 
     $("#eidHorario").click(function() {
 

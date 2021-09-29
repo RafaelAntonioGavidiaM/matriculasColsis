@@ -5,15 +5,22 @@ $(document).ready(function() {
 
     //Inciializacion de variables 
 
-    listarAsistencia();
 
     // listar asistencias
 
-    function listarAsistencia() {
+    function listarAsistencia(fechaBuscar) {
 
+        var idCurso = $("#selectCurso").val();
+        var idAsignatura = $("#selectAsignaturaAsistencia").val();
         var listaAsistencia = "ok";
         var objListaAsistencia = new FormData;
         objListaAsistencia.append("listaAsistencia", listaAsistencia);
+        objListaAsistencia.append("idCurso", idCurso);
+        objListaAsistencia.append("idAsignatura", idAsignatura);
+        objListaAsistencia.append("fechaBuscar", fechaBuscar);
+
+
+
 
         $.ajax({
 
@@ -72,10 +79,65 @@ $(document).ready(function() {
         })
     }
 
+    $("#btnCrearAsistencia").click(function() {
 
 
 
 
+        //listarAsistencia();
+        var idCurso = $("#selectCurso").val();
+        var idAsignatura = $("#selectAsignaturaAsistencia").val();
+
+        var objData = new FormData();
+
+        objData.append("idCursoC", idCurso);
+        objData.append("idAsignaturaC", idAsignatura);
+
+
+
+        $.ajax({
+
+            url: "control/asistenciaControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                try {
+                    var fecha = respuesta[0];
+                    var resultado = respuesta[1];
+
+                    if (resultado == "ok") {
+
+                        listarAsistencia(fecha);
+
+
+
+                    }
+
+
+                } catch (error) {
+
+                    alert("Problemas al realizar el registro");
+
+                }
+
+
+
+
+
+
+            }
+
+
+        })
+
+
+
+    })
 
     // funcion de carga asignaturas de Asistencia
     $("#btnCargarAsignaturas").click(function() {

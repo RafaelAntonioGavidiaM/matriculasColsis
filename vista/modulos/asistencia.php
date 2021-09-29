@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-lg-4 animate__animated animate__fadeInLeft">
+                <div class="col-md-4 col-lg-4  animate__animated animate__fadeInLeft">
 
 
 
@@ -71,10 +71,10 @@
 
                 </div>
 
-                <div class="col-lg-6 animate__animated animate__backInRight">
+                <div class="col-md-6 col-lg-6  animate__animated animate__backInRight">
 
 
-                    <div class="panel panel-default borde_panel ">
+                    <div class="panel panel-default borde_panel tamaño_panel_asistencias">
 
                         <div id="cabeceraAsistencia" class="panel-heading cabecera_panel borde_panel_Cabecera text_center">
 

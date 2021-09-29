@@ -124,16 +124,64 @@
         <div class="modal-dialog">
 
             <!-- Modal content-->
+<<<<<<< HEAD
             <div class="modal-content" >
                 <div class="modal-header" >
+=======
+            <div class="modal-content">
+                <div class="modal-header">
+>>>>>>> origin/master
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Acciones Horario</h4>
                 </div>
                 <div class="modal-body">
 
                     <button type="button" id="eidHorario" idEliminar="" class="btn btn-danger">Eliminar</button>
+<<<<<<< HEAD
 
                 </div>
+=======
+                    <button type="button" id="btnEditarHorario" idEditar="" class="btn btn-info">Editar</button>
+
+
+                    <div class="editarHorario">
+
+                    
+
+                    <br><br><br>
+
+
+                    <label for="">Nombre Asignatura</label>
+
+                    <input type="text" id="nombreAsignatura" class="form-control" disabled> </input>
+
+                    <label for="">Dia</label>
+
+                    <select id="selectEHorario"></select>
+
+                    <label for="">Hora Inicio</label>
+
+                    <input type="time" id="horaInicioEditar" class="form-control"></input>
+
+                    <label for="">Hora Fin</label>
+
+                    <input type="time" id="horaFinEditar" class="form-control"></input>
+
+
+                    <br><br><br>
+
+                    <button type="button" id="buttonEditar"  class="btn btn-danger">Editar</button>
+                    </div>
+
+
+
+                   
+                </div>
+
+
+
+
+>>>>>>> origin/master
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

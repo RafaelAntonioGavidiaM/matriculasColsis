@@ -551,7 +551,7 @@ $(document).ready(function() {
                 // alert(respuesta);
                 //console.log(respuesta);
 
-                if (respuesta != null) {
+                if (respuesta != null && respuesta != "No se ha realizado la creacion del periodo" && respuesta != "No hay notas") {
                     $("#contenedorTabla").hide();
 
 
@@ -579,8 +579,8 @@ $(document).ready(function() {
 
 
 
-                } else if (respuesta == null || respuesta == 0) {
-                    // alert("hola");
+                } else {
+                    alert(respuesta);
 
                     $("#contenedorTabla").show();
 
@@ -589,7 +589,7 @@ $(document).ready(function() {
                     $("#contenedorTabla").css("witdh", "20px");
                     $("#contenedorTabla").css("height", "100px");
                     $("#contenedorTabla").css("background-color", "white");
-                    $("#contenedorTabla").html("<h1>No hay Notas Creadas</h1>");
+                    $("#contenedorTabla").html(respuesta);
                 }
 
 
