@@ -74,7 +74,7 @@ svg {
     height: 900px;
 }
 
-@media (max-width: 800px) {
+@media (max-height: 700px) {
     svg {
         width: 500px;
         height: 500px;
