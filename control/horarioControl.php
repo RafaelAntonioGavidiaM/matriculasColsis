@@ -69,6 +69,20 @@ class horarioControl
 
     }
 
+    public function ctrlConsultarHorarioId(){
+
+        $objRespuesta=horarioModelo::mdlConsultarHorarioId($this->idHorario);
+        echo json_encode($objRespuesta);
+    }
+
+    public function ctrlModificarHorario(){
+
+        $objRespuesta=horarioModelo::mdlModificarHorario($this->idHorario,$this->dia,$this->horaInicio,$this->horaFin);
+        echo json_encode($objRespuesta);
+
+
+    }
+
 }
 
 $objHorario = new horarioControl();
@@ -124,5 +138,24 @@ if(isset($_POST["idEliminar"])){
     
     $objHorario->idHorario=$_POST["idEliminar"];
     $objHorario->ctrlEliminarHorario();
+
+}
+
+if(isset($_POST["idEditarHorario"])){
+
+    $objHorario->idHorario=$_POST["idEditarHorario"];
+    $objHorario->ctrlConsultarHorarioId();
+
+}
+
+if(isset($_POST["idE"]) && isset($_POST["diaE"]) && isset($_POST["horaInicioE"]) && isset($_POST["horaFinEditar"]) ){
+
+
+    $objHorario->idHorario=$_POST["idE"];
+    $objHorario->dia=$_POST["diaE"];
+    $objHorario->horaInicio=$_POST["horaInicioE"];
+    $objHorario->horaFin= $_POST["horaFinEditar"];
+
+    $objHorario->ctrlModificarHorario();
 
 }
