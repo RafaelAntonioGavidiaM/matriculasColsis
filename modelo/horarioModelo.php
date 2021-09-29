@@ -112,6 +112,46 @@ class horarioModelo
 
 
     }
+
+    public static function mdlConsultarHorarioId($idHorario){
+        $objConsulta=conexion::conectar()->prepare("select  horaInicio,horaFinal ,horario.idHorario, asignatura.nombreAsignatura ,dia from horario inner join asignaturacurso on asignaturacurso.idAsignaturaCurso=horario.idAsignaturaCurso inner join asignatura on asignatura.idAsignatura= asignaturacurso.idAsignatura where idHorario=".$idHorario." order    by field(dia, 'Lunes','Martes', 'Miercoles','Jueves', 'Viernes','Sabado','Domingo')");
+        $objConsulta->execute();
+        $lista=$objConsulta->fetchAll();
+        $objConsulta=null;
+        return $lista;
+
+
+
+
+    }
+
+    public static function mdlModificarHorario($idHorario,$dia,$horaI,$horaF){
+
+        $mensaje="";
+
+        $objConsulta=conexion::conectar()->prepare("UPDATE horario set dia=:dia,horaInicio=:hI,horaFinal=:hF where idHorario=:id ");
+        $objConsulta->bindParam(":dia",$dia,PDO::PARAM_STR);
+        $objConsulta->bindParam(":hI",$horaI,PDO::PARAM_STR);
+        $objConsulta->bindParam(":hF",$horaF,PDO::PARAM_STR);
+        $objConsulta->bindParam(":id",$idHorario,PDO::PARAM_STR);
+
+        if($objConsulta->execute()){
+
+            $mensaje="ok";
+
+
+
+        }else{
+
+            $mensaje="error";
+
+        }
+
+        return $mensaje;
+
+
+
+    }
     
 
 }

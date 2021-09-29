@@ -6,12 +6,20 @@
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+<<<<<<< HEAD
+    background-size: contain;
+=======
     background-size: cover;
     
+>>>>>>> origin/master
 }
 
 .wave {
     position: absolute;
     width: 100%;
     bottom: 0;
+}
+
+.modalHorario {
+    top: 150px;
 }
