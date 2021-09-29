@@ -51,7 +51,8 @@ class asistenciaModelo
 
         $objEstudiante = asistenciaModelo::cargarEstudiante($idCurso);
 
-        $fechaActual = date("Y-m-d");
+        $fechaActual = date("Y-m-d
+        ");
 
         $idAsignaturaCurso = asistenciaModelo::consultarIdAsignaturaCurso($idCurso, $idAsignatura);
 
