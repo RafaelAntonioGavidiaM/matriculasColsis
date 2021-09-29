@@ -6,12 +6,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-<<<<<<< HEAD
-    background-size: contain;
-=======
     background-size: cover;
     
->>>>>>> origin/master
 }
 
 .wave {
