@@ -14,6 +14,7 @@ $(document).ready(function () {
     // ------------------------------------------------------------------------------------
 
     // litarAreas
+    
 
     function listarAreas() {
 
@@ -178,8 +179,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    listarAreas();
-                    iniciarTablaArea();
+            
 
 
                 }

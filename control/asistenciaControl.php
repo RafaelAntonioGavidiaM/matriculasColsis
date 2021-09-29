@@ -4,10 +4,11 @@
 include_once "../modelo/asistenciaModelo.php";
 
 class asistenciaControl{
-
+    public $idAsistencia;
     public $idCurso;
     public $idAsignatura;
     public $fecha;
+    public $valorAsistencia;
 
     public function ctrCargarSelectAsignaturaAsistencia(){
 
@@ -28,6 +29,13 @@ class asistenciaControl{
         $objRespuesta=asistenciaModelo::mdlInsertarAsistencia($this->idCurso,$this->idAsignatura);
         echo json_encode($objRespuesta);
 
+
+    }
+
+    public function ctrModificarAsistencia(){
+
+        $objRespuesta=asistenciaModelo::mdlModificarAsistencia($this->idAsistencia,$this->valorAsistencia);
+        echo json_encode($objRespuesta);
 
     }
 
@@ -70,4 +78,15 @@ if(isset($_POST["idCursoC"]) && isset($_POST["idAsignaturaC"])){
     $objCargarAsistencia->ctrlInsertarAsistencia();
 
 
+}
+
+
+// Modicar asistencia
+
+if (isset($_POST["idModAsistencia"]) && isset($_POST["valorAsistencia"])) {
+    
+    $objModificarAsistencia= new asistenciaControl();
+    $objModificarAsistencia->idAsistencia=$_POST["idModAsistencia"];
+    $objModificarAsistencia->valorAsistencia=$_POST["valorAsistencia"];
+    $objModificarAsistencia->ctrModificarAsistencia();
 }

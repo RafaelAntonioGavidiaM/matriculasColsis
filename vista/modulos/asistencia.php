@@ -87,14 +87,14 @@
                             <table id="tablaAsistencia" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                     
                                         <th>Nombres</th>
                                         <th>Apellidos</th>
                                         <th>Curso</th>
                                         <th>Asignatura</th>
                                         <th>Fecha</th>
                                         <th>Asistencia</th>
-                                        <th>Acciones</th>
+                                   
                                     </tr>
                                 </thead>
                                 <tbody id="bodyAsistencias">
