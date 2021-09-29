@@ -2,6 +2,7 @@
 
 require("../../librerias/pdf/fpdf.php");
 require_once("../../../modelo/reporteModelo.php");
+require_once("../../../modelo/conexion.php");
 class PDF extends FPDF
 {
 
@@ -17,9 +18,65 @@ class PDF extends FPDF
         return $objRespuesta;
     }
     public function cargarAsignaturasReporte()
+
     {
-        $objRespuesta = modeloReportes::mdlListarAsignaturasReportesPdf($this->idCurso);
+        $idCurso2 = $_GET["idCurso"];
+        $objRespuesta = modeloReportes::mdlListarAsignaturasReportesPdf($idCurso2);
         return $objRespuesta;
+    }
+
+    public function resultadosNota()
+    {
+
+        $nota = array();
+        $idCurso2 = $_GET["idCurso"];
+        $idPeriodo = $_GET["idPeriodo"];
+        $idEstudiante = $_GET["idEstudiante"];
+
+
+
+        $objPfd = new PDF();
+        $asignaturas = $objPfd->cargarAsignaturasReporte();
+
+        foreach ($asignaturas as $key => $value) {
+
+            $idAsignatura = $value["idAsignatura"];
+
+            $nombreAsignatura = $value["nombreasignatura"];
+
+
+
+
+
+
+            $objConsulta = conexion::conectar()->prepare("select avg(nota) as nota from nota  inner join asignaturanota on  nota.idNota=asignaturanota.idNota   where idPeriodo=" . $idPeriodo . " and idAsignatura=" . $idAsignatura . " and  idEstudiante=" . $idEstudiante . " and nota.idCurso=" . $idCurso2 . "");
+
+            if ($objConsulta->execute()) {
+
+                $notaFinal = $objConsulta->fetch();
+
+
+                array_push($nota, [$nombreAsignatura, $notaFinal["nota"]]);
+            }
+        }
+
+        return $nota;
+    }
+
+
+
+    function BasicTable($header, $data)
+    {
+        // Cabecera
+        foreach ($header as $col)
+            $this->Cell(40, 7, $col, 1);
+        $this->Ln();
+        // Datos
+        foreach ($data as $row) {
+            foreach ($row as $col)
+                $this->Cell(40, 6, $col, 1);
+            $this->Ln();
+        }
     }
 
     function Header()
@@ -31,6 +88,7 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 30);
         $this->SetTextColor(255, 255, 255);
         $this->Write(5, 'REPORTE PERIODO');
+
         $this->Image('../../../vista/imgs/colsis_logotipo.png', 165, -2, 50, 50);
         $this->ln(40);
     }
@@ -94,6 +152,10 @@ $hora = date("H:i");
 
 if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["idCurso"])) {
 
+    $idEstudiante = $_GET["idEstudiante"];
+
+
+
 
     $objPfd = new PDF();
 
@@ -108,6 +170,15 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetMargins(10, 30, 20, 20);
     $objPfd->SetFont('Arial', '', 12);
     $objPfd->SetTextColor(255, 255, 255);
+    if ($datos["idPeriodo"] == 1) {
+        $objPfd->SetTitle('REPORTE PERIODO I');
+    } elseif ($datos["idPeriodo"] == 2) {
+        $objPfd->SetTitle('REPORTE PERIODO II');
+    } elseif ($datos["idPeriodo"] == 3) {
+        $objPfd->SetTitle('REPORTE PERIODO III');
+    } elseif ($datos["idPeriodo"] == 4) {
+        $objPfd->SetTitle('REPORTE PERIODO IV');
+    }
 
     $objPfd->SetFont('Arial', 'B', 30);
     $objPfd->SetTextColor(255, 255, 255);
@@ -133,7 +204,11 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
 
     $objPfd->SetFont('Arial', 'B', 15);
     $objPfd->SetTextColor(0, 0, 0);
-    $objPfd->Image($rutaImagen . $datos["url"], 10, 60, 40, 50);
+    if ($datos["url"] == null || $datos["url"] == "") {
+    } else {
+        $objPfd->Image($rutaImagen . $datos["url"], 10, 60, 40, 50);
+    }
+
     $objPfd->SetY(70);
     $objPfd->SetX(60);
     $objPfd->Write(5, 'Estudiante: ' . $datos["nombres"] . " " . $datos["apellidos"]);
@@ -155,10 +230,21 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetTextColor(255, 255, 255);
     $objPfd->SetFillColor(39, 216, 107);
 
-    for ($i = 0; $i < count($datosAsignatura); $i++) {
-        $objPfd->Cell(30, 10, $datosAsignatura[$i]["nombreasignatura"], 1, 0, 'L', 1);
-        $objPfd->Ln();
-    }
+   
+
+
+    $notas = $objPfd->resultadosNota();
+
+    $header = array('Asignatura', 'Nota');
+
+    $objPfd->SetTextColor(0, 0, 0);
+
+    $objPfd->BasicTable($header,$notas);
+
+
+
+
+
 
 
     // $miCabecera = array('Nombre', 'Apellido', 'Matrícula');
