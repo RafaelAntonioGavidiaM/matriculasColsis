@@ -7,11 +7,14 @@
     background-position: center;
     background-attachment: fixed;
     background-size: contain;
-    
 }
 
 .wave {
     position: absolute;
     width: 100%;
     bottom: 0;
+}
+
+.modalHorario {
+    top: 150px;
 }
