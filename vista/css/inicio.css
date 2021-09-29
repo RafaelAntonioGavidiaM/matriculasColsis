@@ -1,9 +1,75 @@
-.imgPrincipla {
-    width: 100%;
+#principal {
     height: 100vh;
-    background-image: url(../imgs/principal/principal.svg);
-    background-size: contain;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* #circulo {
+    animation: rotarCirculo 8s linear infinite;
+}
+
+@keyframes rotarCirculo {
+    0% {
+        transform: rotate(0deg);
+        transform-origin: center;
+    }
+    100% {
+        transform: rotate(360deg);
+        transform-origin: center;
+    }
+} */
+
+#flor1 {
+    animation: moverFlor1 2s ease infinite;
+}
+
+@keyframes moverFlor1 {
+    0% {
+        transform: translateY(50px);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+#flor2 {
+    animation: moverFlor2 2s .5s ease infinite;
+}
+
+@keyframes moverFlor2 {
+    0% {
+        transform: translateY(50px);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+#hombre {
+    animation: moverHombre 1s linear infinite;
+}
+
+@keyframes moverHombre {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+svg {
+    width: 900px;
+    height: 900px;
 }
