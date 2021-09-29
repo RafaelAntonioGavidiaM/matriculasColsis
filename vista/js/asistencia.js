@@ -42,7 +42,7 @@ var contadorVeces=0;
             contentType: false,
             processData: false,
             success: function (respuesta) {
-                alert("hola mundo");
+               
                 var cargarSelsct="";
               
                 respuesta.forEach(cargarAsistencia)
@@ -139,7 +139,7 @@ var contadorVeces=0;
                     var resultado = respuesta[1];
 
                     if (resultado == "ok") {
-                        alert(resultado);
+                       
 
 
                        
@@ -202,6 +202,75 @@ var contadorVeces=0;
         })
     })
 
+    $("#btnBuscarCargarAsignaturas").click(function () {
+
+        var idCurso = $("#selectCurso").val();
+        var listaAsignatura = "ok";
+        var objListarAsignatura = new FormData();
+        objListarAsignatura.append("idBuscarCurso", idCurso)
+        objListarAsignatura.append("buscarListaAsignatura", listaAsignatura)
+
+        $.ajax({
+
+            url: "control/asistenciaControl.php",
+            type: "post",
+            dataType: "json",
+            data: objListarAsignatura,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+
+                $("#selectBuscarAsignatura").html("");
+                respuesta.forEach(lisaAsignaturaAsistencia);
+
+                function lisaAsignaturaAsistencia(item, index) {
+                  
+
+                    $("#selectBuscarAsignatura").append('<option value=" ' + item.idAsignatura + '">' + item.nombreAsignatura + '</option>');
+
+
+                }
+
+            }
+        })
+    })
+
+    $("#btnCargarFechasAsignaturas").click(function () {
+
+        var idCurso = $("#cursoSelect").val();
+        var idAsignatura = $("#selectBuscarAsignatura").val();
+        var listaFecha = "ok";
+        var objListarFecha = new FormData();
+        objListarFecha.append("idBuscarCurso", idCurso);
+        objListarFecha.append("idBuscarAsignatura", idAsignatura);
+        objListarFecha.append("listaFecha", listaFecha);
+
+        $.ajax({
+
+            url: "control/asistenciaControl.php",
+            type: "post",
+            dataType: "json",
+            data: objListarFecha,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+
+                $("#selectFecha").html("");
+                respuesta.forEach(lisaFechaAsistencia);
+
+                function lisaFechaAsistencia(item, index) {
+                  
+                    $("#selectFecha").append('<option value=" ' + item.idAsistencia + '">' + item.fechaHora + '</option>');
+                    alert(item.idAsistencia );
+                    alert(item.fechaHora);
+
+                }
+
+            }
+        })
+    })
 
 
 
@@ -221,8 +290,6 @@ var contadorVeces=0;
         var fechaHora = $(this).attr("fechaHora");
         var idAsistencia = $(this).attr("idAsistencia");
         var valorAsistencia = $(this).val();
-        alert(idAsistencia);
-        alert(valorAsistencia);
         var objData = new FormData();
         objData.append("idModAsistencia", idAsistencia)
         objData.append("valorAsistencia", valorAsistencia)
@@ -238,15 +305,27 @@ var contadorVeces=0;
             processData: false,
             success: function (respuesta) {
 
+                if (respuesta == "Asistio") {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Asistio',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }else{
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Falto',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+
+                }
                 
-                
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Asistio',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+            
                 
 
                 

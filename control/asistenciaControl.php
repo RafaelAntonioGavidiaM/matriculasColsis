@@ -39,6 +39,13 @@ class asistenciaControl{
 
     }
 
+    public function ctrCargarSelectFecha(){
+
+        $objRespuesta=asistenciaModelo::mdlConsultarFechaAsignatura($this->idCurso,$this->idAsignatura);
+        echo json_encode($objRespuesta);
+
+    }
+
 
 
 
@@ -55,6 +62,27 @@ if(isset($_POST["listaAsignatura"]) == "ok" && isset($_POST["idCurso"])){
     $objCargarSelectAsignaturaAsistencia = new asistenciaControl();
     $objCargarSelectAsignaturaAsistencia->idCurso = $_POST["idCurso"];
     $objCargarSelectAsignaturaAsistencia->ctrCargarSelectAsignaturaAsistencia();
+    
+}
+
+// Listar selectBuscarAsignatura 
+
+if(isset($_POST["buscarListaAsignatura"]) == "ok" && isset($_POST["idBuscarCurso"])){
+
+    $objCargarSelectAsignaturaAsistencia = new asistenciaControl();
+    $objCargarSelectAsignaturaAsistencia->idCurso = $_POST["idBuscarCurso"];
+    $objCargarSelectAsignaturaAsistencia->ctrCargarSelectAsignaturaAsistencia();
+    
+}
+
+// Listar select Fecha
+
+if(isset($_POST["listaFecha"]) == "ok" && isset($_POST["idBuscarCurso"]) && isset($_POST["idBuscarAsignatura"])){
+
+    $objCargarSelectFecha = new asistenciaControl();
+    $objCargarSelectFecha->idCurso = $_POST["idBuscarCurso"];
+    $objCargarSelectFecha->idAsignatura = $_POST["idBuscarAsignatura"];
+    $objCargarSelectFecha->ctrCargarSelectFecha();
     
 }
 

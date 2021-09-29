@@ -112,36 +112,49 @@ class asistenciaModelo
     }
 
 
-    public static function mdlModificarAsistencia($idAsistencia,$valorAsistencia){
+    public static function mdlModificarAsistencia($idAsistencia, $valorAsistencia)
+    {
         $mensaje = "";
-      
-        try {       
+
+        try {
 
             $objConsulta =  conexion::conectar()->prepare("UPDATE asistencia SET asistencia='$valorAsistencia' where idAsistencia='$idAsistencia'");
 
             if ($objConsulta->execute()) {
-                
-                $mensaje = "ok";
-    
-            }else{
-    
+                if ($valorAsistencia == "Asistio") {
+
+                    $mensaje = "Asistio";
+                } else {
+
+                    $mensaje = "Falto";
+                }
+            } else {
+
                 $mensaje = "error";
-    
             }
 
             $objConsulta = null;
-
         } catch (Exception $e) {
-            
+
             $mensaje = $e;
         }
- 
+
 
         return $mensaje;
-
     }
 
+    public static function mdlConsultarFechaAsignatura($idCurso, $idAsignatura)
+    {
 
+        $idAsignaturaCurso = asistenciaModelo::consultarIdAsignaturaCurso($idCurso, $idAsignatura);
+
+        $objConsulta =  conexion::conectar()->prepare("SELECT asistencia.fechaHora from asistencia inner join asignaturacurso on asignaturacurso.idAsignaturaCurso = asistencia.idAsignaturacurso inner join estudiante on asistencia.idEstudiante = estudiante.idEstudiante inner join curso on asignaturacurso.idCurso = curso.idCurso inner join asignatura on asignaturacurso.idAsignatura = asignatura.idAsignatura where asignaturacurso.idAsignaturaCurso = :idAsignaturaCurso and asignaturacurso.idAsignatura = '$idAsignatura' and asignaturacurso.idCurso= '$idCurso'");
+        $objConsulta->bindParam(":idAsignaturaCurso", $idAsignaturaCurso, PDO::PARAM_INT);
+        $objConsulta->execute();
+        $listaFechas = $objConsulta->fetchAll();
+        $objConsulta = null;
+        return $listaFechas;
+    }
 
 
 
