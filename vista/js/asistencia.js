@@ -112,19 +112,21 @@ $(document).ready(function() {
 
                     if (resultado == "ok") {
 
-                        listarAsistencia(fecha);
 
+                        inicarTablaAsistencia();
+                        listarAsistencia(fecha);
+                        
 
 
                     }
-
+                   
 
                 } catch (error) {
 
                     alert("Problemas al realizar el registro");
 
                 }
-
+                
 
 
 
@@ -169,7 +171,7 @@ $(document).ready(function() {
 
 
                 }
-
+                
             }
         })
     })
@@ -177,7 +179,13 @@ $(document).ready(function() {
 
 
 
+    function inicarTablaAsistencia(){
 
+        var tabla = $("#tablaAsistencia").DataTable();
+        tabla.destroy();
+
+
+    }
 
 
 
