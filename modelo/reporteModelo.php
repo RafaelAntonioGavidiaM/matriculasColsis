@@ -43,7 +43,7 @@ class modeloReportes
     
     public static function mdlListarAsignaturasReportesPdf($idCurso)
     {
-        $objCargarAsignaturaReportes = Conexion::conectar()->prepare("select distinct( asignaturacurso.idAsignatura) , nombreasignatura from asignaturacurso inner join asignatura on asignatura.idAsignatura=asignaturacurso.idAsignatura where idCurso='$idCurso';");
+        $objCargarAsignaturaReportes = Conexion::conectar()->prepare("select distinct( asignaturacurso.idAsignatura) ,asignatura.nombreasignatura from asignaturacurso inner join asignatura on asignatura.idAsignatura=asignaturacurso.idAsignatura where idCurso=".$idCurso."");
         $objCargarAsignaturaReportes->execute();
         $listaAsignaturaReportes = $objCargarAsignaturaReportes->fetchAll();
         $objCargarAsignaturaReportes = null;
