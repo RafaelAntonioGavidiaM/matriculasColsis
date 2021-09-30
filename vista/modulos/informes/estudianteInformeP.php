@@ -159,7 +159,7 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetTextColor(255, 255, 255);
     $objPfd->SetY(13);
     $objPfd->Setx(115);
-    $objPfd->Write(5, $datos["idPeriodo"]);
+    $objPfd->Write(5, $datos["idPeriodo"].' '.$datos["nombrePeriodo"]);
 
     $objPfd->SetFont('Arial', '', 12);
     $objPfd->SetY(25);
