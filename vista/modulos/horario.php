@@ -131,49 +131,52 @@
                 </div>
                 <div class="modal-body">
 
-                    <button type="button" id="eidHorario" idEliminar="" class="btn btn-danger">Eliminar</button>
-                    <button type="button" id="btnEditarHorario" idEditar="" class="btn btn-info">Editar</button>
+                    <div class="contenedorEditar">
 
 
-                    <div class="editarHorario">
-
-                    
-
-                    <br><br><br>
 
 
-                    <label for="">Nombre Asignatura</label>
-
-                    <input type="text" id="nombreAsignatura" class="form-control" disabled> </input>
-
-                    <label for="">Dia</label>
-
-                    <select id="selectEHorario"></select>
-
-                    <label for="">Hora Inicio</label>
-
-                    <input type="time" id="horaInicioEditar" class="form-control"></input>
-
-                    <label for="">Hora Fin</label>
-
-                    <input type="time" id="horaFinEditar" class="form-control"></input>
+                        <div class="editarHorario">
 
 
-                    <br><br><br>
 
-                    <button type="button" id="buttonEditar"  class="btn btn-danger">Editar</button>
+                            <br><br><br>
+
+
+                            <label for="">Nombre Asignatura</label>
+
+                            <input type="text" id="nombreAsignatura" class="form-control" disabled> </input>
+
+                            <label for="">Dia</label>
+
+                            <select id="selectEHorario"></select>
+
+                            <label for="">Hora Inicio</label>
+
+                            <input type="time" id="horaInicioEditar" class="form-control"></input>
+
+                            <label for="">Hora Fin</label>
+
+                            <input type="time" id="horaFinEditar" class="form-control"></input>
+
+
+                            <br><br><br>
+
+                            <button type="button" id="buttonEditar" class="btn btn-danger" data-dismiss="modal" >Editar</button>
+                        </div>
+
+
+
                     </div>
-
-
-
-                   
                 </div>
 
 
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <button type="button" id="eidHorario" idEliminar="" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+                    <button type="button" id="btnEditarHorario" idEditar="" class="btn btn-info" >Editar</button>
                 </div>
             </div>
 

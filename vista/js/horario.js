@@ -1,6 +1,7 @@
 $(document).ready(function() {
     cargarDatosCursoHorario(1, "", "");
     dias();
+    $(".editarHorario").hide();
 
 
 
@@ -218,7 +219,7 @@ $(document).ready(function() {
 
     $("#tablaHorario").on("click", "#btnAsignaturaHorario", function() {
         var idHorario = $(this).attr("idHorario");
-        alert(idHorario);
+        //  alert(idHorario);
         $("#btnEditarHorario").attr("idEditar", idHorario);
         $("#eidHorario").attr("idEliminar", idHorario);
 
@@ -233,6 +234,8 @@ $(document).ready(function() {
     })
 
     $("#btnEditarHorario").click(function() {
+
+        $(".editarHorario").show();
 
         var dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
 
@@ -299,6 +302,7 @@ $(document).ready(function() {
     })
 
     $("#buttonEditar").click(function() {
+        $(".editarHorario").hide();
 
         var idHorario = $("#btnEditarHorario").attr("idEditar");
         var dia = $("#selectEHorario").val();
@@ -431,24 +435,22 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
+                var mensaje = $("#buscarIdCurso").val();
 
-                if (respuesta == "ok") {
-                    Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
-                        title: 'Registro Exitoso',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
 
-                    var mensaje = $("#buscarIdCurso").val();
+                if (respuesta != null) {
 
+                    Command: toastr["info"](respuesta, "respuesta")
                     cargarHorario(mensaje);
 
 
-                } else {
-                    Command: toastr["error"](respuesta, "Succes")
+
+
+
+
+
                 }
+
 
             }
         })
