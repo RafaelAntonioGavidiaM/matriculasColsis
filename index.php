@@ -36,9 +36,9 @@
 
   <div class="container-fluid">
 
-    <div class="row">
+    <div class="row form">
 
-      <div class="col-sm-4 animate__animated animate__fadeInLeft">
+      <div id="animacionForm" class="col-sm-4 animate__animated animate__fadeInLeft">
         <div id="box1" class="box">
           <h1>LOGIN</h1>
         </div>
