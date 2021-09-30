@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 
 
-    function listarAsistencia(fechaBuscar) {
+    function listarAsistencia(fechaBuscar,idCurso,idAsignatura) {
         if (contadorVeces != 0) {
             inicarTablaAsistencia();
 
@@ -20,8 +20,7 @@ $(document).ready(function () {
         var dataAsistencia = [];
 
 
-        var idCurso = $("#selectCurso").val();
-        var idAsignatura = $("#selectAsignaturaAsistencia").val();
+       
         var listaAsistencia = "ok";
         var objListaAsistencia = new FormData;
         objListaAsistencia.append("listaAsistencia", listaAsistencia);
@@ -44,8 +43,9 @@ $(document).ready(function () {
             success: function (respuesta) {
 
                 var cargarSelsct = "";
+                console.log(respuesta);
 
-                respuesta.forEach(cargarAsistencia)
+                respuesta.forEach(cargarAsistencia);
 
                 function cargarAsistencia(item, index) {
 
@@ -61,11 +61,6 @@ $(document).ready(function () {
 
                     }
                     selectAsistencia += '</select>';
-
-
-
-                    // var objBotonesAsistencia = '<button type="button" class="btn btn-success" title="Asistio"  id="btnAsistioEstudiante" idAsistencia="' + item.idAsistencia + '"><span class="glyphicon glyphicon-ok"></span></button>'
-                    // objBotonesAsistencia += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnFaltoEstudiante" idAsistencia="' + item.idAsistencia + '"><span class="glyphicon glyphicon-remove"></span></button>';
 
                     dataAsistencia.push([item.nombres, item.apellidos, item.nombreCurso, item.nombreAsignatura, item.fechaHora, selectAsistencia])
                 }
@@ -108,6 +103,7 @@ $(document).ready(function () {
 
         contadorVeces++;
     }
+    var fecha="";
 
     $("#btnCrearAsistencia").click(function () {
 
@@ -135,7 +131,7 @@ $(document).ready(function () {
             success: function (respuesta) {
 
 
-                var fecha = respuesta[0];
+                fecha = respuesta[0];
                 var resultado = respuesta[1];
 
                 if (resultado == "ok") {
@@ -150,7 +146,10 @@ $(document).ready(function () {
                         timer: 1500,
                     })
 
-                    listarAsistencia(fecha);
+                    var idCurso = $("#selectCurso").val();
+                    var idAsignatura = $("#selectAsignaturaAsistencia").val();
+
+                    listarAsistencia(fecha,idCurso,idAsignatura);
 
 
 
@@ -291,6 +290,8 @@ $(document).ready(function () {
 
     $("#tablaAsistencia").on("change", "#asistenciaSelect", function () {
 
+
+
         var fechaHora = $(this).attr("fechaHora");
         var idAsistencia = $(this).attr("idAsistencia");
         var valorAsistencia = $(this).val();
@@ -329,11 +330,14 @@ $(document).ready(function () {
 
                 }
 
+                var idCurso = $("#selectCurso").val();
+                var idAsignatura = $("#selectAsignaturaAsistencia").val();
 
 
 
 
-                listarAsistencia(fechaHora);
+
+                listarAsistencia(fecha,idCurso,idAsignatura);
             }
 
 
@@ -374,7 +378,8 @@ $(document).ready(function () {
                     showConfirmButton: false,
                     timer: 1500,
                 })
-                listarAsistencia(buscarFecha);
+
+                listarAsistencia(buscarFecha,buscarIdCurso,buscarIdAsignatura);
             }
 
         })
