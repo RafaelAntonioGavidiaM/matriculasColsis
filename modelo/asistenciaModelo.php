@@ -147,13 +147,24 @@ class asistenciaModelo
     {
 
         $idAsignaturaCurso = asistenciaModelo::consultarIdAsignaturaCurso($idCurso, $idAsignatura);
-
-        $objConsulta =  conexion::conectar()->prepare("SELECT asistencia.fechaHora from asistencia inner join asignaturacurso on asignaturacurso.idAsignaturaCurso = asistencia.idAsignaturacurso inner join estudiante on asistencia.idEstudiante = estudiante.idEstudiante inner join curso on asignaturacurso.idCurso = curso.idCurso inner join asignatura on asignaturacurso.idAsignatura = asignatura.idAsignatura where asignaturacurso.idAsignaturaCurso = :idAsignaturaCurso and asignaturacurso.idAsignatura = '$idAsignatura' and asignaturacurso.idCurso= '$idCurso'");
-        $objConsulta->bindParam(":idAsignaturaCurso", $idAsignaturaCurso, PDO::PARAM_INT);
+        $asiganaturaCurso = $idAsignaturaCurso[0];
+        $objConsulta =  conexion::conectar()->prepare("SELECT asistencia.idAsistencia,asistencia.fechaHora from asistencia inner join asignaturacurso on asignaturacurso.idAsignaturaCurso = asistencia.idAsignaturacurso inner join estudiante on asistencia.idEstudiante = estudiante.idEstudiante inner join curso on asignaturacurso.idCurso = curso.idCurso inner join asignatura on asignaturacurso.idAsignatura = asignatura.idAsignatura where asignaturacurso.idAsignaturaCurso = :idAsignaturaCurso and asignaturacurso.idAsignatura = '$idAsignatura' and asignaturacurso.idCurso= '$idCurso'");
+        $objConsulta->bindParam(":idAsignaturaCurso", $asiganaturaCurso, PDO::PARAM_INT);
         $objConsulta->execute();
         $listaFechas = $objConsulta->fetchAll();
         $objConsulta = null;
         return $listaFechas;
+    }
+
+    public static function mdlConsultarAsistenciaSegunFecha($idCurso,$idAsignatura,$fechaHora){
+
+        $objConsulta = conexion::conectar()->prepare("SELECT asistencia.idAsistencia,estudiante.idEstudiante,estudiante.nombres,estudiante.apellidos,curso.nombreCurso,asignatura.nombreAsignatura,asistencia.fechaHora,asistencia.asistencia from asistencia inner join asignaturacurso on asignaturacurso.idAsignaturaCurso = asistencia.idAsignaturacurso inner join estudiante on asistencia.idEstudiante = estudiante.idEstudiante inner join curso on asignaturacurso.idCurso = curso.idCurso  inner join asignatura on asignaturacurso.idAsignatura = asignatura.idAsignatura where asignaturacurso.idAsignatura = $idAsignatura asignaturacurso.idCurso =  $idCurso   and fechaHora= $fechaHora");
+        $objConsulta->execute();
+        $listaAsistencia = $objConsulta->fetchAll();
+        $objConsulta = null;
+        return $listaAsistencia;
+
+
     }
 
 
