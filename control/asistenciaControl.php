@@ -46,7 +46,13 @@ class asistenciaControl{
 
     }
 
+    public function ctrBuscarAsistencia(){
 
+        $objRespuesta=asistenciaModelo::mdlConsultarAsistenciaSegunFecha($this->idCurso,$this->idAsignatura,$this->fecha);
+        echo json_encode($objRespuesta);
+
+
+    }
 
 
 }
@@ -117,4 +123,15 @@ if (isset($_POST["idModAsistencia"]) && isset($_POST["valorAsistencia"])) {
     $objModificarAsistencia->idAsistencia=$_POST["idModAsistencia"];
     $objModificarAsistencia->valorAsistencia=$_POST["valorAsistencia"];
     $objModificarAsistencia->ctrModificarAsistencia();
+}
+
+// Buscar Fecha Asistencia
+
+if (isset($_POST["buscarIdCurso"]) && isset($_POST["buscarIdAsignatura"]) && isset($_POST["buscarFecha"])) {
+    
+    $objBuscarAsistencia = new asistenciaControl();
+    $objBuscarAsistencia->idCurso =$_POST["buscarIdCurso"];
+    $objBuscarAsistencia->idAsignatura =$_POST["buscarIdAsignatura"];
+    $objBuscarAsistencia->fecha =$_POST["buscarFecha"];
+    $objBuscarAsistencia->ctrBuscarAsistencia();
 }

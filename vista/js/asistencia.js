@@ -5,20 +5,20 @@ $(document).ready(function () {
 
     //Inciializacion de variables 
 
-var contadorVeces=0;
+    var contadorVeces = 0;
     // listar asistencias
 
- 
- 
+
+
 
 
     function listarAsistencia(fechaBuscar) {
-        if(contadorVeces!=0){
+        if (contadorVeces != 0) {
             inicarTablaAsistencia();
 
         }
-      var  dataAsistencia = [];
-        
+        var dataAsistencia = [];
+
 
         var idCurso = $("#selectCurso").val();
         var idAsignatura = $("#selectAsignaturaAsistencia").val();
@@ -42,32 +42,32 @@ var contadorVeces=0;
             contentType: false,
             processData: false,
             success: function (respuesta) {
-               
-                var cargarSelsct="";
-              
+
+                var cargarSelsct = "";
+
                 respuesta.forEach(cargarAsistencia)
 
                 function cargarAsistencia(item, index) {
 
-                    var selectAsistencia =    ' <select  id="asistenciaSelect" class="form-control" idAsistencia='+item.idAsistencia+' fechaHora=' + item.fechaHora + '>';
-                    if(item.asistencia=='Falto'){
-                         selectAsistencia +='<option value="Falto">Falto</option>';
-                         selectAsistencia +='<option value="Asistio">Asistio</option>';
-                        
-                        
-                    }else{
-                        selectAsistencia +='<option value="Asistio">Asistio</option>';
-                        selectAsistencia +='<option value="Falto">Falto</option>';
+                    var selectAsistencia = ' <select  id="asistenciaSelect" class="form-control" idAsistencia=' + item.idAsistencia + ' fechaHora=' + item.fechaHora + '>';
+                    if (item.asistencia == 'Falto') {
+                        selectAsistencia += '<option value="Falto">Falto</option>';
+                        selectAsistencia += '<option value="Asistio">Asistio</option>';
+
+
+                    } else {
+                        selectAsistencia += '<option value="Asistio">Asistio</option>';
+                        selectAsistencia += '<option value="Falto">Falto</option>';
 
                     }
-                    selectAsistencia +='</select>';
-                
-                    
+                    selectAsistencia += '</select>';
+
+
 
                     // var objBotonesAsistencia = '<button type="button" class="btn btn-success" title="Asistio"  id="btnAsistioEstudiante" idAsistencia="' + item.idAsistencia + '"><span class="glyphicon glyphicon-ok"></span></button>'
                     // objBotonesAsistencia += '<button type="button" class="btn btn-danger" title ="Eliminar" id="btnFaltoEstudiante" idAsistencia="' + item.idAsistencia + '"><span class="glyphicon glyphicon-remove"></span></button>';
 
-                    dataAsistencia.push([ item.nombres, item.apellidos, item.nombreCurso, item.nombreAsignatura, item.fechaHora, selectAsistencia ])
+                    dataAsistencia.push([item.nombres, item.apellidos, item.nombreCurso, item.nombreAsignatura, item.fechaHora, selectAsistencia])
                 }
 
                 console.log(dataAsistencia);
@@ -110,7 +110,7 @@ var contadorVeces=0;
     }
 
     $("#btnCrearAsistencia").click(function () {
-       
+
 
         //listarAsistencia();
         var idCurso = $("#selectCurso").val();
@@ -134,24 +134,30 @@ var contadorVeces=0;
             processData: false,
             success: function (respuesta) {
 
-              
-                    var fecha = respuesta[0];
-                    var resultado = respuesta[1];
 
-                    if (resultado == "ok") {
-                       
+                var fecha = respuesta[0];
+                var resultado = respuesta[1];
 
-
-                       
-
-                        listarAsistencia(fecha);
+                if (resultado == "ok") {
 
 
 
-                    }
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Asistencia Creada',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+
+                    listarAsistencia(fecha);
 
 
-                
+
+                }
+
+
+
 
 
 
@@ -225,7 +231,7 @@ var contadorVeces=0;
                 respuesta.forEach(lisaAsignaturaAsistencia);
 
                 function lisaAsignaturaAsistencia(item, index) {
-                  
+
 
                     $("#selectBuscarAsignatura").append('<option value=" ' + item.idAsignatura + '">' + item.nombreAsignatura + '</option>');
 
@@ -261,10 +267,8 @@ var contadorVeces=0;
                 respuesta.forEach(lisaFechaAsistencia);
 
                 function lisaFechaAsistencia(item, index) {
-                  
-                    $("#selectFecha").append('<option value=" ' + item.idAsistencia + '">' + item.fechaHora + '</option>');
-                    alert(item.idAsistencia );
-                    alert(item.fechaHora);
+
+                    $("#selectFecha").append('<option value=" ' + item.fechaHora + '">' + item.fechaHora + '</option>');
 
                 }
 
@@ -313,7 +317,7 @@ var contadorVeces=0;
                         showConfirmButton: false,
                         timer: 1500,
                     })
-                }else{
+                } else {
 
                     Swal.fire({
                         position: 'center',
@@ -324,11 +328,11 @@ var contadorVeces=0;
                     })
 
                 }
-                
-            
-                
 
-                
+
+
+
+
                 listarAsistencia(fechaHora);
             }
 
@@ -337,6 +341,43 @@ var contadorVeces=0;
 
 
 
+
+    })
+
+    $("#btnBuscarAsistencia").click(function () {
+
+        var buscarIdCurso = $("#cursoSelect").val();
+        var buscarIdAsignatura = $("#selectBuscarAsignatura").val();
+        var buscarFecha = document.getElementById("selectFecha").value;
+        var objData = new FormData();
+        objData.append("buscarIdCurso", buscarIdCurso);
+        objData.append("buscarIdAsignatura", buscarIdAsignatura);
+        objData.append("buscarFecha", buscarFecha);
+        alert(buscarFecha);
+
+        $.ajax({
+
+            url: "control/asistenciaControl.php",
+            type: "post",
+            dataType: "json",
+            data: objData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Asistencia Cargarda',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                listarAsistencia(buscarFecha);
+            }
+
+        })
 
     })
 

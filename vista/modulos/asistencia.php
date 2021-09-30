@@ -59,7 +59,7 @@
 
                     <br><br>
 
-                    <!-- <div class="panel panel-default borde_panel">
+                    <div class="panel panel-default borde_panel">
 
                         <div class="panel-heading cabecera_panel borde_panel_Cabecera">
                             <h2 class="text-center"> Buscar Registro de asistencia </h2>
@@ -96,7 +96,7 @@
                             <button id="btnBuscarAsistencia" type="button" class="btn btn-info btn-block">Buscar Asistencia📋</button>
 
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
 
