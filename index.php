@@ -27,7 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/login.css'>
   <script src='vista/js/main.js'></script>
-  
+
 
 
 </head>
@@ -45,11 +45,17 @@
 
         <div id="box2" class="box">
           <form>
+            <div class="form-grupo">
+              <input class="input" type="text" placeholder=" " id="email" name="fname">
+              <label for="email" class="label">Usuario:</label>
+              <span class="line"></span>
+            </div>
 
-            <input type="text" placeholder="Usuario" id="email" name="fname">
-
-            <input type="password" placeholder="Contraseña" id="pwd" name="lname">
-
+            <div class="form-grupo">
+              <input  class="input" type="password" placeholder=" " id="pwd" name="lname">
+              <label for="pwd" class="label">Contraseña:</label>
+              <span class="line"></span>
+            </div>
             <button type="button" id="ingresar" class="btn btn-default">Ingresar</button>
 
           </form>
