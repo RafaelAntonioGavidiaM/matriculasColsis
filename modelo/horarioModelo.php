@@ -87,7 +87,7 @@ class horarioModelo
                 $objRespuesta->bindParam(":horaFin", $horaFin, PDO::PARAM_STR);
                 $objRespuesta->bindParam(":id", $idAsignaturaCurso, PDO::PARAM_INT);
                 if ($objRespuesta->execute()) {
-                    $mensaje = "ok";
+                    $mensaje = "Registrado Correctamente";
                 } else {
                     $mensaje = "error";
                 }
