@@ -121,7 +121,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#myPage">Logo</a>
+        <a class="navbar-brand" href="#myPage"><div class="imgNav"></div></a>
       </div>
       <div class="collapse navbar-collapse" i d="myNavbar">
         <ul class="nav navbar-nav navbar-right">
