@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+    var altoLogin = $(".container-fluid").height();
+    if (altoLogin => 969) {
+        $("#animacionForm").removeClass("animate__animated");
+        $(".form").addClass("animate__animated");
+        $(".form").addClass("animate__fadeInLeft");
+    }
 
     $("#ingresar").click(function() {
 
