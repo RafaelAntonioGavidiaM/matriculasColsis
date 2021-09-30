@@ -442,21 +442,17 @@ $(document).ready(function() {
 
                     Command: toastr["info"](respuesta, "respuesta")
                     cargarHorario(mensaje);
-
-
-
-
-
-
-
+                    limpiarCamposRegistras();
                 }
-
-
             }
         })
-
     })
 
+    function limpiarCamposRegistras() {
+        $("#selectAsignaturasCarga").val("");
+        $("#horaInicio").val("");
+        $("#horaFin").val("");
+    }
 
     // /*--------------------------------------------------------------------------------------------------------*/
     // /*-----------------------------------------CARGAR DATOS ASIGNATURA----------------------------------------*/
