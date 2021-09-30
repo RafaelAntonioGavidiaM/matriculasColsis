@@ -121,8 +121,12 @@ class PDF extends FPDF
 $rutaImagen = "../../../";
 
 
-$fecha = date("d-m-Y");
-$hora = date("H:i");
+// $fecha = date("d-m-Y");
+// $hora = date("H:i");
+$dtz = new DateTimeZone("America/Bogota");
+$dt = new DateTime("now", $dtz);
+$hora = $dt->format("H:i A");
+$fecha = $dt->format("m-d-Y");
 
 if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["idCurso"])) {
 
