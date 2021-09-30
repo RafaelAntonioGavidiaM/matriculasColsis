@@ -26,7 +26,17 @@ $(document).ready(function() {
 
 
     $("#buscarIdCurso").on("change", function horario() {
+        var mensaje = $("#buscarIdCurso").val();
 
+        cargarHorario(mensaje);
+
+
+
+
+    })
+
+
+    function cargarHorario(idCurso) {
         var dataset = [];
         var dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
 
@@ -34,7 +44,7 @@ $(document).ready(function() {
 
 
 
-        var mensaje = $("#buscarIdCurso").val();
+        var mensaje = idCurso;
 
         var objData = new FormData();
         objData.append("horario", mensaje);
@@ -197,16 +207,14 @@ $(document).ready(function() {
 
                 }
                 concatenarR += '<tr>';
-                alert(concatenarR);
+                //alert(concatenarR);
                 $("#cuerpoTablaHorario").html(concatenarR);
 
 
 
             }
         })
-
-
-    })
+    }
 
     $("#tablaHorario").on("click", "#btnAsignaturaHorario", function() {
         var idHorario = $(this).attr("idHorario");
@@ -313,6 +321,21 @@ $(document).ready(function() {
             processData: false,
             success: function(respuesta) {
 
+                if (respuesta == "ok") {
+                    var mensaje = $("#buscarIdCurso").val();
+
+                    cargarHorario(mensaje);
+
+                    Command: toastr["success"]("Registro modificado correctamente", "Succes")
+
+
+
+                } else {
+
+                    Command: toastr["error"](respuesta, "Succes")
+
+                }
+
             }
         })
 
@@ -356,10 +379,13 @@ $(document).ready(function() {
 
                         if (respuesta == "ok") {
                             Command: toastr["success"]("Registro eliminado correctamente", "Succes")
+                            var mensaje = $("#buscarIdCurso").val();
+
+                            cargarHorario(mensaje);
 
                         }
                         else {
-                            Command: toastr["error"]("Registro no  eliminado correctamente", "Error")
+                            Command: toastr["error"]("No se pudo eliminar el registro", "Error")
 
                         }
 
@@ -404,13 +430,25 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(respuesta) {
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: 'Registro Exitoso',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+
+
+                if (respuesta == "ok") {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'Registro Exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                    var mensaje = $("#buscarIdCurso").val();
+
+                    cargarHorario(mensaje);
+
+
+                } else {
+                    Command: toastr["error"](respuesta, "Succes")
+                }
 
             }
         })
