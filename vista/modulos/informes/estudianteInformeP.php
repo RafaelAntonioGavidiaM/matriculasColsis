@@ -68,19 +68,19 @@ class PDF extends FPDF
     function BasicTable($header, $data)
     {
         // Cabecera
-        $this->SetXY(40, 120);
+        $this->SetXY(20, 120);
         $this->SetFont('Arial', 'B', 11);
         $this->SetTextColor(0, 0, 0);
         foreach ($header as $col)
-            $this->Cell(70, 10, $col, 1, 0, 'C');
+            $this->Cell(90, 10, $col, 1, 0, 'C');
         $this->Ln();
         // Datos
         foreach ($data as $row) {
-            $this->SetX(40);
+            $this->SetX(20);
             $this->SetFont('Arial', 'I', 10);
 
             foreach ($row as $col)
-                $this->Cell(70, 8, $col, 1, 0, 'L');
+                $this->Cell(90, 8, $col, 1, 0, 'L');
             $this->Ln();
         }
     }
@@ -93,7 +93,7 @@ class PDF extends FPDF
         $this->SetY(13);
         $this->SetFont('Arial', 'B', 30);
         $this->SetTextColor(255, 255, 255);
-        $this->Write(5, 'REPORTE PERIODO');
+        $this->Write(5, 'REPORTE PERIODO:');
 
         $this->Image('../../../vista/imgs/colsis_logotipo.png', 165, -2, 50, 50);
         $this->ln(40);
@@ -162,8 +162,8 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetTextColor(255, 255, 255);
     $objPfd->SetTextColor(255, 255, 255);
     $objPfd->SetY(13);
-    $objPfd->Setx(115);
-    $objPfd->Write(5, $datos["idPeriodo"].' '.$datos["nombrePeriodo"]);
+    $objPfd->Setx(117);
+    $objPfd->Write(5, $datos["idPeriodo"] . ' ' . $datos["nombrePeriodo"]);
 
     $objPfd->SetFont('Arial', '', 12);
     $objPfd->SetY(25);
@@ -183,21 +183,21 @@ if (isset($_GET["idEstudiante"]) && isset($_GET["idPeriodo"]) && isset($_GET["id
     $objPfd->SetFont('Arial', 'B', 15);
     $objPfd->SetTextColor(0, 0, 0);
     if ($datos["url"] == null || $datos["url"] == "") {
-        $objPfd->Image('../../../vista/imgs/usuarioDefecto.png', 10, 55, 50, 50);
+        $objPfd->Image('../../../vista/imgs/usuarioDefecto.png', 40, 55, 50, 50);
     } else {
-        $objPfd->Image($rutaImagen . $datos["url"], 10, 60, 50, 50);
+        $objPfd->Image($rutaImagen . $datos["url"], 40, 60, 50, 50);
     }
 
     $objPfd->SetY(70);
-    $objPfd->SetX(60);
+    $objPfd->SetX(90);
     $objPfd->Write(5, 'Estudiante: ' . $datos["nombres"] . " " . $datos["apellidos"]);
     $objPfd->Ln();
     $objPfd->Ln();
-    $objPfd->SetX(60);
+    $objPfd->SetX(90);
     $objPfd->Write(5, 'Grado: ' . $datos["nombreCurso"]);
     $objPfd->Ln();
     $objPfd->Ln();
-    $objPfd->SetX(60);
+    $objPfd->SetX(90);
     $objPfd->Write(5, 'Acudiente: ' . $datos["nombre"] . " " . $datos["apellido"]);
 
 

@@ -1,294 +1,365 @@
 .container-fluid {
-    background: rgb(43, 45, 46);
+  background: rgb(43, 45, 46);
 }
 
 #fondoLogin {
+  height: 100vh;
+  background: #009fff;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.603),
+      rgba(43, 45, 46, 0.603)
+    ),
+    url("../imgs/fondoEstudiantesLogin.jpg");
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.603),
+      rgba(43, 45, 46, 0.603)
+    ),
+    url("../imgs/fondoEstudiantesLogin.jpg");
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#box1 {
+  width: 96%;
+  max-width: 960px;
+  margin: 0 auto;
+  margin-top: 40px;
+  border-bottom: 2px solid rgb(215, 217, 218);
+  border-top: 2px solid rgb(215, 217, 218);
+}
+
+img {
+  padding-left: 15px;
+  padding-top: 15px;
+  width: 90%;
+  height: auto;
+  margin-bottom: 25px;
+  align-items: center;
+}
+
+#box2 {
+  padding-top: 30px;
+}
+
+.form-grupo {
+  position: relative;
+  --color: gray;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid var(--color);
+  background: rgb(43, 45, 46);
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  outline: none;
+  padding: 0;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  transform: translateY(-30px) scale(0.7);
+  transform-origin: left bottom;
+  color: rgb(39, 216, 107);
+  transition: 0.6s ease;
+}
+
+.label {
+  cursor: pointer;
+  position: absolute;
+  color: var(--color);
+  left: 0px;
+  bottom: 0px;
+  transform: translateY(-10px);
+  padding: 0;
+  transition: 0.6s ease;
+}
+
+.line {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: rgb(39, 216, 107);
+  left: 0px;
+  bottom: 8px;
+  transform: scale(0);
+  transition: 0.6s ease;
+}
+
+.input:focus ~ .line,
+.input:not(:placeholder-shown) ~ .line {
+  transform: scale(1);
+  transform-origin: left bottom;
+  transition: 0.6s ease;
+}
+
+#ingresar {
+  margin-top: 18px;
+  background: rgb(39, 216, 107);
+  border: 0px;
+  width: 100%;
+  height: 45px;
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+}
+
+#ingresar:hover {
+  background: rgb(0, 255, 98);
+  transition-property: all;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in;
+}
+
+h1 {
+  width: 100%;
+  margin-top: 120px;
+  margin-bottom: 120px;
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 90px;
+  text-align: center;
+}
+
+h3 {
+  width: 100%;
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 33%;
+  opacity: 30%;
+  animation-name: fadeInOut, moveLeft300px, bounce;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.6s;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+
+.row.content {
+  height: 1500px;
+}
+
+/* Set gray background color and 100% height */
+
+.sidenav {
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {
+    height: auto;
+  }
+}
+
+#mdRol {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -150px;
+}
+
+.spinner {
+  border: 5px solid rgba(0, 0, 0, 0.116);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border-left-color: rgb(39, 216, 107);
+  border-right-color: rgb(39, 216, 107);
+  animation: spin 1s ease infinite;
+}
+
+.spinner:hover {
+  border-left-color: rgb(228, 225, 36);
+  border-right-color: rgb(228, 225, 36);
+  transition-property: all;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-height: 850px) {
+  .container-fluid {
     height: 100vh;
     background: #009fff;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient( to right, rgba(0, 0, 0, 0.603), rgba(43, 45, 46, 0.603)), url("../imgs/fondoEstudiantesLogin.jpg");
+    background: -webkit-linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.603),
+        rgba(43, 45, 46, 0.603)
+      ),
+      url("../imgs/fondoEstudiantesLogin.jpg");
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient( to right, rgba(0, 0, 0, 0.603), rgba(43, 45, 46, 0.603)), url("../imgs/fondoEstudiantesLogin.jpg");
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.603),
+        rgba(43, 45, 46, 0.603)
+      ),
+      url("../imgs/fondoEstudiantesLogin.jpg");
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-}
-
-#box1 {
-    width: 96%;
-    max-width: 960px;
-    margin: 0 auto;
-    margin-top: 40px;
-    border-bottom: 2px solid rgb(215, 217, 218);
-    border-top: 2px solid rgb(215, 217, 218);
-}
-
-img {
-    padding-left: 15px;
-    padding-top: 15px;
-    width: 90%;
-    height: auto;
-    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-}
-
-#box2 {
-    padding-top: 30px;
-}
-
-.form-grupo {
-    position: relative;
-    --color: gray;
-}
-
-.input {
+  }
+  .spinner {
+    display: none;
+  }
+  #fondoLogin {
+    display: none;
+  }
+  .form {
+    background: rgba(43, 45, 46, 0.788);
+    border-radius: 15px;
+    width: 30%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 10px;
+    transition: 1s box-shadown ease;
+  }
+  .form:hover {
+    box-shadow: 0px 0px 2rem #fff;
+    transition: 1s box-shadow ease;
+  }
+  h1 {
+    width: 100%;
+    font-size: 39px;
+    margin: 0 auto;
+  }
+  #box1 {
+    width: 100%;
+    border: 0;
+  }
+  input[type="text"] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
     border-bottom: 2px solid var(--color);
-    background: rgb(43, 45, 46);
+    background: transparent;
     color: white;
     font-family: "Ubuntu", sans-serif;
     font-size: 15px;
     outline: none;
     padding: 0;
-}
-
-.input:focus+.label,
-.input:not(:placeholder-shown)+.label {
-    transform: translateY(-30px) scale(.7);
-    transform-origin: left bottom;
-    color: rgb(39, 216, 107);
-    transition: .6s ease;
-}
-
-.label {
-    cursor: pointer;
-    position: absolute;
-    color: var(--color);
-    left: 0px;
-    bottom: 0px;
-    transform: translateY(-10px);
-    padding: 0;
-    transition: .6s ease;
-}
-
-.line {
-    position: absolute;
+  }
+  input[type="password"] {
     width: 100%;
-    height: 3px;
-    background: rgb(39, 216, 107);
-    left: 0px;
-    bottom: 8px;
-    transform: scale(0);
-    transition: .6s ease;
-}
-
-.input:focus~.line,
-.input:not(:placeholder-shown)~.line {
-    transform: scale(1);
-    transform-origin: left bottom;
-    transition: .6s ease;
-}
-
-#ingresar {
-    margin-top: 18px;
-    background: rgb(39, 216, 107);
-    border: 0px;
-    width: 100%;
-    height: 45px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid var(--color);
+    background: transparent;
     color: white;
     font-family: "Ubuntu", sans-serif;
     font-size: 15px;
-}
-
-#ingresar:hover {
-    background: rgb(0, 255, 98);
-    transition-property: all;
-    transition-duration: 0.4s;
-    transition-timing-function: ease-in;
-}
-
-h1 {
+    outline: none;
+    margin-top: 20px;
+    padding: 0;
+  }
+  #ingresar {
+    margin-top: 50px;
+    outline: none;
+  }
+  .col-sm-4 {
     width: 100%;
-    margin-top: 120px;
-    margin-bottom: 120px;
-    color: white;
-    font-family: "Ubuntu", sans-serif;
-    font-size: 90px;
-    text-align: center;
+  }
 }
-
-h3 {
-    width: 100%;
-    color: white;
-    font-family: "Ubuntu", sans-serif;
-    font-size: 40px;
-    text-align: center;
-    margin-top: 33%;
-    opacity: 30%;
-    animation-name: fadeInOut, moveLeft300px, bounce;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
-    animation-delay: 0.6s;
-}
-
-
-/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-
-.row.content {
-    height: 1500px;
-}
-
-
-/* Set gray background color and 100% height */
-
-.sidenav {
-    background-color: #f1f1f1;
-    height: 100%;
-}
-
-
-/* Set black background color, white text and some padding */
-
-footer {
-    background-color: #555;
-    color: white;
-    padding: 15px;
-}
-
-
-/* On small screens, set height to 'auto' for sidenav and grid */
-
-@media screen and (max-width: 767px) {
-    .sidenav {
-        height: auto;
-        padding: 15px;
-    }
-    .row.content {
-        height: auto;
-    }
-}
-
-#mdRol {
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    left: 50%;
-    top: 50%;
-    margin-left: -150px;
-    margin-top: -150px;
-}
-
-.spinner {
-    border: 5px solid rgba(0, 0, 0, 0.116);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border-left-color: rgb(39, 216, 107);
-    border-right-color: rgb(39, 216, 107);
-    animation: spin 1s ease infinite;
-}
-
-.spinner:hover {
-    border-left-color: rgb(228, 225, 36);
-    border-right-color: rgb(228, 225, 36);
-    transition-property: all;
-    transition-duration: 0.4s;
-    transition-timing-function: ease-in;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@media (min-height: 850px) {
-    .container-fluid {
-        height: 100vh;
-        background: #009fff;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient( to right, rgba(0, 0, 0, 0.603), rgba(43, 45, 46, 0.603)), url("../imgs/fondoEstudiantesLogin.jpg");
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient( to right, rgba(0, 0, 0, 0.603), rgba(43, 45, 46, 0.603)), url("../imgs/fondoEstudiantesLogin.jpg");
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .spinner {
-        display: none;
-    }
-    #fondoLogin {
-        display: none;
-    }
-    .form {
-        background: rgba(43, 45, 46, 0.788);
-        border-radius: 15px;
-        width: 30%;
-        height: 400px;
-        display: flex;
-        justify-content: center;
-        padding: 20px 10px;
-        transition: 1s box-shadown ease;
-    }
-    .form:hover {
-        box-shadow: 0px 0px 2rem #fff;
-        transition: 1s box-shadow ease;
-    }
-    h1 {
-        width: 100%;
-        font-size: 39px;
-        margin: 0 auto;
-    }
-    #box1 {
-        width: 100%;
-        border: 0;
-    }
-    input[type="text"] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 2px solid var(--color);
-        background: transparent;
-        color: white;
-        font-family: "Ubuntu", sans-serif;
-        font-size: 15px;
-        outline: none;
-        padding: 0;
-    }
-    input[type="password"] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 2px solid var(--color);
-        background: transparent;
-        color: white;
-        font-family: "Ubuntu", sans-serif;
-        font-size: 15px;
-        outline: none;
-        margin-top: 20px;
-        padding: 0;
-    }
-    #ingresar {
-        margin-top: 50px;
-        outline: none;
-    }
-    .col-sm-4 {
-        width: 100%;
-    }
+@media screen and (max-width: 425px) {
+  .fondo {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.603),
+        rgba(43, 45, 46, 0.603)
+      ),
+      url(../imgs/fondoEstudiantesLogin.jpg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: local;
+      background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .spinner {
+    display: none;
+  }
+  #fondoLogin {
+    display: none;
+  }
+  .container-fluid{
+      border-radius: 15px;
+      width: 70%;
+      height: 50%;
+      background:rgba(43, 45, 46, 0.788) ;
+      display: flex;
+      justify-content: center;
+  }
+  #box1{
+      border: 0px;
+  }
+  #box2{
+      padding: 0px;
+  }
+  h1{
+      font-size: 40px;
+      margin: 20px auto;
+  }
+  .input{
+      background: transparent;
+      margin-top: 40px;
+  }
+  .label{
+    font-size: 15px;
+  }
+  #ingresar{
+      display: block;
+      margin: 50px auto;
+      width: 40%;
+      height: 40px;
+  }
 }

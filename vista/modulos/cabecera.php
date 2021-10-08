@@ -75,7 +75,7 @@
 
 
 
- 
+
   <!-- <link rel='stylesheet' type='text/css' media='screen' href='vista/css/principal.css'> -->
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/estudiante.css'>
   <link rel='stylesheet' type='text/css' media='screen' href='vista/css/reporte.css'>
@@ -102,7 +102,7 @@
   <script src="vista/js/horario.js"></script>
   <script src="vista/js/asignaturaCurso.js"></script>
   <script src="vista/js/periodo.js"></script>
- 
+
 
   <script src="vista/js/reporte.js"></script>
 
@@ -121,7 +121,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#myPage"><div class="imgNav"></div></a>
+        <a class="navbar-brand" href="#myPage">
+          <div class="imgNav"></div>
+        </a>
       </div>
       <div class="collapse navbar-collapse" i d="myNavbar">
         <ul class="nav navbar-nav navbar-right">
