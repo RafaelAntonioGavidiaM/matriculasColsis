@@ -1,7 +1,9 @@
 <body >
 
 
-    <div class="animate__animated animate__fadeInDown">
+   
+        
+    <div>
         <header class="headerAsignatura">
             <div class="container">
                 <div class="texto">
